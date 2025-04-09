@@ -178,16 +178,13 @@ html {
   button {
     appearance: none;
     background-color: #212121;
-    border-radius: 50%;
     padding: 3px;
     border: none;
     color: white;
     transition: all .3s ease-in-out;
     cursor: pointer;
-    &:hover {
-      background-color: #646464;
-    }
   }
+
 }
 
 
@@ -1077,8 +1074,14 @@ html {
   color: #DAAC61;
   font-family: "Playfair Display", serif;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-top: 20px;
+  p {
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    color :white
+  }
 }
 
 
@@ -2232,6 +2235,7 @@ html {
   .product-previewer-main-container {
     grid-template-columns: 1fr;
     gap: 20px;
+    padding: 0 15px;
   }
 
   .product-previewer-images {
@@ -2679,6 +2683,13 @@ footer {
 
   .search-result-title {
     font-size: 28px;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 0;
+    p {
+      font-size: 16px;
+    }
   }
   .footer-main-container {
     flex-direction: column;

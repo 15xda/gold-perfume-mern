@@ -78,3 +78,4 @@ const ProductCard = ({product}) => {
 };
 
 export default ProductCard;
+export { handleAddToCart, handleAddToFavourite };

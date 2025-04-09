@@ -3,8 +3,10 @@ import HollowButton from './HollowButton'
 import Counter from './Counter'
 import AddToCartButton from './AddToCartButton'
 import BuyNowButton from './BuyNowButton'
-import HeartButton from './HeartButton'
 import Accordion from './Accordion'
+import { useSelector } from 'react-redux'
+import { handleAddToCart, handleAddToFavourite } from './ProductCard';
+
 
 const ProductPreviewer = ({ product,  productComments }) => {
     const imgUrl = 'https://media.istockphoto.com/id/1214012618/vector/spray-bottle-with-transparent-cap-mockup-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=mTcNdKvFukD9WPEkoKGfrnBqHhHNDkgoC0i-QZGHqho=';
@@ -12,11 +14,7 @@ const ProductPreviewer = ({ product,  productComments }) => {
     const [selectedImage, setSelectedImage] = useState(mainImg);
 
     // Calculate the average rating from productComments
-    var rating = 0;
-    productComments.forEach(comment => {
-        rating += comment.rating;
-    })
-    const totalRating = (rating / productComments.length).toString().slice(0, 3);
+    const rating = productComments.length > 0 ? (productComments.reduce((acc, rating) => acc + rating.rating, 0) / productComments.length).toString().slice(0, 3) : '0';
     
     const productImages = [
         mainImg, 
@@ -52,6 +50,9 @@ const ProductPreviewer = ({ product,  productComments }) => {
         
     ];
 
+    const userFavourites = useSelector((state) => state.user.data.favourites);
+    const productInFavourites = userFavourites.some((item) => item === product.id);
+
     return (
         <div className='product-previewer'>
             <div className='product-previewer-main-container'>
@@ -74,7 +75,7 @@ const ProductPreviewer = ({ product,  productComments }) => {
                         <div><h1>{product.name}</h1></div>
                         <div><span style={{color: '#DAAC61'}}>{product.salePrices[0].value} ₽</span></div>
                         <div><strong>Customer Rating</strong></div>
-                        <div><p>{totalRating || 'No rating'} ⭐ ({productComments.length || 0} reviews)</p></div>
+                        <div><p>{ `${rating} ⭐` || 'No rating'}  ({productComments.length || 0} reviews)</p></div>
                         <div><strong>Category</strong></div>
                         <div><p>{product.category}</p></div>
                     </div>
@@ -90,7 +91,9 @@ const ProductPreviewer = ({ product,  productComments }) => {
                                 <AddToCartButton />
                             </div>
                             <div className='pr-pr-row'>
-                                <HeartButton />
+                                <div className='heart-button'>
+                                    <span className='material-icons' style={{backgroundColor: 'emerald'}}>{productInFavourites ? "favorite" : "favorite_border"}</span>
+                                </div>
                                 <BuyNowButton />
                             </div>
                         </div>

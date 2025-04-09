@@ -25,11 +25,11 @@ const SearchBar = () => {
             <form onSubmit={handleSearch}>
                 <input 
                     ref={searchRef} 
-                    placeholder='Search Catalogue' 
+                    placeholder='Поиск по каталогу' 
                     type="text"
                     defaultValue={searchParams.get('term') || ''}
                 />
-                <button type="submit" className='search-button'>
+                <button type="submit" onClick={handleSearch} className='search-button'>
                     <span className="material-icons">search</span>
                 </button>
             </form>

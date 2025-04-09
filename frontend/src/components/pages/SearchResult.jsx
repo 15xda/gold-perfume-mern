@@ -33,7 +33,7 @@ const SearchResult = () => {
   });
 
   if (isLoading) return <Loader />;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Ошибка: {error.message}</div>;
 
   const handleFilterChange = (e) => {
     const filterName = e.target.name;
@@ -80,7 +80,7 @@ const SearchResult = () => {
           <div className='search-filters-container'>
             <div className='search-filters-main-container'>
               <div className='search-filters-title'>
-                <span>Brand</span>
+                <span>Бренд</span>
               </div>
               <div className='search-filters-options'>
                 <label>
@@ -99,32 +99,32 @@ const SearchResult = () => {
         </div>
         <div className='search-result-right'>
           <div className='search-result-title'>
-            <span>Search Results</span>
-            <span>Items Found: {filteredProducts.length || 0}</span>
+            <span>Результаты Поиска</span>
+            <p>Найдено товаров: {filteredProducts.length || 0}</p>
           </div>
           <div className='search-resul-topbar'>
             <div className='search-result-topbar-left'>
               <div className='search-sortby'>
-                <span><i className="material-icons">filter_list</i> Sort By</span>
+                <span><i className="material-icons">filter_list</i> Сортировать по</span>
                 <select onChange={handleSortingChange}>
-                  <option value="none">None</option>
-                  <option value="price">Price</option>
-                  <option value="name">Name</option>
+                  <option value="none">Нет</option>
+                  <option value="price">Цене</option>
+                  <option value="name">Названию</option>
                 </select>
               </div>
             </div>
             {/* <div className='search-result-topbar-right'>
               <div className='search-view-select'>
-                <span title='Module View'><i className="material-icons">view_module</i></span>
-                <span title='List View'><i className="material-icons">view_list</i></span>
-                <span title='Stream View'><i className="material-icons">view_stream</i></span>
+                <span title='Модульный вид'><i className="material-icons">view_module</i></span>
+                <span title='Вид списком'><i className="material-icons">view_list</i></span>
+                <span title='Вид потоком'><i className="material-icons">view_stream</i></span>
               </div>
             </div> */}
           </div>
           <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}  className='search-result-products'>
             {filteredProducts.length > 0 ? filteredProducts.map((product) => (
               <ProductCard key={product.id} id={product.id} product={product}/>
-            )) : 'No Items Found'}
+            )) : 'Товары не найдены'}
           </motion.section>
         </div>
       </div>
