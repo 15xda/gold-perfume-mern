@@ -13,11 +13,12 @@ export const CartItem = ({ product }) => {
   const userCart = user?.cart;
   const productFromState = userCart.find(item => item.itemId === product.id);
   const [productCount, setProductCount] = useState(productFromState?.quantity || 1);
-  
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateQuantity = async (newQuantity) => {
     setProductCount(newQuantity);
-  
+    setIsLoading(true);
+    
     try {
       const response = await api.put('/update-cart', {
         itemId: product.id,
@@ -25,8 +26,11 @@ export const CartItem = ({ product }) => {
         quantity: newQuantity
       });
       dispatch(setCart(response.data.cart));
+      setIsLoading(false);
+
     } catch (error) {
       console.error('Error updating cart:', error);
+      setIsLoading(true);
     }
   };
 
@@ -50,9 +54,11 @@ export const CartItem = ({ product }) => {
         <p className="cart-item-price">{product.price} ₽</p>
       </div>
       <div className="cart-item-quantity">
+        <button onClick={() => productCount > 1 && updateQuantity(productCount - 5)}>- 5</button>
         <button onClick={() => productCount > 1 && updateQuantity(productCount - 1)}>-</button>
-        <input type="number" value={productCount} readOnly/>
+        {isLoading ? <p style={{width: '50px', display: 'flex', justifyContent: 'center'}}>⏳</p> : <input type="number" value={productCount} readOnly/>}
         <button onClick={() => productCount < 100 && updateQuantity(productCount + 1)}>+</button>
+        <button onClick={() => productCount < 100 && updateQuantity(productCount + 5)}>+ 5</button>
       </div>
       <div className="cart-item-total">
         {product.salePrices[0].value * productCount} ₽

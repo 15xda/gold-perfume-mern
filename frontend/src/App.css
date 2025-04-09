@@ -1233,6 +1233,20 @@ html {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.auth-logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  img {
+    width: 55%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .auth-container h1 {
   text-align: center;
   margin-bottom: 30px;
@@ -1481,10 +1495,10 @@ html {
 }
 
 .cart-item-quantity input {
-  width: 40px;
+  width: 50px;
   text-align: center;
   background: #212121;
-  border: none;
+  border: 1px solid #333;
   color: white;
   padding: 5px;
 }

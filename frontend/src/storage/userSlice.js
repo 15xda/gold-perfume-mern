@@ -11,7 +11,9 @@ const userSlice = createSlice({
       state.data.favourites = action.payload;
     },
     setCart: (state, action) => {
-      state.data.cart = action.payload;
+      if (state.data) {
+        state.data.cart = action.payload;
+      }
     },
     logout: (state) => {
       state.data = null;

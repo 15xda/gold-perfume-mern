@@ -76,8 +76,9 @@ app.post('/login', async (req, res) => {
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: false, 
-                sameSite: 'Strict',
-                path: '/'
+                sameSite: 'Lax',
+                path: '/', 
+                maxAge: 31 * 24 * 60 * 60 * 1000 // 31 days
             })
             .status(200)
             .json({  

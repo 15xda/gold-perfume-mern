@@ -5,6 +5,12 @@ import { setUser } from '../../storage/userSlice';
 import { setAccessToken } from '../../storage/authSlice';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.5 } },
+}
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:4004/login', formData);
+      const response = await axios.post('http://localhost:4004/login', formData, {withCredentials: true});
       dispatch(setUser(response.data.userData));
       dispatch(setAccessToken(response.data.accessToken));
       toast.success(response.data.message);
@@ -34,8 +40,9 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
+    <motion.section variants={fadeIn} initial="initial" whileInView="animate" viewport={{ once: true }} className="auth-page">
       <div className="auth-container">
+        <div className='auth-logo'><img src="src/images/logo.png" alt="" /></div>
         <h1>Добро пожаловать</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -67,7 +74,7 @@ const Login = () => {
           <p className="forgot-password"><Link to="/forgot-password">Забыли пароль?</Link></p>
         </div>
       </div>
-    </div>
+    </motion.section>
   );
 };
 
