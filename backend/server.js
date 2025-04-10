@@ -392,7 +392,7 @@ app.post('/add-to-favorite', async (req, res) => {
 
 app.post('/add-to-cart', async (req, res) => {
     
-    const {itemId, userId} = req.body;
+    const {itemId, userId, quantity} = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -406,13 +406,13 @@ app.post('/add-to-cart', async (req, res) => {
         }
         if (userHasItem) {
 
-            user.cart = user.cart.map(item => item.itemId === itemId ? {...item, quantity: item.quantity + 1} : item)
+            user.cart = user.cart.map(item => item.itemId === itemId ? {...item, quantity: item.quantity + quantity} : item)
             
             await user.save();
             return res.status(200).json({message: 'Товар в корзине', cart: user.cart});
         }
         
-        user.cart.push({itemId, quantity: 1})
+        user.cart.push({itemId, quantity: quantity})
         await user.save();
 
         res.status(200).json({message: 'Товар добавлен в корзину', cart: user.cart});
