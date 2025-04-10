@@ -238,10 +238,40 @@ html {
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  div:hover {
-    color: #DAAC61;
-    background-color: #0d0d0d;
+
+  span {
+    transition: all 0.3s ease-in-out;  
   }
+
+  span:hover {
+    color: #DAAC61;
+  }
+}
+
+.header-cart-button:hover div {
+  background-color: #DAAC61;
+}
+
+.header-cart-button {
+  position: relative;
+}
+
+.cart-count-header {
+  position: absolute;
+  top: -7px;
+  right: -10px;
+  border-radius: 10px;
+  color: #212121;
+  border: 1px solid #212121;
+  background-color: white;
+  font-weight: bold;
+  font-size: 10px;
+  min-width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
 }
 
 .header-link-list-container {
@@ -1404,10 +1434,9 @@ html {
 }
 
 
-
 .cart-page {
-  padding: 40px 20px;
   min-height: calc(100vh - 243px);
+  margin: 40px 0;
 }
 
 .cart-container {
@@ -2193,6 +2222,30 @@ html {
   animation: l4 1.5s infinite;
 }
 .loader:after {
+  --s: -1;
+  animation-delay: 0.75s
+}
+@keyframes l4 {
+  0%     {transform:scaleX(var(--s,1)) translate(0) rotate(0)}
+  16.67% {transform:scaleX(var(--s,1)) translate(-50%) rotate(0)}
+  33.33% {transform:scaleX(var(--s,1)) translate(-50%) rotate(90deg)}
+  50%,
+  100%   {transform:scaleX(var(--s,1)) translate(0) rotate(90deg)}
+}
+
+.loader-small {
+  display: inline-flex;
+  gap: 3px;
+}
+.loader-small:before,
+.loader-small:after {
+  content: "";
+  width: 13px;
+  aspect-ratio: 1;
+  box-shadow: 0 0 0 2px inset #fff;
+  animation: l4 1.5s infinite;
+}
+.loader-small:after {
   --s: -1;
   animation-delay: 0.75s
 }
@@ -3312,4 +3365,44 @@ footer {
   &:hover {
     color: #DAAC61;
   }
+}
+
+.products-page {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+}
+
+.products-page-main-container {
+  max-width: 1200px;
+  width: 100%;
+}
+.products-page-title{
+    width: 100%;
+    height: 300PX;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #DAAC61;
+    flex-direction: column;
+    gap: 25px;
+
+    h1 {
+        font-family: "Playfair Display", serif;
+        font-size: calc(40px + 0.5vw);
+    }
+    p {
+      color: white;
+      font-size: calc(15px + 0.5vw);
+      font-family: 'Inter', sans-serif;
+    }
+}
+
+.brand-introduction {
+  width: 100%; 
+  display: flex;
+  background-color: red;
+  flex-direction: row;
+  margin: 15px 0;
 }

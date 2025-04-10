@@ -11,6 +11,7 @@ const Header = () => {
 
   const user = useSelector((state) => state.user?.data);
   const dispatch = useDispatch();
+  const totalItemsInCart = user ?  user.cart.reduce((acc, item) => acc + item.quantity, 0) : [];
   
 
   return (
@@ -44,8 +45,9 @@ const Header = () => {
                   <div onClick={() => navigate('/favorites')}>
                       <span className="material-icons">favorite</span>
                   </div>
-                  <div onClick={() => navigate('/cart')}>
+                  <div className='header-cart-button' onClick={() => navigate('/cart')}>
                     <span className="material-icons">shopping_cart</span>
+                    {user && <div className='cart-count-header'>{totalItemsInCart}</div>}
                   </div>
                 </div>
             

@@ -68,7 +68,7 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="auth-submit" disabled={isLoading || !formData.email || !formData.password}>  
-            {isLoading ? '⏳ Входим...' : 'Войти'}
+            {isLoading ? <div className='loader-small'></div> : 'Войти'}
           </button>
         </form>
         <div className="auth-links">

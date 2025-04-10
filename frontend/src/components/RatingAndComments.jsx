@@ -123,8 +123,8 @@ export const AllRatingsAndComments = ({productComments}) => {
                 <h3>All Ratings and Comments</h3>
                 {productComments.length > 0 ? (
                     <div className="all-ratings-boxes">
-                        {productComments.map((comment) => (
-                            <div key={comment.id} className="side-user-note">
+                        {productComments.map((comment, index) => (
+                            <div key={index} id={index} className="side-user-note">
                                 <div className="user-note-text">
                                     <h4>
                                         <span className="material-icons">person</span>

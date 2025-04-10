@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import BigPreviewer from '../BigPreviewer'
 import ProductRecommender from '../ProductRecommender'
 import FourBlockContent from '../FourBlockContent'
 import BrandSection from '../BrandSection'
-import FAQ from '../FAQ';
+import FAQ from '../FAQ'
 import { motion } from 'framer-motion'
-
-
+import Loader from '../Loader'
 
 const Home = () => {
+
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   }
+
 
   return (
     <>
@@ -31,9 +32,10 @@ const Home = () => {
       <motion.section initial='hidden' whileInView='visible' viewport={{ once: true }} variants={fadeUp}>
         <BrandSection />
       </motion.section>
+
       <motion.section initial='hidden' whileInView='visible' viewport={{ once: true }} variants={fadeUp}>
         <FAQ />
-      </motion.section>    
+      </motion.section>
     </>
   )
 }

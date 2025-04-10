@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import HollowButton from './HollowButton'
-import Counter from './Counter'
 import AddToCartButton from './AddToCartButton'
 import BuyNowButton from './BuyNowButton'
 import Accordion from './Accordion'
-import { useSelector } from 'react-redux'
-import { handleAddToCart, handleAddToFavourite } from './ProductCard';
+import { useSelector, useDispatch } from 'react-redux'
+import LikeButton from './LikeButton'
 
 
 const ProductPreviewer = ({ product,  productComments }) => {
     const imgUrl = 'https://media.istockphoto.com/id/1214012618/vector/spray-bottle-with-transparent-cap-mockup-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=mTcNdKvFukD9WPEkoKGfrnBqHhHNDkgoC0i-QZGHqho=';
     const mainImg = 'https://etiket.ca/cdn/shop/files/Encelade-EDP-30ml-Marc-AntoineBarrois-Etiket.jpg?v=1694706918&width=1080'
     const [selectedImage, setSelectedImage] = useState(mainImg);
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.user.data);
+    const [quantity, setQuantity] = useState(1);
 
     // Calculate the average rating from productComments
     const rating = productComments.length > 0 ? (productComments.reduce((acc, rating) => acc + rating.rating, 0) / productComments.length).toString().slice(0, 3) : '0';
@@ -50,9 +52,6 @@ const ProductPreviewer = ({ product,  productComments }) => {
         
     ];
 
-    const userFavourites = useSelector((state) => state.user.data.favourites);
-    const productInFavourites = userFavourites.some((item) => item === product.id);
-
     return (
         <div className='product-previewer'>
             <div className='product-previewer-main-container'>
@@ -87,13 +86,21 @@ const ProductPreviewer = ({ product,  productComments }) => {
                         </div>
                         <div className='product-previewer-interaction'>
                             <div className='pr-pr-row'>
-                                <Counter />
-                                <AddToCartButton />
+
+                                <div className='counter'>
+                                    <button onClick={() => {if(quantity > 1) {setQuantity(quantity - 1)}}}>
+                                        <span>-</span>
+                                    </button>
+                                    <input type="text" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                                    <button onClick={() => setQuantity(quantity + 1)}>
+                                        <span>+</span>
+                                    </button>
+                                </div>
+
+                                <AddToCartButton productId={product.id} quantity={quantity}/>
                             </div>
                             <div className='pr-pr-row'>
-                                <div className='heart-button'>
-                                    <span className='material-icons' style={{backgroundColor: 'emerald'}}>{productInFavourites ? "favorite" : "favorite_border"}</span>
-                                </div>
+                                <LikeButton productId={product.id}/>
                                 <BuyNowButton />
                             </div>
                         </div>

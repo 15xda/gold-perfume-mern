@@ -92,6 +92,12 @@ const SearchResult = () => {
                 <label>
                   <input type="checkbox" name='seluz' onChange={handleFilterChange}/> Seluz
                 </label>
+                <label>
+                  <input type="checkbox" name='firmenich' onChange={handleFilterChange}/> Firmenich
+                </label>
+                <label>
+                  <input type="checkbox" name='symrise' onChange={handleFilterChange}/> Symrise
+                </label>
         
               </div>
             </div>

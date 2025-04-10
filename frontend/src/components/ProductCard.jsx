@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import api from '../api/axiosInstance';
 import { toast } from 'react-toastify';
 import { setFavourites, setCart } from '../storage/userSlice';
-import { useQuery } from '@tanstack/react-query';
 
 
 const ProductCard = ({product}) => {
@@ -28,17 +27,6 @@ const ProductCard = ({product}) => {
       toast.error(error?.response?.data?.message || 'Failed to add to favourites, please authorize.');
     }
   };
-
-  const handleAddToCart = async () => {
-    try {
-      const response = await api.post('/add-to-cart', { itemId: product.id, userId: user.data.id });
-      toast.success(response.data.message);
-      dispatch(setCart(response.data.cart))
-
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Please Login to Add to Cart');
-    }
-  }
 
   const handleProductClick = () => {
     navigate(`/product?prId=${product.id}`)
@@ -71,11 +59,10 @@ const ProductCard = ({product}) => {
         <p style={{fontSize: '14px'}}>{(averageRating).toString().slice(0, 3)} ★ ({product.ratingsFromDatabase.length} ratings)</p>
       </div>
       <div className='product-buttons-container'>
-        <AddToCartButton onClick={handleAddToCart}/>
+        <AddToCartButton productId={product.id}/>
       </div>
     </div>
   );
 };
 
 export default ProductCard;
-export { handleAddToCart, handleAddToFavourite };

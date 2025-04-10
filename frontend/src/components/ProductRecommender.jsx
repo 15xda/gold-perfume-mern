@@ -25,7 +25,7 @@ const ProductRecommender = () => {
       <div className='recommended-products-container'>
           <div className='recommended-products-main-container'>
             <div className='recommended-products-title'>
-              <span>Recommended Products</span>
+              <span>Рекомендуемые ароматы</span>
             </div>
             <div className='recommended-products-products'>
             {dummyProducts.map((product, index) => (

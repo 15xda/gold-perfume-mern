@@ -56,7 +56,7 @@ export const CartItem = ({ product }) => {
       <div className="cart-item-quantity">
         <button onClick={() => productCount > 1 && updateQuantity(productCount - 5)}>- 5</button>
         <button onClick={() => productCount > 1 && updateQuantity(productCount - 1)}>-</button>
-        {isLoading ? <p style={{width: '50px', display: 'flex', justifyContent: 'center'}}>⏳</p> : <input type="number" value={productCount} readOnly/>}
+        {isLoading ? <div className="loader-small" style={{width: '50px', display: 'flex', justifyContent: 'center'}}></div> : <input type="number" value={productCount} readOnly/>}
         <button onClick={() => productCount < 100 && updateQuantity(productCount + 1)}>+</button>
         <button onClick={() => productCount < 100 && updateQuantity(productCount + 5)}>+ 5</button>
       </div>

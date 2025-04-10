@@ -18,7 +18,7 @@ const FAQ = () => {
       ];
   return (
     <div className='faq-container'>
-        <h1>Frequently Asked Questions</h1>
+        <h1>Часто задаваемые вопросы</h1>
         <div className='faq-items'>
             <Accordion items={accordionItems} />
         </div>

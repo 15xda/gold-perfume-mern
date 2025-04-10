@@ -7,7 +7,7 @@ const BrandSection = () => {
   return (
       <div className='brand-section'>
         <div className='brand-section-title'>
-            <span>Our Brands</span>
+            <span>Наши бренды</span>
         </div>
         <div className='brand-section-container'>
             <BrandCard title='LUZI' onClick={() => navigate('/brand/luzi')} image='https://static.wixstatic.com/media/7c5edf_672ddff4258449f1b3d2b102dec3e880~mv2.png/v1/fit/w_2500,h_1330,al_c/7c5edf_672ddff4258449f1b3d2b102dec3e880~mv2.png' />

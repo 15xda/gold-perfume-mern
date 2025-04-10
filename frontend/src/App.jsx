@@ -25,6 +25,7 @@ import LuziPage from "./components/pages/Luzi";
 import GivaudanPage from "./components/pages/Givaudan";
 import ScrollToTop from "./components/ScrollToTop";
 import ResetPassword from './components/pages/ResetPassword';
+import ProductsPage from "./components/pages/ProductsPage";
 
 const client = new QueryClient();
 
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<SearchResult />} />
                 <Route path="/product" element={<ProductDetails />} />
+                <Route path="/products" element={<ProductsPage />}/>
                 <Route path="/favorites" element={<Favorites />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />

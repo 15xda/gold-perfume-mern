@@ -128,7 +128,7 @@ const Register = () => {
           <p style={psStrengthStyle}>Надёжность пароля: {passwordStrength}</p>
 
           <button type="submit" className="auth-submit" disabled={isLoading || passwordScore < 2}>
-            {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
+            {isLoading ? <div className='loader-small'></div> : 'Зарегистрироваться'}
           </button>
         </form>
         <div className="auth-links">
