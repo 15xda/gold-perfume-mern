@@ -2,8 +2,27 @@ import React from 'react'
 import Product from './ProductCard'
 import ButtonJumpAnimation from './ButtonJumpAnimation'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+
+const getRecommends =  async (term, limit) => {
+  if (!term) return [];
+  const res = await axios.get('/search', { params: {term: term, limit: limit}})
+  return res.data
+}
 
 const ProductRecommender = () => {
+
+  const recommendedTerm = 'Luzi';
+
+  const {data, isLoading, error} = useQuery({
+    queryKey: ['recommendedTerm', recommendedTerm],
+    queryFn: () => getRecommends(term=recommendedTerm, limit=10),
+  })
+
+  console.log(data)
+   
   const navigate = useNavigate();
   // Replace context with dummy data
   const dummyProducts = [

@@ -164,12 +164,27 @@ app.post('/reset-password', async (req, res) => {
         const resetTokenExpiration = Date.now() + 3600000;
         const resetTokenUsed = false;
         const resetTokenCreatedAt = Date.now();
+        const utcString = new Date(Date.now()).toUTCString();
 
         const mailOptions = {
             from: 'pepsiman2001val@gmail.com',
-            to: 'adovudzoda@gmail.com',
-            subject: 'Hello from Nodemailer',
-            text: 'Follow the link to reset your password: http://localhost:5174/reset-password?token=' + resetToken,
+            to: email,
+            subject: 'Сброс пароля - Gold Perfume',
+            html: `
+                <div style="background-color:#1A1A1A; padding:30px; font-family:Arial, sans-serif; max-width:500px; margin:0 auto;">
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <h2 style="color:#DAAC61; margin:0 0 15px;">Сброс пароля</h2>
+                        <p style="color:#fff; font-size:14px; margin:0 0 20px;">Запрос создан: ${utcString}</p>
+                        <a href="http://localhost:5174/reset-password?token=${resetToken}"
+                           style="display:inline-block; background-color:#DAAC61; color:#000; font-weight:bold; padding:12px 25px; text-decoration:none;">
+                           Сбросить пароль
+                        </a>
+                        <p style="color:#999; font-size:12px; margin-top:20px; border-top:1px solid #333; padding-top:15px;">
+                            © Gold Perfume ${new Date().getFullYear()}
+                        </p>
+                    </div>
+                </div>
+            `
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -185,7 +200,8 @@ app.post('/reset-password', async (req, res) => {
         res.status(200).json({message: 'Токен для сброса пароля отправлен на email'});
         
     } catch (error) {
-
+        console.error('Reset password error:', error);
+        res.status(500).json({message: 'Ошибка при отправке письма сброса пароля'});
     }
 })
 
@@ -230,7 +246,7 @@ app.get('/search', async(req, res) => {
     try {
         const {term}  = req.query;
 
-        const response = await fetch(`${apiUrlMS}?search=${encodeURI(term)}`, {
+        const response = await fetch(`${apiUrlMS}?search=${encodeURI(term)} `, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${apiKeyMS}`,
@@ -468,7 +484,7 @@ app.put('/delete-from-cart', async (req, res) => {
         }
 
         user.cart = user.cart.filter(item => item.itemId !== itemId);
-        user.save();
+        await user.save();
         res.status(200).json({message: 'Товар удален из корзины', cart: user.cart})
 
     } catch (error) {

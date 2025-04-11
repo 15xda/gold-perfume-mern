@@ -11,7 +11,6 @@ import FourBlockContent from '../FourBlockContent';
 
 const fetchProduct = async (productId) => {
   if (!productId) return [];
-
   const response = await axios.get(`http://localhost:4004/product/${productId}`,);
   return response.data;
 }
