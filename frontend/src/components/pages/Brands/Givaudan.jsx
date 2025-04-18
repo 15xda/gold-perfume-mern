@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import ButtonJumpAnimation from '../../ButtonJumpAnimation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -10,7 +11,7 @@ const GivaudanPage = () => {
     return (
         <div className="brand-container">
             <motion.header
-                className="brand-header"
+                className="brand-head"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -136,7 +137,14 @@ const GivaudanPage = () => {
                         <li>Инициативы по цикличной экономике</li>
                     </ul>
                 </motion.section>
+                <div className="brand-cta">
+                    <ButtonJumpAnimation 
+                        text={'Посмотреть продукты Givaudan'} 
+                        onClick={() => window.location.href = '/search?term=Givaudan'}
+                    />
+                </div>
             </main>
+            
         </div>
     );
 };

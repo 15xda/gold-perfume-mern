@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import ButtonJumpAnimation from '../../ButtonJumpAnimation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -10,7 +11,7 @@ const LuziPage = () => {
     return (
         <div className="brand-container">
             <motion.section
-                className="brand-header"
+                className="brand-head"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -33,7 +34,7 @@ const LuziPage = () => {
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
                     <img
-                        src="https://static.wixstatic.com/media/aa660f_57d76649e0914acc95f9e686820b3fc5~mv2.png"
+                        src="https://scentlab.co.za/wp-content/uploads/2021/06/Hero_02.jpg"
                         alt="Историческая лаборатория LUZI"
                         className="section-image"
                         style={{ width: '100%', height: '400px', objectFit: 'cover' }}
@@ -138,7 +139,14 @@ const LuziPage = () => {
                         <li>Швейцарское качество с глобальной ответственностью</li>
                     </ul>
                 </motion.section>
+                <div className="brand-cta">
+                    <ButtonJumpAnimation 
+                        text={'Посмотреть продукты Luzi'} 
+                        onClick={() => window.location.href = '/search?term=Luzi'}
+                    />
+                </div>
             </main>
+            
         </div>
     );
 };

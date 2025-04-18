@@ -107,6 +107,9 @@ const ProductPreviewer = ({ product,  productComments }) => {
                     </div>
                 </div>
                 <Accordion items={productDescription} />
+                <div className='product-previewer-misc'>
+                    <img src="https://placehold.co/600x240?text=реклама и т.д." alt="" />
+                </div>
             </div>
         </div>
     )

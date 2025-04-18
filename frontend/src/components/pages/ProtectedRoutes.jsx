@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 const ProtectedRoutes = () => {
-  const accessToken = useSelector(state => state.auth.accessToken)
+  const user = useSelector(state => state.user?.data)
   
-  return accessToken ? <Outlet /> : <Navigate to='/login'/>
+  return user ? <Outlet /> : <Navigate to='/login'/>
 }
 
 export default ProtectedRoutes

@@ -4,6 +4,7 @@ import ButtonJumpAnimation from './ButtonJumpAnimation'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 
 const getRecommends =  async (term, limit) => {
@@ -13,7 +14,6 @@ const getRecommends =  async (term, limit) => {
 }
 
 const ProductRecommender = () => {
-
   const recommendedTerm = 'Luzi';
 
   const {data, isLoading, error} = useQuery({
@@ -38,8 +38,6 @@ const ProductRecommender = () => {
     { id: 5, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
   ];
 
- 
-
   return (
       <div className='recommended-products-container'>
           <div className='recommended-products-main-container'>
@@ -47,18 +45,15 @@ const ProductRecommender = () => {
               <span>Рекомендуемые ароматы</span>
             </div>
             <div className='recommended-products-products'>
-            {dummyProducts.map((product, index) => (
-              <Product key={index} productId={product.id} product={product}/>
-            ))}
-               
-                  
+              {dummyProducts.map((product, index) => (
+                <Product key={index} productId={product.id} product={product}/>
+              ))}
             </div>
             <div className='recommended-products-button'>
-                <ButtonJumpAnimation text='Get More' onClick={() => navigate('/search?term=luzi')}/>
+              <ButtonJumpAnimation text='Get More' onClick={() => navigate('/search?term=luzi')}/>
             </div>
           </div>
         </div>
-    
   );
 }
 

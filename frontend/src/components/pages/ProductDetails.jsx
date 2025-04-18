@@ -7,7 +7,12 @@ import Loader from '../Loader';
 import RatingAndComments from '../RatingAndComments';
 import { AllRatingsAndComments } from '../RatingAndComments';
 import FourBlockContent from '../FourBlockContent';
+import { motion } from 'framer-motion';
 
+const fadeUp = {
+  hidden: { opacity: 0, },
+  visible: { opacity: 1, transition: { duration: 0.8 } },
+}
 
 const fetchProduct = async (productId) => {
   if (!productId) return [];
@@ -35,12 +40,20 @@ const ProductDetails = () => {
 
   return (
     <>
-        <ProductsPreviewer product={product} productComments={productComments}/>
-        <FourBlockContent />
-        <AllRatingsAndComments productComments={productComments}/>
-        <RatingAndComments product={product} productComments={productComments}/>
-        
+        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+            <ProductsPreviewer product={product} productComments={productComments} />
+        </motion.section>
+        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+          <FourBlockContent />
+        </motion.section>
+        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+          <AllRatingsAndComments productComments={productComments} />
+        </motion.section>
+        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+          <RatingAndComments product={product} productComments={productComments} />
+        </motion.section>
 
+        
     </>
   )
 }

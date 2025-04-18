@@ -1,5 +1,4 @@
 const express = require('express');
-const client = require('./db');
 const cors = require('cors');
 const User = require('./models/user');
 require('dotenv').config();
@@ -8,8 +7,14 @@ const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const productDetails = require('./models/productDetailes');
 const nodemailer = require('nodemailer');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const connectDB = require('./config/db');
 
 const app = express();
+connectDB();
+
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -17,6 +22,34 @@ app.use(cors({
     origin: "http://localhost:5174", 
     credentials: true 
 }));
+
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+        return res.status(423).json({
+            success: false,
+            message: 'Вы слишком часто пытаетесь войти. Подождите немного и попробуйте снова.',
+        });
+    },
+})
+
+const registerLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+        return res.status(423).json({
+            success: false,
+            message: 'Слишком много попыток регистрации. Пожалуйста, подождите и попробуйте снова позже.',
+        });
+    },
+});
+
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 const apiUrlMS = process.env.MOYSKLAD_API_ENDPOINT;
@@ -34,7 +67,7 @@ app.get('/', (req, res) => {
     res.send('Сервер Gold Perfume.');
 });
 
-app.post('/register', async (req, res) => {
+app.post('/register', registerLimiter, async (req, res) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
 
@@ -43,8 +76,9 @@ app.post('/register', async (req, res) => {
         }
 
         const userExists = await User.findOne({email});
+
         if (userExists) {
-            return res.status(400).json({message: 'Пользователь с таким email уже существует.'})
+            return res.status(400).json({message: 'Регистрация не удалась. Возможно, email уже используется.'})
         }
         
         
@@ -59,7 +93,7 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.post('/login', async (req, res) => {
+app.post('/login', loginLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });

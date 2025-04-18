@@ -320,10 +320,11 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .bigpreviewer-main-container {
-  width: 85%;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -332,21 +333,27 @@ html {
 }
 
 .bigpreviewer-text {
-  width: 50%;
+  width: 500px;
   height: 100%;
   min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
 
   h1 {
-    font-size: 100px;
+    font-size: 55px;
     font-weight: 700;
     font-family: "Playfair Display", serif;
     margin-bottom: 20px;
     font-weight: 400;
+    color: #DAAC61;
   }
+
   p {
     font-size: 16px;
     font-weight: 400;
-    width: 90%;
+    width: 100%;
     font-family: "Inter", sans-serif;
     margin-bottom: 20px;
   }
@@ -409,10 +416,12 @@ html {
 }
 
 .square-image-container {
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 500px;
   overflow: hidden;
   position: relative;
+  border: 1px solid #333;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
 }
 
 .square-image-container-image {
@@ -451,7 +460,7 @@ html {
 }
 
 .add-to-cart-button:active {
-  transform: scale(0.95);
+  transform: scale(0.99);
   box-shadow: 0 2px 10px rgba(218, 172, 97, 0.3);
 }
 
@@ -553,17 +562,20 @@ html {
     font-size: 16px;
   }
 }
-
 .heart-button:hover {
-  transform: translateY(-2px);
-  background-color: #00867b;
+  transform: translateY(-2px); 
   box-shadow: 0 6px 20px rgba(0, 160, 147, 0.4);
+  background-color: #02645c;
+  button {
+    color: white;
+  }
 }
 
 .heart-button:active {
-  transform: scale(0.95);
-  background-color: #02645c;
+  transform: scale(0.99);
+  box-shadow: none;
 }
+
 
 .product-heart-button {
   position: absolute;
@@ -765,7 +777,9 @@ html {
   h1 {
       font-size: 50px;
       font-weight: 500;
-    font-family: "Playfair Display", serif;
+      font-family: "Playfair Display", serif;
+      color: #DAAC61;
+      text-align: center;
   }
 }
 
@@ -788,7 +802,7 @@ html {
   font-size: 50px;
   font-family: "Playfair Display", serif;
   font-weight: 200;
-  color: #fff;
+  color: #DAAC61;
 }
 
 .brand-section-container {
@@ -962,7 +976,7 @@ html {
 }
 
 .buy-now-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px); 
   box-shadow: 0 6px 20px rgba(0, 160, 147, 0.4);
   background-color: #02645c;
   button {
@@ -971,8 +985,8 @@ html {
 }
 
 .buy-now-button:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 10px rgba(218, 172, 97, 0.3);
+  transform: scale(0.99);
+  box-shadow: none;
 }
 
 .buy-now-button span {
@@ -2282,7 +2296,14 @@ html {
 
 /* Resize Magic */
 @media (max-width: 1024px) {
+  .brand-section-title {
+    font-size: 35px;
+    
+  }
 
+  .recommended-products-title {
+    font-size: 35px;
+  }
 
 
   .product-previewer-main-container {
@@ -2801,6 +2822,14 @@ footer {
   justify-content: center;
   margin: 50px 0;
   flex-direction: column;
+
+  a {
+    color: white;
+  }
+
+  h4 {
+    text-align: center;
+  }
 }
 
 .rating-and-comments-main {
@@ -3000,6 +3029,8 @@ footer {
 .all-ratings-and-comments-inner {
   width: 100%;
   max-width: 1200px;
+  border-top: 1px solid #333;
+  padding: 20px 0;
 }
 
 .all-ratings-and-comments h3 {
@@ -3114,7 +3145,7 @@ footer {
   padding: 40px 0;
 }
 
-.brand-header {
+.brand-head {
   text-align: center;
   padding: 40px 20px;
   max-width: 1200px;
@@ -3287,9 +3318,13 @@ footer {
 @media (max-width: 768px) {
 
   .bigpreviewer-text {
-    width: 90%;
+    width: 90%; 
     h1 {
-      font-size: 50px;
+      font-size: 35px;
+      text-align: center;
+    }
+    p {
+      text-align: center;
     }
     display: flex;
     align-items: center;
@@ -3298,18 +3333,9 @@ footer {
 
   }
 
-  .bigpreviewer-image {
-    width: 100%;
-  }
+ 
 
-  .bigpreviewer-main-container {
-    flex-direction: column;
-    width: 100%;
-    justify-content: speace-evenly;
-    align-items: center;
-  }
-
-  .brand-header {
+  .brand-head {
     h1 {
       font-size: 40px;
     }
@@ -3337,7 +3363,7 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .brand-header {
+  .brand-head {
     h1 {
       font-size: 32px;
     }
@@ -3367,42 +3393,190 @@ footer {
   }
 }
 
+/* Products Page Styles */
 .products-page {
   width: 100%;
-  min-height: 70vh;
-  display: flex;
-  justify-content: center;
+  min-height: calc(100vh - 243px);
+  background-color: #0D0D0D;
+  padding: 60px 0;
 }
 
 .products-page-main-container {
   max-width: 1200px;
-  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-.products-page-title{
-    width: 100%;
-    height: 300PX;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #DAAC61;
-    flex-direction: column;
-    gap: 25px;
 
-    h1 {
-        font-family: "Playfair Display", serif;
-        font-size: calc(40px + 0.5vw);
-    }
-    p {
-      color: white;
-      font-size: calc(15px + 0.5vw);
-      font-family: 'Inter', sans-serif;
-    }
+.products-page-title {
+  text-align: center;
+  margin-bottom: 60px;
+  color: white;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.products-page-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #DAAC61, transparent);
+}
+
+.products-page-title h1 {
+  font-size: 48px;
+  color: #DAAC61;
+  font-family: "Playfair Display", serif;
+  font-weight: 200;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(218, 172, 97, 0.2);
+}
+
+.products-page-title p {
+  font-size: 20px;
+  color: #999;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.brand-section-wrapper {
+  margin-bottom: 80px;
+  background: #161616;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brand-section-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
 .brand-introduction {
-  width: 100%; 
   display: flex;
-  background-color: red;
-  flex-direction: row;
-  margin: 15px 0;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.brand-name {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.brand-name h2 {
+  color: #DAAC61;
+  font-family: "Playfair Display", serif;
+  font-weight: 200;
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px rgba(218, 172, 97, 0.2);
+}
+
+.brand-name p {
+  color: #999;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.brand-items {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.brand-item {
+  transition: transform 0.3s ease;
+}
+
+.brand-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .bigpreviewer-text { 
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    min-height: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+    h1 {
+      font-size: 35px;
+      width: 100%;
+    }
+    
+    p {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .square-image-container {
+    width: 95%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  
+
+  .bigpreviewer-image {
+    width: 100%;
+  }
+
+  .bigpreviewer-main-container {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+
+  }
+
+  .brand-items {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .faq-container {
+    
+
+    h1 {
+        font-size: 35px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .brand-items {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 }

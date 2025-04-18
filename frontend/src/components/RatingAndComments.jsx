@@ -29,7 +29,7 @@ const RatingAndComments = ({ product, productComments }) => {
       navigate(0);
     } catch (error) {
       console.error('Error submitting rating:', error);
-      toast.error(error.response?.data?.message || 'Error submitting rating');
+      toast.error(error.response?.data?.message || 'Ошибка при отправке рейтинга');
     }
   };
 
@@ -44,19 +44,18 @@ const RatingAndComments = ({ product, productComments }) => {
       navigate(0);
     } catch (error) {
       console.error('Error deleting comment:', error);
-      toast.error(error.response?.data?.message || 'Error deleting comment');
+      toast.error(error.response?.data?.message || 'Ошибка при удалении комментария');
     }
   }
 
   if (!user.data) {
     return (
       <div className="rating-and-comments">
-        <h3>Please log in to leave a comment.</h3>
+        <h4>Пожалуйста, <a href="/login">войдите в систему</a>, чтобы оставить комментарий.</h4>
       </div>
     );
   }
     
-
   // Check if the current user already commented
   const userComment = productComments.find(
     (comment) => comment.userId === user.data.id
@@ -66,14 +65,14 @@ const RatingAndComments = ({ product, productComments }) => {
     <div className="rating-and-comments">
       {userComment ? (
         <>
-          <h3>You have already rated this item:</h3>
+          <h3>Вы уже оценили этот товар:</h3>
           <div className="user-note">
             <div className="user-note-text">
-              <h4>Your Note:</h4>
+              <h4>Ваш отзыв:</h4>
               <p>{userComment.comment}</p>
             </div>
             <div className="user-note-rating">
-              <h4>Rating: {'★ '.repeat(userComment.rating)}</h4>
+              <h4>Рейтинг: {'★ '.repeat(userComment.rating)}</h4>
             </div>
             <div className="delete-rating" onClick={() => handleCommentDelete()}>
               <span className="material-icons">close</span>
@@ -83,7 +82,7 @@ const RatingAndComments = ({ product, productComments }) => {
       ) : (
         <div className="rating-and-comments-main">
           <div className="rating">
-            <span>Rate this product:</span>
+            <span>Оцените этот товар:</span>
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}
@@ -96,7 +95,7 @@ const RatingAndComments = ({ product, productComments }) => {
           </div>
           <div className="comments">
             <textarea
-              placeholder="Leave a comment..."
+              placeholder="Оставьте комментарий..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               maxLength={100}
@@ -106,7 +105,7 @@ const RatingAndComments = ({ product, productComments }) => {
               onClick={handleCommentSubmit}
               disabled={!comment || rating === 0}
             >
-              Submit
+              Отправить
             </button>
           </div>
         </div>
@@ -120,7 +119,7 @@ export const AllRatingsAndComments = ({productComments}) => {
     return (
         <div className="all-ratings-and-comments">
             <div className="all-ratings-and-comments-inner">
-                <h3>All Ratings and Comments</h3>
+                <h3>Все рейтинги и комментарии</h3>
                 {productComments.length > 0 ? (
                     <div className="all-ratings-boxes">
                         {productComments.map((comment, index) => (
@@ -133,15 +132,17 @@ export const AllRatingsAndComments = ({productComments}) => {
                                     <p>{comment.comment}</p>
                                 </div>
                                 <div className="side-user-note-rating">
-                                    <h4>Rating: {'★ '.repeat(comment.rating)}</h4>
+                                    <h4>Рейтинг: {'★ '.repeat(comment.rating)}</h4>
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', margin: '50px auto'}}> 
                     <div className="no-comments">
-                        <h4>No comments yet</h4>
+                        <h4>Пока нет комментариев</h4>
                     </div>
+                  </div>
                 )}
             </div>
         </div>
