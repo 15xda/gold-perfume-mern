@@ -20,7 +20,7 @@ const Header = () => {
         <div className='header-main-container'>
 
                 <div className='header-logo-container' onClick={() => window.location.replace('/')}>
-                    <img src="src/images/logo.png" alt="" />
+                    <img src="src/images/logo-dark-font.png" alt="" />
                 </div>
 
                 <SearchBar />
@@ -56,10 +56,10 @@ const Header = () => {
         <div className='header-link-list-container'>
             <div className='header-link-list'>
               <ul>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : 'white'})} to="/">Home</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : 'white'})} to="/about">About</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : 'white'})} to="/products">Products</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : 'white'})} to="/contact">Contact</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/">Home</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/about">About</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/products">Products</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/contact">Contact</NavLink></li>
               </ul>
             </div>
         </div>

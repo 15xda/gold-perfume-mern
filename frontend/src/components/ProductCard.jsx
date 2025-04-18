@@ -44,7 +44,7 @@ const ProductCard = ({product}) => {
         <div 
             className='product-heart-button' 
             onClick={handleAddToFavourite} 
-            style={favsState.includes(product.id) ? {display: 'block', backgroundColor: '#DAAC61'} : {}}
+            style={favsState.includes(product.id) ? {display: 'block'} : {}}
           >
             <span className="material-icons">
               {favsState.includes(product.id) ? 'favorite' : 'favorite_border'}

@@ -14,11 +14,11 @@ const FixedFooter = () => {
   return (
     <div className='fixed-footer'>
         <div className='fixed-footer-main-container'>
-            <div style={{color : checkLocation('/') ? '#DAAC61' : '#0D0D0D'}}><span className='material-icons' onClick={() => {navigate('/')}}>home</span></div>
-            <div style={{color : checkLocation('/products') ? '#DAAC61' : '#0D0D0D'}}><span className='material-icons' onClick={() => {navigate('/')}}>grid_view</span></div>
-            <div style={{color : checkLocation('/favorites') ? '#DAAC61' : '#0D0D0D'}}><span className='material-icons' onClick={() => {navigate('/favorites')}}>favorite</span></div>
-            <div style={{color : checkLocation('/cart') ? '#DAAC61' : '#0D0D0D'}}><span className='material-icons' onClick={() => {navigate('/cart')}}>shopping_cart</span></div>
-            <div style={{color : checkLocation('/dashboard') ? '#DAAC61' : '#0D0D0D'}}><span className='material-icons' onClick={() => {navigate('/dashboard')}}>person</span></div>
+            <div style={{color : checkLocation('/') ? '#23645c' : '#33312E'}}><span className='material-icons' onClick={() => {navigate('/')}}>home</span></div>
+            <div style={{color : checkLocation('/products') ? '#23645c' : '#33312E'}}><span className='material-icons' onClick={() => {navigate('/')}}>grid_view</span></div>
+            <div style={{color : checkLocation('/favorites') ? '#23645c' : '#33312E'}}><span className='material-icons' onClick={() => {navigate('/favorites')}}>favorite</span></div>
+            <div style={{color : checkLocation('/cart') ? '#23645c' : '#33312E'}}><span className='material-icons' onClick={() => {navigate('/cart')}}>shopping_cart</span></div>
+            <div style={{color : checkLocation('/dashboard') ? '#23645c' : '#33312E'}}><span className='material-icons' onClick={() => {navigate('/dashboard')}}>person</span></div>
         </div>
     </div>
   )
