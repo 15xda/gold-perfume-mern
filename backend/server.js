@@ -239,6 +239,42 @@ app.post('/reset-password', async (req, res) => {
     }
 })
 
+app.post('/update-password', async (req, res) => {
+
+
+    try {
+        const {email, currentPassword, newPassword, confirmPassword} = req.body;
+        const user = await User.findOne({email: email});
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        
+        if (!user) {
+            return res.status(404).json({message: 'Пользователь не найден'});
+        }
+
+        if (!isMatch) {
+            return res.status(400).json({message: 'Текущий пароль неверный'});
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({message: 'Пароли не совпадают'});
+        }
+
+        if (newPassword === user.password) {
+            return res.status(400).json({message: 'Новый пароль не может совпадать с текущим паролем'});
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+        res.status(200).json({message: 'Пароль успешно обновлен'});
+
+    }
+    catch (error) {
+        console.error('Update password error:', error);
+        res.status(500).json({message: 'Ошибка при обновлении пароля'});
+    }
+})
+
 app.post('/reset-password/confirm', async (req, res) => {
     const {token, password} = req.body;
     try {

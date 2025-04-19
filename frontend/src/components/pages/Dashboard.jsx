@@ -1,15 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import zxcvbn from 'zxcvbn';
+import { toast } from 'react-toastify';
+import api from '../../api/axiosInstance';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('profile');
   const user = useSelector((state) => state.user.data);
 
-  const userData = {
+  const [passwordForm, setPasswordForm] = useState({
+    email: user.email,
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  const [passwordScore, setPasswordScore] = useState(0);
+  const [passwordStrengthText, setPasswordStrengthText] = useState('❓ Неизвестно');
+  const [passwordError, setPasswordError] = useState('');
+
+  const updatePasswordForm = (e) => {
+    const { name, value } = e.target;
+    const updatedForm = { ...passwordForm, [name]: value };
+    setPasswordForm(updatedForm);
+
+    if (name === 'newPassword') {
+      const result = zxcvbn(value);
+      setPasswordScore(result.score);
+
+      switch (result.score) {
+        case 0: setPasswordStrengthText('❌ Очень слабый'); break;
+        case 1: setPasswordStrengthText('⚠️ Слабый'); break;
+        case 2: setPasswordStrengthText('🟡 Средний'); break;
+        case 3: setPasswordStrengthText('✅ Хороший'); break;
+        case 4: setPasswordStrengthText('💪 Надёжный'); break;
+        default: setPasswordStrengthText('❓ Неизвестно');
+      }
+    }
+
+    if (
+      name === 'confirmPassword' && value !== updatedForm.newPassword ||
+      name === 'newPassword' && updatedForm.confirmPassword && updatedForm.confirmPassword !== value
+    ) {
+      setPasswordError('❌ Пароли не совпадают');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const updatePassword = async (currentPassword, newPassword) => {
+    try {
+      const res = await api.post('/update-password', passwordForm);
+      toast.success(res.data.message);
+      setPasswordForm({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
+      setPasswordScore(0);
+      setPasswordStrengthText('');
+      setPasswordError('');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Ошибка при смене пароля');
+    }
+  };
+
+  const [userData, setUserData] = useState({
     name: user ? user.name : '',
-    email: user ?  user.email : '',
+    email: user ? user.email : '',
+    phone: "",
     orders: [
       { id: '1', date: '2024-03-15', status: 'Delivered', total: 129.99 },
       { id: '2', date: '2024-03-10', status: 'Processing', total: 89.99 },
@@ -24,7 +85,7 @@ const Dashboard = () => {
         zip: '10001'
       }
     ]
-  };
+  });
 
   const renderContent = () => {
     switch (activeTab) {
@@ -40,6 +101,10 @@ const Dashboard = () => {
               <div className="form-group">
                 <label>Email</label>
                 <input type="email" defaultValue={userData.email} />
+              </div>
+              <div className="form-group">
+                <label>Phone</label>
+                <input type="tel" defaultValue={userData.phone} />
               </div>
               <button className="dashboard-button">Update Profile</button>
             </div>
@@ -103,17 +168,42 @@ const Dashboard = () => {
             <div className="security-form">
               <div className="form-group">
                 <label>Current Password</label>
-                <input type="password" />
+                <input
+                  type="password"
+                  name="currentPassword"
+                  value={passwordForm.currentPassword}
+                  onChange={updatePasswordForm}
+                />
               </div>
               <div className="form-group">
                 <label>New Password</label>
-                <input type="password" />
+                <input
+                  type="password"
+                  name="newPassword"
+                  value={passwordForm.newPassword}
+                  onChange={updatePasswordForm}
+                />
               </div>
               <div className="form-group">
                 <label>Confirm New Password</label>
-                <input type="password" />
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={passwordForm.confirmPassword}
+                  onChange={updatePasswordForm}
+                />
               </div>
-              <button className="dashboard-button">Change Password</button>
+
+              {passwordError && <p style={{ color: 'red', fontSize: '14px' }}>{passwordError}</p>}
+              <p style={{ margin: '10px 0', fontSize: '14px' }}>Надёжность пароля: {passwordStrengthText}</p>
+
+              <button
+                className="dashboard-button"
+                disabled={passwordScore < 2 || passwordError !== ''}
+                onClick={() => updatePassword(passwordForm.currentPassword, passwordForm.newPassword)}
+              >
+                Change Password
+              </button>
             </div>
           </div>
         );
@@ -133,35 +223,35 @@ const Dashboard = () => {
             <p>{userData.email}</p>
           </div>
           <nav className="dashboard-nav">
-            <button 
+            <button
               className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
               onClick={() => setActiveTab('profile')}
             >
               <span className="material-icons">person</span>
               Profile
             </button>
-            <button 
+            <button
               className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`}
               onClick={() => setActiveTab('orders')}
             >
               <span className="material-icons">shopping_bag</span>
               Orders
             </button>
-            <button 
+            <button
               className={`nav-item ${activeTab === 'addresses' ? 'active' : ''}`}
               onClick={() => setActiveTab('addresses')}
             >
               <span className="material-icons">location_on</span>
               Addresses
             </button>
-            <button 
+            <button
               className={`nav-item ${activeTab === 'security' ? 'active' : ''}`}
               onClick={() => setActiveTab('security')}
             >
               <span className="material-icons">security</span>
               Security
             </button>
-            <button 
+            <button
               className="nav-item logout"
               onClick={() => navigate('/login')}
             >
@@ -175,7 +265,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
