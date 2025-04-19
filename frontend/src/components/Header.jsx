@@ -56,10 +56,10 @@ const Header = () => {
         <div className='header-link-list-container'>
             <div className='header-link-list'>
               <ul>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/">Home</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/about">About</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/products">Products</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#DAAC61' : '#33312E'})} to="/contact">Contact</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/">Home</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/about">About</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/products">Products</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/contact">Contact</NavLink></li>
               </ul>
             </div>
         </div>

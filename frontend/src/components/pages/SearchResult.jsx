@@ -80,7 +80,7 @@ const SearchResult = () => {
           <div className='search-filters-container'>
             <div className='search-filters-main-container'>
               <div className='search-filters-title'>
-                <span>Бренд</span>
+                <span>Производители</span>
               </div>
               <div className='search-filters-options'>
                 <label>

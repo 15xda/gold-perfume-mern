@@ -1273,7 +1273,7 @@ html {
 .auth-container {
   width: 100%;
   max-width: 400px;
-  background-color: #161616;
+  border: 1px solid #C3C6BF;
   padding: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -1307,10 +1307,10 @@ html {
 
 .form-group input {
   width: 100%;
-  background-color: #212121;
+  background-color: #ECE6D9;
   text-indent: 10px;
   height: 40px;
-  border: 1px solid #333;
+  border: 1px solid #C3C6BF;
   color: #33312e;
   font-size: 16px;
   transition: all 0.3s ease;
@@ -1325,7 +1325,7 @@ html {
   width: 100%;
   padding: 12px;
   background-color: #23645c;
-  color: #33312e;
+  color: #ECE6D9;
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -1333,7 +1333,7 @@ html {
 }
 
 .auth-submit:hover {
-  background-color: #;
+  background-color: #1a4b45;
   transform: translateY(-2px);
 }
 
@@ -1343,6 +1343,7 @@ html {
 
 .auth-submit:disabled {
   background-color: #333;
+  color: #ECE6D9;
   cursor: not-allowed;  
 }
 
@@ -1945,7 +1946,8 @@ html {
 }
 
 .dashboard-sidebar {
-  background: #161616;
+  border: 1px solid #C3C6BF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
   height: fit-content;
 }
@@ -1995,12 +1997,12 @@ html {
 }
 
 .nav-item:hover {
-  background: #212121;
+  background-color: #C3C6BF;
 }
 
 .nav-item.active {
   background: #23645c;
-  color: #33312e;
+  color: #ECE6D9;
 }
 
 .nav-item.logout {
@@ -2013,7 +2015,8 @@ html {
 }
 
 .dashboard-content {
-  background: #161616;
+  border: 1px solid #C3C6BF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
 }
 
@@ -2035,7 +2038,7 @@ html {
 
 .dashboard-button {
   background: #23645c;
-  color: #33312e;
+  color: #ECE6D9;
   border: none;
   padding: 12px 24px;
   cursor: pointer;
@@ -3451,13 +3454,7 @@ footer {
 .brand-section-wrapper {
   margin-bottom: 80px;
   padding: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.brand-section-wrapper:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #C3C6BF;
 }
 
 .brand-introduction {
