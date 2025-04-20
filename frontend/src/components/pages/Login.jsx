@@ -29,8 +29,6 @@ const Login = () => {
       const response = await axios.post('http://localhost:4004/login', formData, {withCredentials: true});
       dispatch(setUser(response.data.userData));
       dispatch(setAccessToken(response.data.accessToken));
-
-      console.log(response.data);
       toast.success(response.data.message);
       navigate('/');
     } catch (error) {

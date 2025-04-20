@@ -7,6 +7,19 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.data = action.payload;
     },
+    replaceUserData: (state, action) => {
+      if (state.data ) {
+        state.data = {
+          ...state.data,
+          ...action.payload,
+        }
+      }
+    },
+    setAddresses: (state, action) => {
+      if (state.data) {
+        state.data.addresses = action.payload;
+      }
+    },
     setFavourites: (state, action) => {
       state.data.favourites = action.payload;
     },
@@ -21,5 +34,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setFavourites, setCart, logout } = userSlice.actions;
+export const { setUser, setFavourites, replaceUserData, setAddresses, setCart, logout } = userSlice.actions;
 export default userSlice.reducer; 

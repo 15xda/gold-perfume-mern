@@ -19,7 +19,7 @@ const ProductCard = ({product}) => {
 
   const handleAddToFavourite = async () => {
     try {
-      const response = await api.post('/add-to-favorite', { itemId: product.id, userId: user.data.id });
+      const response = await api.post('/add-to-favorite', {itemId: product.id});
       toast.success(response.data.message);
       dispatch(setFavourites(response.data.favourites))
 

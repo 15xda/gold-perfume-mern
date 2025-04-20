@@ -116,7 +116,7 @@ const Register = () => {
           <div className="form-group">
             <input
               type="password"
-              name="confirmPasswor`d"
+              name="confirmPassword"
               placeholder="Подтвердите пароль"
               value={formData.confirmPassword}
               onChange={handleChange}

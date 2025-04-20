@@ -13,7 +13,7 @@ const AddToCartButton = ({productId, quantity}) => {
   const handleAddToCart = async () => {
     try {
         setIsLoading(true)
-        const response = await api.post('/add-to-cart', { itemId: productId, userId: user.id, quantity: quantity || 1 });
+        const response = await api.post('/add-to-cart', { itemId: productId, quantity: quantity || 1 });
         toast.success(response.data.message);
         dispatch(setCart(response.data.cart))
         setIsLoading(false);

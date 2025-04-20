@@ -24,31 +24,20 @@ app.use(cors({
 }));
 
 
-const loginLimiter = rateLimit({
+const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10,
+    max: 7,
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res) => {
         return res.status(423).json({
             success: false,
-            message: 'Вы слишком часто пытаетесь войти. Подождите немного и попробуйте снова.',
+            message: 'Вы слишком часто выполняете действия. Подождите немного и попробуйте снова.',
         });
     },
 })
 
-const registerLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
-    max: 10,
-    standardHeaders: true,
-    legacyHeaders: false,
-    handler: (req, res) => {
-        return res.status(423).json({
-            success: false,
-            message: 'Слишком много попыток регистрации. Пожалуйста, подождите и попробуйте снова позже.',
-        });
-    },
-});
+
 
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -63,11 +52,35 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const checkCreds = (req, res, next) => {
+
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        console.log('No valid Authorization header');
+        return res.status(401).json({ message: 'Требуется авторизация' });
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    try {
+        const decoded = jwt.verify(token, jwtSecretKey)
+        req.userId = decoded.user;
+
+    } catch (error) {
+        
+    }
+
+    next();
+};
+
+
 app.get('/', (req, res) => {
     res.send('Сервер Gold Perfume.');
 });
 
-app.post('/register', registerLimiter, async (req, res) => {
+
+app.post('/register', apiLimiter, async (req, res) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
 
@@ -93,46 +106,57 @@ app.post('/register', registerLimiter, async (req, res) => {
     }
 })
 
-app.post('/login', loginLimiter, async (req, res) => {
+const returnSafeData = (user) => ({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    telephone: user.telephone,
+    addresses: user.addresses,
+    orders: user.orders,
+    favourites: user.favourites,
+    cart: user.cart,
+})
+
+app.post('/login', apiLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        const isMatch = user && await bcrypt.compare(password, user.password)
+        console.log(user)
 
-        if ( !user || !isMatch ) {
+        if (!user || !user.password) {
             return res.status(401).json({ message: "Неверные учетные данные" });
         }
 
-        const accessToken = jwt.sign({user: user._id}, jwtSecretKey, {expiresIn: '1h'})
-        const refreshToken = jwt.sign({user: user._id}, jwtSecretKey, {expiresIn: '31d'});
-        
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({ message: "Неверные учетные данные" });
+        }
+
+        const accessToken = jwt.sign({ user: user._id }, jwtSecretKey, { expiresIn: '1h' });
+        const refreshToken = jwt.sign({ user: user._id }, jwtSecretKey, { expiresIn: '31d' });
+
         res
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: false, 
+                secure: false,
                 sameSite: 'Lax',
-                path: '/', 
-                maxAge: 31 * 24 * 60 * 60 * 1000 // 31 days
+                path: '/',
+                maxAge: 31 * 24 * 60 * 60 * 1000
             })
             .status(200)
-            .json({  
+            .json({
                 message: 'Вход выполнен успешно',
                 accessToken,
-                userData: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                favourites: user.favourites,
-                cart: user.cart,
-                }
+                userData: returnSafeData(user)
             });
-
 
     } catch (error) {
         console.log('Login Error: ', error)
         return res.status(500).json({ message: "Внутренняя ошибка сервера" });
     }
 });
+
 
 const checkRefreshToken = (req, res, next) => {
     
@@ -152,6 +176,8 @@ const checkRefreshToken = (req, res, next) => {
 };
 
 
+
+
 app.get('/refresh-token', checkRefreshToken, async (req, res) => {
 
     try {
@@ -164,13 +190,7 @@ app.get('/refresh-token', checkRefreshToken, async (req, res) => {
 
         return res.json({
             accessToken: accessToken,
-            userData: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                favourites: user.favourites,
-                cart: user.cart,
-            }
+            userData: returnSafeData(user)
         });
 
     } catch (error) {
@@ -181,6 +201,7 @@ app.get('/refresh-token', checkRefreshToken, async (req, res) => {
 const generateResetToken = (email) => {
     return jwt.sign({ email }, jwtSecretKey, { expiresIn: '1h' });
 }
+
 
 app.post('/reset-password', async (req, res) => {
     const {email} = req.body;
@@ -239,12 +260,12 @@ app.post('/reset-password', async (req, res) => {
     }
 })
 
-app.post('/update-password', async (req, res) => {
+app.post('/update-password', apiLimiter, checkCreds, async (req, res) => {
 
 
     try {
-        const {email, currentPassword, newPassword, confirmPassword} = req.body;
-        const user = await User.findOne({email: email});
+        const {currentPassword, newPassword, confirmPassword} = req.body;
+        const user = await User.findById(req.userId);
         const isMatch = await bcrypt.compare(currentPassword, user.password);
         
         if (!user) {
@@ -272,6 +293,28 @@ app.post('/update-password', async (req, res) => {
     catch (error) {
         console.error('Update password error:', error);
         res.status(500).json({message: 'Ошибка при обновлении пароля'});
+    }
+})
+
+app.patch('/update-user-info', apiLimiter, checkCreds, async (req, res) => {
+
+    try {
+        const updateData = req.body;
+
+        const user = await User.findById(req.userId);
+
+        if (!user) {
+            return res.status(401).json({message: 'Something Went Wrong'})
+        }
+
+        for (let key in updateData) user[key] = updateData[key];
+
+        await user.save();
+        return res.status(200).json({message: 'Information Updated', user: returnSafeData(user)})
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({message: 'Internal Server Error'})
     }
 })
 
@@ -447,17 +490,18 @@ app.post('/logout', (req, res) => {
     res.json({message: 'Выход выполнен успешно'});
 });
 
-app.post('/add-to-favorite', async (req, res) => {
+
+app.post('/add-to-favorite', checkCreds, async (req, res) => {
     
-    const {itemId, userId} = req.body;
-    console.log(req.body)
+    const {itemId} = req.body;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({message: 'Пользователь не найден'});
         }
+
         if (user.favourites.includes(itemId)) {
 
             user.favourites = user.favourites.filter(fav => fav !== itemId)
@@ -476,12 +520,12 @@ app.post('/add-to-favorite', async (req, res) => {
 })
 
 
-app.post('/add-to-cart', async (req, res) => {
+app.post('/add-to-cart', checkCreds, async (req, res) => {
     
-    const {itemId, userId, quantity} = req.body;
+    const {itemId, quantity} = req.body;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(req.userId);
         const userHasItem = user.cart.some(item => item.itemId === itemId)
 
         console.log(userHasItem)
@@ -495,7 +539,7 @@ app.post('/add-to-cart', async (req, res) => {
             user.cart = user.cart.map(item => item.itemId === itemId ? {...item, quantity: item.quantity + quantity} : item)
             
             await user.save();
-            return res.status(200).json({message: 'Товар в корзине', cart: user.cart});
+            return res.status(200).json({cart: user.cart});
         }
         
         user.cart.push({itemId, quantity: quantity})
@@ -509,10 +553,10 @@ app.post('/add-to-cart', async (req, res) => {
     }
 })
 
-app.put('/update-cart', async (req, res) => {
+app.put('/update-cart', checkCreds, async (req, res) => {
     try {
-        const { itemId, userId, quantity } = req.body;
-        const user = await User.findById(userId);
+        const { itemId, quantity } = req.body;
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' }); 
@@ -538,10 +582,10 @@ app.put('/update-cart', async (req, res) => {
     }
 });
 
-app.put('/delete-from-cart', async (req, res) => {
+app.put('/delete-from-cart', checkCreds, async (req, res) => {
     try {
-        const {itemId, userId} = req.body;
-        const user = await User.findById(userId);
+        const {itemId} = req.body;
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' }); 
@@ -563,14 +607,14 @@ app.put('/delete-from-cart', async (req, res) => {
     }
 })
 
-app.post('/rating', async (req, res) => {
+app.post('/rating', checkCreds, async (req, res) => {
 
     try {
 
         console.log(req.body)
 
-        const {userId, userName, productId, rating, comment} = req.body;
-        const user = await User.findById(userId);
+        const {productId, rating, comment} = req.body;
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({message: 'Пользователь не найден'});
@@ -579,12 +623,12 @@ app.post('/rating', async (req, res) => {
         const product = await productDetails.findOne({productId});
 
         if (!product) {
-            const product = new productDetails({productId: productId, productRating: {userId: userId, userName: userName, rating: rating, comment: comment, date: Date.now()}});
+            const product = new productDetails({productId: productId, productRating: {userId: user.id, userName: user.name, rating: rating, comment: comment, date: Date.now()}});
             await product.save();
             return res.status(200).json({message: 'Оценка успешно добавлена'})
         }
 
-        product.productRating.push({userId: userId, userName: userName, rating: rating, comment: comment, date: Date.now()});
+        product.productRating.push({userId: user.id, userName: user.name, rating: rating, comment: comment, date: Date.now()});
         await product.save();
 
         return res.status(200).json({message: 'Оценка успешно добавлена'})
@@ -595,10 +639,10 @@ app.post('/rating', async (req, res) => {
     }
 });
 
-app.post('/delete-rating', async (req, res) => {
+app.post('/delete-rating', checkCreds, async (req, res) => {
     try {
-        const {userId, productId} = req.body;
-        const user = await User.findById(userId);
+        const {productId} = req.body;
+        const user = await User.findById(req.userId);
 
         if (!user) {
             return res.status(404).json({message: 'Пользователь не найден'});
@@ -610,7 +654,7 @@ app.post('/delete-rating', async (req, res) => {
             return res.status(404).json({message: 'Продукт не найден'});
         }
 
-        product.productRating = product.productRating.filter(comment => comment.userId !== userId);
+        product.productRating = product.productRating.filter(comment => comment.userId !== user.id);
         await product.save();
 
         return res.status(200).json({message: 'Оценка успешно удалена'})
@@ -619,6 +663,55 @@ app.post('/delete-rating', async (req, res) => {
     }
 })
 
+
+app.post('/add-address', checkCreds, async (req, res) => {
+    const { address } = req.body;
+  
+    try {
+      if (!address) {
+        return res.status(401).json({ message: 'Address Must Not Be Empty' });
+      }
+  
+      const user = await User.findById(req.userId);
+  
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid User' });
+      }
+  
+      const addressAlready = user.addresses.some(saved => saved === address);
+  
+      if (addressAlready) {
+        return res.status(401).json({ message: 'Address Already Saved' });
+      }
+  
+      user.addresses.push(address);
+      await user.save();
+  
+      return res.status(200).json({ message: 'Address added successfully', addresses: user.addresses });
+  
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  });
+  
+app.post('/delete-address', checkCreds, async (req, res) => {
+
+    const {address} = req.body;
+
+    try {
+
+        const user = await User.findById(req.userId);
+        if (!user) return res.status(401).json({message: 'No User Found'})
+
+        user.addresses = user.addresses.filter(savedAddress => savedAddress !== address);
+        await user.save();
+        return res.status(200).json({message: 'Address Removed', addresses: user.addresses})
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: 'Internal Server error'})
+    }
+})
 
 
 const port = process.env.PORT;

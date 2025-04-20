@@ -12,8 +12,8 @@ const Header = () => {
   const user = useSelector((state) => state.user?.data);
   const dispatch = useDispatch();
   const totalItemsInCart = user ?  user.cart.reduce((acc, item) => acc + item.quantity, 0) : [];
-  console.log(user)
-
+  console.log(user);
+  
   return (
     <div className='header'>
         

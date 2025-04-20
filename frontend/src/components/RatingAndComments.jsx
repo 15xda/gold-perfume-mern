@@ -18,8 +18,6 @@ const RatingAndComments = ({ product, productComments }) => {
     try {
       const response = await api.post('/rating', {
         productId: product.id,
-        userId: user.data.id,
-        userName: user.data.name,
         comment,
         rating,
       });
@@ -37,7 +35,6 @@ const RatingAndComments = ({ product, productComments }) => {
     try {
       const response = await api.post('/delete-rating', {
           productId: product.id,
-          userId: user.data.id,
         });
 
       toast.success(response.data.message);

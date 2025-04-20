@@ -22,7 +22,6 @@ export const CartItem = ({ product }) => {
     try {
       const response = await api.put('/update-cart', {
         itemId: product.id,
-        userId: user.id,
         quantity: newQuantity
       });
       dispatch(setCart(response.data.cart));
@@ -36,7 +35,7 @@ export const CartItem = ({ product }) => {
 
   const handleRemoveItem = async () => {
     try {
-      const response = await api.put('/delete-from-cart', {itemId: product.id, userId: user.id})
+      const response = await api.put('/delete-from-cart', {itemId: product.id,})
       console.log(response.data);
       dispatch(setCart(response.data.cart))
     } catch (error) {

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { replace, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import zxcvbn from 'zxcvbn';
 import { toast } from 'react-toastify';
 import api from '../../api/axiosInstance';
+import { replaceUserData, setAddresses } from '../../storage/userSlice';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState('profile');
+  const [addingAddress, setAddingAddress] = useState(false);
   const user = useSelector((state) => state.user.data);
 
   const [passwordForm, setPasswordForm] = useState({
-    email: user.email,
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
@@ -67,25 +69,72 @@ const Dashboard = () => {
     }
   };
 
+  const [addressForm, setAddressForm] = useState({
+    city: '', 
+    street: '',
+    house: '', 
+    zip: '',
+  })
+
+  const handleAddressFieldChange = (e) => {
+    const {name, value} = e.target;
+    setAddressForm((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
   const [userData, setUserData] = useState({
-    name: user ? user.name : '',
-    email: user ? user.email : '',
-    phone: "",
-    orders: [
-      { id: '1', date: '2024-03-15', status: 'Delivered', total: 129.99 },
-      { id: '2', date: '2024-03-10', status: 'Processing', total: 89.99 },
-    ],
-    addresses: [
-      {
-        id: 1,
-        type: 'Home',
-        street: '123 Main St',
-        city: 'New York',
-        state: 'NY',
-        zip: '10001'
-      }
-    ]
+    name: user.name,
+    telephone: user.telephone,
   });
+
+
+
+  const handleUserDataChange = (e) => {
+    const {name, value} = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  const updateUserData = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.patch('/update-user-info', userData);
+      dispatch(replaceUserData(res.data.user))
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  const saveAddress = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post('/add-address', {
+        address: `${addressForm.city}, ${addressForm.street}, ${addressForm.house}, ${addressForm.zip}`, 
+        userId: user.id,
+      })
+      dispatch(setAddresses(res.data.addresses));
+      setAddingAddress(false);
+      toast.success('Address Was Added!')
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  }
+
+  const deleteAddress = async (address) => {
+    try {
+      const res = await api.post('/delete-address', {address})
+      dispatch(setAddresses(res.data.addresses))
+      toast.success('Address Deleted Successfully')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -93,21 +142,19 @@ const Dashboard = () => {
         return (
           <div className="dashboard-content-section">
             <h2>Profile Information</h2>
-            <div className="profile-form">
-              <div className="form-group">
-                <label>Full Name</label>
-                <input type="text" defaultValue={userData.name} />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="email" defaultValue={userData.email} />
-              </div>
-              <div className="form-group">
-                <label>Phone</label>
-                <input type="tel" defaultValue={userData.phone} />
-              </div>
-              <button className="dashboard-button">Update Profile</button>
-            </div>
+            <form onSubmit={updateUserData}>
+              <div className="profile-form">
+                <div className="form-group">
+                  <label>Full Name</label>
+                  <input type="text" required defaultValue={user.name} name='name' onChange={handleUserDataChange} />
+                </div>
+                <div className="form-group">
+                  <label>Phone</label>
+                  <input type="tel" defaultValue={user.telephone} name='telephone' onChange={handleUserDataChange}  placeholder='Example: +123 456 789 000'/>
+                </div>
+                <button type='submit' className="dashboard-button">Update Profile</button>
+                </div>
+            </form>
           </div>
         );
 
@@ -116,7 +163,7 @@ const Dashboard = () => {
           <div className="dashboard-content-section">
             <h2>Order History</h2>
             <div className="orders-list">
-              {userData.orders.map(order => (
+              {user.orders && user.orders.length > 0 ? user.orders.map(order => (
                 <div key={order.id} className="order-item">
                   <div className="order-header">
                     <span>Order #{order.id}</span>
@@ -130,36 +177,84 @@ const Dashboard = () => {
                   </div>
                   <button className="view-order-button">View Details</button>
                 </div>
-              ))}
+              )) : <p>No orders available. Make the First order to see it here.</p>}
             </div>
           </div>
         );
 
-      case 'addresses':
-        return (
-          <div className="dashboard-content-section">
-            <h2>Saved Addresses</h2>
-            <div className="addresses-list">
-              {userData.addresses.map(address => (
-                <div key={address.id} className="address-card">
-                  <div className="address-type">{address.type}</div>
-                  <div className="address-details">
-                    <p>{address.street}</p>
-                    <p>{address.city}, {address.state} {address.zip}</p>
+        case 'addresses':
+          return (
+            <div className="dashboard-content-section">
+              <h2>Saved Addresses</h2>
+              <div className="addresses-list">
+                {!addingAddress && user.addresses && user.addresses.map((address, index) => (
+                  <div key={index} className="address-card">
+                    <div className="address-type">{address}</div>
+                    <div className="address-actions">
+                      <button className="delete-button" onClick={() => deleteAddress(address)}>Delete</button>
+                    </div>
                   </div>
-                  <div className="address-actions">
-                    <button className="edit-button">Edit</button>
-                    <button className="delete-button">Delete</button>
-                  </div>
+                ))}
+        
+                <div>
+                  {addingAddress ? (
+                    <div className='add-address-container'>
+                      <form className="profile-form" onSubmit={saveAddress}>
+                        <div className="form-group">
+                          <label>Город</label>
+                          <input 
+                            type="text" 
+                            name="city"
+                            onChange={handleAddressFieldChange}
+                            placeholder="Введите город"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Улица</label>
+                          <input 
+                            type="text" 
+                            name="street"
+                            onChange={handleAddressFieldChange}
+                            placeholder="Введите улицу"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Дом</label>
+                          <input 
+                            type="text" 
+                            name="house"
+                            onChange={handleAddressFieldChange}
+                            placeholder="Номер дома"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Индекс</label>
+                          <input 
+                            type="text" 
+                            name="zip"
+                            onChange={handleAddressFieldChange}
+                            placeholder="Почтовый индекс"
+                          />
+                        </div>
+                        <div className="address-actions">
+                          <button type="submit" className="dashboard-button">Сохранить</button>
+                          <button type="button" className="delete-button" onClick={() => setAddingAddress(false)}>Отмена</button>
+                        </div>
+                      </form>
+                    </div>
+                  ) : (
+                    <button 
+                      className="add-address-button"
+                      onClick={() => setAddingAddress(true)}
+                    > 
+                      <span className="material-icons">add</span> Добавить адрес 
+                    </button>
+                  )}
                 </div>
-              ))}
-              <button className="add-address-button">
-                <span className="material-icons">add</span>
-                Add New Address
-              </button>
+              </div>
             </div>
-          </div>
-        );
+          );
+        
 
       case 'security':
         return (
@@ -219,8 +314,8 @@ const Dashboard = () => {
         <div className="dashboard-sidebar">
           <div className="user-info">
             <span className="material-icons user-icon">account_circle</span>
-            <h3>{userData.name}</h3>
-            <p>{userData.email}</p>
+            <h3>{user.name}</h3>
+            <p>{user.email}</p>
           </div>
           <nav className="dashboard-nav">
             <button
