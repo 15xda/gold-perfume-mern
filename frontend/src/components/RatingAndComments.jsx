@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-const RatingAndComments = ({ product, productComments }) => {
+const RatingAndComments = ({ product }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const user = useSelector(state => state.user);
@@ -54,7 +54,7 @@ const RatingAndComments = ({ product, productComments }) => {
   }
     
   // Check if the current user already commented
-  const userComment = productComments.find(
+  const userComment = product.productComments.find(
     (comment) => comment.userId === user.data.id
   );
 
@@ -111,15 +111,15 @@ const RatingAndComments = ({ product, productComments }) => {
   );
 };
 
-export const AllRatingsAndComments = ({productComments}) => {
+export const AllRatingsAndComments = ({product}) => {
     const user = useSelector(state => state.user);
     return (
         <div className="all-ratings-and-comments">
             <div className="all-ratings-and-comments-inner">
                 <h3>Все рейтинги и комментарии</h3>
-                {productComments.length > 0 ? (
+                {product.productComments.length > 0 ? (
                     <div className="all-ratings-boxes">
-                        {productComments.map((comment, index) => (
+                        {product.productComments.map((comment, index) => (
                             <div key={index} id={index} className="side-user-note">
                                 <div className="user-note-text">
                                     <h4>

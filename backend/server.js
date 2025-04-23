@@ -117,6 +117,25 @@ const returnSafeData = (user) => ({
     cart: user.cart,
 })
 
+const returnSafeMoyskladData = (data) => {
+
+    if (!data || typeof data !== 'object') return null;
+    
+    const dataList = Array.isArray(data) ? data : [data];
+
+    const filteredData = dataList.map(product => ({
+        id: product.id, 
+        name: product.name, 
+        salePrices: product.salePrices?.map(price => ({
+            name: price.priceType?.name,
+            value: (price.value / 100).toFixed(2),
+        })) || [],
+    }))
+
+    return Array.isArray(data) ? filteredData : filteredData[0];
+    
+}
+
 app.post('/login', apiLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -371,7 +390,9 @@ app.get('/search', async(req, res) => {
         }
 
         const data = await response.json();
-        const matchedProductRatings = await productDetails.find({productId: data.rows.map(product => product.id)});
+        const safeDataMS = returnSafeMoyskladData(data.rows)
+
+        const matchedProductRatings = await productDetails.find({productId: safeDataMS.map(product => product.id)});
         
         const combinedData = data.rows.map(product => {
             const matchingProduct = matchedProductRatings.find(rating => rating.productId === product.id)
@@ -419,8 +440,15 @@ app.get('/product/:productId', async(req, res) => {
         
         const data = await response.json();
         const productCommentsData = productComments.map(comment => comment.productRating).flat();
+
         if (productCommentsData.length > 10) productCommentsData.slice(0, 10);
-        res.status(200).json({apiData: data, productComments: productCommentsData});
+        
+
+        res.status(200).json({product: {
+            ...returnSafeMoyskladData(data),
+            productComments: productCommentsData
+        }})
+
 
     } catch (error) {
         console.error("Error fetching data:", error.message);

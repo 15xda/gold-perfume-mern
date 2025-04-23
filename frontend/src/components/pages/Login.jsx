@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, replace, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../storage/userSlice';
 import { setAccessToken } from '../../storage/authSlice';
@@ -30,7 +30,7 @@ const Login = () => {
       dispatch(setUser(response.data.userData));
       dispatch(setAccessToken(response.data.accessToken));
       toast.success(response.data.message);
-      navigate('/');
+      navigate('/', replace);
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
       toast.error(error.response?.data?.message || 'Ошибка входа');

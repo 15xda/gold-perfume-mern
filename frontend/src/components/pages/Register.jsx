@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, replace, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import zxcvbn from 'zxcvbn';
@@ -68,7 +68,7 @@ const Register = () => {
     try {
       const response = await axios.post('http://localhost:4004/register', formData);
       toast.success(response.data.message);
-      navigate('/login');
+      navigate('/login', replace);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Ошибка при регистрации');
       console.error('Ошибка при регистрации:', error.response?.data?.message);

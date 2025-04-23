@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import HollowButton from './HollowButton'
 import AddToCartButton from './AddToCartButton'
 import BuyNowButton from './BuyNowButton'
 import Accordion from './Accordion'
@@ -7,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import LikeButton from './LikeButton'
 
 
-const ProductPreviewer = ({ product,  productComments }) => {
+const ProductPreviewer = ({ product }) => {
     const imgUrl = 'https://media.istockphoto.com/id/1214012618/vector/spray-bottle-with-transparent-cap-mockup-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=mTcNdKvFukD9WPEkoKGfrnBqHhHNDkgoC0i-QZGHqho=';
     const mainImg = 'https://etiket.ca/cdn/shop/files/Encelade-EDP-30ml-Marc-AntoineBarrois-Etiket.jpg?v=1694706918&width=1080'
     const [selectedImage, setSelectedImage] = useState(mainImg);
@@ -16,7 +15,7 @@ const ProductPreviewer = ({ product,  productComments }) => {
     const [quantity, setQuantity] = useState(1);
 
     // Calculate the average rating from productComments
-    const rating = productComments.length > 0 ? (productComments.reduce((acc, rating) => acc + rating.rating, 0) / productComments.length).toString().slice(0, 3) : '0';
+    const rating = product.productComments.length > 0 ? (product.productComments.reduce((acc, rating) => acc + rating.rating, 0) / product.productComments.length).toString().slice(0, 3) : '0';
     
     const productImages = [
         mainImg, 
@@ -74,15 +73,22 @@ const ProductPreviewer = ({ product,  productComments }) => {
                         <div><h1>{product.name}</h1></div>
                         <div><span style={{color: '#DAAC61'}}>{product.salePrices[0].value} ₽</span></div>
                         <div><strong>Customer Rating</strong></div>
-                        <div><p>{ `${rating} ⭐` || 'No rating'}  ({productComments.length || 0} reviews)</p></div>
-                        <div><strong>Category</strong></div>
-                        <div><p>{product.category}</p></div>
+                        <div><p>{ `${rating} ⭐` || 'No rating'}  ({product.productComments.length || 0} reviews)</p></div>
                     </div>
                     <div className='interaction-container-lower'>
                         <div className='size-select'>
-                            {sizes.map((size) => (
-                                <HollowButton key={size} text={size} />
-                            ))}
+                            {product.salePrices.map((size, index) => {
+                                if (size?.value > 0) {
+                                    return (
+                                        <div className='hollow-button' key={index}>
+                                            <button>
+                                                <span className='price-type-text'>{size.name}</span>
+                                                <span>{size?.value}/гр</span>
+                                            </button>
+                                        </div>
+                                    )
+                                }
+                            })} 
                         </div>
                         <div className='product-previewer-interaction'>
                             <div className='pr-pr-row'>
@@ -101,14 +107,10 @@ const ProductPreviewer = ({ product,  productComments }) => {
                             </div>
                             <div className='pr-pr-row'>
                                 <LikeButton productId={product.id}/>
-                                <BuyNowButton />
+                                <BuyNowButton product={product}/>
                             </div>
                         </div>
                     </div>
-                </div>
-                <Accordion items={productDescription} />
-                <div className='product-previewer-misc'>
-                    <img src="https://placehold.co/600x240?text=реклама и т.д." alt="" />
                 </div>
             </div>
         </div>

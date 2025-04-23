@@ -55,7 +55,7 @@ const ProductCard = ({product}) => {
         <h1 onClick={handleProductClick}>
           {product.name.length > 20 ? product.name.substring(0, 30) + '...' : product.name}
         </h1>
-        <p>{product.salePrices[0].value} ₽</p>
+        <p>{(product.salePrices[0].value / 100).toFixed(2)} ₽</p>
         <p style={{fontSize: '14px'}}>{(averageRating).toString().slice(0, 3)} ★ ({product.ratingsFromDatabase.length} ratings)</p>
       </div>
       <div className='product-buttons-container'>

@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { CartItem } from '../CartItem'; // Assuming CartItem is the component that displays the product
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader"; // Loader component to show while loading (if any)
 import { useLocation } from "react-router-dom";
 
 export default function BuyNowCheckout() {

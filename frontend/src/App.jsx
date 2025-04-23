@@ -30,6 +30,7 @@ import { setUser } from "./storage/userSlice";
 import { setAccessToken } from "./storage/authSlice";
 import { useEffect } from "react";
 import { refreshUserInfo } from './api/refreshUserInfo';
+import BuyNowCheckout from "./components/pages/BuyNowCheckout";
 
 const client = new QueryClient();
 
@@ -81,6 +82,7 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/buy-now" element={<BuyNowCheckout/>}/>
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/luzi" element={<LuziPage />} />
@@ -95,6 +97,7 @@ function App() {
             </Route>
 
             <Route path="*" element={<NotFound />} />
+            <Route path="/404" element={<NotFound />}/>
           </Route>
         </Routes>
       </Router>

@@ -35,22 +35,21 @@ const ProductDetails = () => {
   if (isLoading) return <Loader/>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const product = data.apiData;
-  const productComments = data.productComments;
+  const product = data.product;
 
   return (
     <>
         <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
-            <ProductsPreviewer product={product} productComments={productComments} />
+            <ProductsPreviewer product={product} />
         </motion.section>
         <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
           <FourBlockContent />
         </motion.section>
         <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
-          <AllRatingsAndComments productComments={productComments} />
+          <AllRatingsAndComments product={product}/>
         </motion.section>
         <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
-          <RatingAndComments product={product} productComments={productComments} />
+          <RatingAndComments product={product}/>
         </motion.section>
 
         

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../ProductCard'
-import { useSearchParams } from 'react-router-dom'
+import { replace, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../../api/axiosInstance'
 import { useQuery } from '@tanstack/react-query'
 import Loader from '../Loader'
@@ -25,6 +25,7 @@ const SearchResult = () => {
   const [sortBy, setSortBy] = useState('none');
   const [searchParams] = useSearchParams();
   const term = searchParams.get('term');
+  const navigate = useNavigate();
     
   const { data, error, isLoading } = useQuery({
     queryKey: ['searchResults', term],
@@ -34,6 +35,7 @@ const SearchResult = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <div>Ошибка: {error.message}</div>;
+  if (!term) return navigate('/404', replace);
 
   const handleFilterChange = (e) => {
     const filterName = e.target.name;
