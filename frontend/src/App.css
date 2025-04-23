@@ -10,8 +10,7 @@
 :root {
   --theme-color: #23645C;
   --theme-secondary-color: #BC964E;
-  --secondary-color: black;
-  /* #ECE6D9; */
+  --secondary-color:#ECE6D9;
   --element-color: white;
   --text-color: #33312e;
   --font-family: 'Inter', sans-serif;

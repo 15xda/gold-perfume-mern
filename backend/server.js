@@ -122,15 +122,23 @@ const returnSafeMoyskladData = (data) => {
     if (!data || typeof data !== 'object') return null;
     
     const dataList = Array.isArray(data) ? data : [data];
+    // const onlyRetail = 
+
+    // if saleprice is only Roznica return nothing and if there is other prices filter out roznica
 
     const filteredData = dataList.map(product => ({
         id: product.id, 
         name: product.name, 
-        salePrices: product.salePrices?.map(price => ({
+        salePrices: 
+        product.salePrices?.map(price => ({
             name: price.priceType?.name,
             value: (price.value / 100).toFixed(2),
         })) || [],
     }))
+
+    // const filteredData = dataList.map(product => {
+    //     if (product.salesPrices.length > 1 && product.salesPrices.includes)
+    // })
 
     return Array.isArray(data) ? filteredData : filteredData[0];
     

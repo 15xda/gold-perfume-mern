@@ -78,16 +78,16 @@ const ProductPreviewer = ({ product }) => {
                     <div className='interaction-container-lower'>
                         <div className='size-select'>
                             {product.salePrices.map((size, index) => {
-                                if (size?.value > 0) {
-                                    return (
-                                        <div className='hollow-button' key={index}>
+                                return (
+                                    <div className='hollow-button' key={index}>
                                             <button>
                                                 <span className='price-type-text'>{size.name}</span>
                                                 <span>{size?.value}/гр</span>
                                             </button>
                                         </div>
-                                    )
-                                }
+                                )
+                                            
+                                
                             })} 
                         </div>
                         <div className='product-previewer-interaction'>
