@@ -118,31 +118,46 @@ const returnSafeData = (user) => ({
 })
 
 const returnSafeMoyskladData = (data) => {
-
+    
     if (!data || typeof data !== 'object') return null;
-    
+
     const dataList = Array.isArray(data) ? data : [data];
-    // const onlyRetail = 
 
-    // if saleprice is only Roznica return nothing and if there is other prices filter out roznica
+    const filteredData = dataList.map(product => {
+        const validPrices = (product.salePrices || [])
+            .filter(p => p.value !== 0)
+            .map(price => ({
+                name: price.priceType?.name,
+                value: (price.value / 100).toFixed(2),
+            }));
 
-    const filteredData = dataList.map(product => ({
-        id: product.id, 
-        name: product.name, 
-        salePrices: 
-        product.salePrices?.map(price => ({
-            name: price.priceType?.name,
-            value: (price.value / 100).toFixed(2),
-        })) || [],
-    }))
+        return {
+            id: product.id,
+            name: product.name,
+            salePrices: validPrices,
+        };
+    });
 
-    // const filteredData = dataList.map(product => {
-    //     if (product.salesPrices.length > 1 && product.salesPrices.includes)
-    // })
+    // Keep only products where the first price is not 'розничная'
 
-    return Array.isArray(data) ? filteredData : filteredData[0];
+    const onlyWholesaleProducts = filteredData.filter(product => {
+        const firstPrice = product.salePrices[0];
+        return firstPrice && firstPrice.name !== 'розничная';
+    });
+
+    // remove database unnecessary prices from wholesale products
+
+    const pricesToRemove = ['розничная', 'акционная', 'ВБ']; 
     
-}
+    const finalOutput = onlyWholesaleProducts.map(product => ({
+        ...product,
+        salePrices: product.salePrices.filter(price => !pricesToRemove.includes(price.name))
+    }));
+    
+
+    return Array.isArray(data) ? finalOutput : finalOutput[0] || null;
+};
+
 
 app.post('/login', apiLimiter, async (req, res) => {
     try {
@@ -402,7 +417,7 @@ app.get('/search', async(req, res) => {
 
         const matchedProductRatings = await productDetails.find({productId: safeDataMS.map(product => product.id)});
         
-        const combinedData = data.rows.map(product => {
+        const combinedData = safeDataMS.map(product => {
             const matchingProduct = matchedProductRatings.find(rating => rating.productId === product.id)
 
             // const averageRating = matchingProduct && matchingProduct.productRating.length > 0 

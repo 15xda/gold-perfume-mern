@@ -23,6 +23,8 @@ const ProductPreviewer = ({ product }) => {
         imgUrl
     ];
 
+    console.log(product)
+
     const productDescription = [
         {
             title: 'Description',
@@ -82,7 +84,7 @@ const ProductPreviewer = ({ product }) => {
                                     <div className='hollow-button' key={index}>
                                             <button>
                                                 <span className='price-type-text'>{size.name}</span>
-                                                <span>{size?.value}/гр</span>
+                                                <span>{size?.value}</span>
                                             </button>
                                         </div>
                                 )
