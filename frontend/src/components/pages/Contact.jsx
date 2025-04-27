@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const Contact = () => {
-  const userInfo = useSelector(state => state.user.data)
+  const userInfo = useSelector(state => state.user.data);
   const [formData, setFormData] = useState({
     name: userInfo ? userInfo.name : '',
     email: userInfo ? userInfo.email : '',
@@ -19,16 +19,16 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add contact form submission logic here
-    console.log('Contact form submitted:', formData);
+    // Добавьте здесь логику отправки формы
+    console.log('Форма обратной связи отправлена:', formData);
   };
 
   return (
     <div className="contact-page">
       <div className="contact-hero">
         <div className="contact-hero-content">
-          <h1>Get in Touch</h1>
-          <p>We'd love to hear from you {formData.name}</p>
+          <h1>Свяжитесь с нами</h1>
+          <p>Мы будем рады вам помочь, {formData.name}</p>
         </div>
       </div>
 
@@ -36,38 +36,40 @@ const Contact = () => {
         <div className="contact-info">
           <div className="info-section">
             <span className="material-icons">location_on</span>
-            <h3>Visit Us</h3>
-            <p>123 Perfume Street</p>
-            <p>Luxury District, NY 10001</p>
+            <h3>Наш адрес</h3>
+            <p>проспект Ленина, 154А</p>
+            <p>г. Черкесск</p>
           </div>
           <div className="info-section">
             <span className="material-icons">call</span>
-            <h3>Call Us</h3>
-            <p>+1 (555) 123-4567</p>
-            <p>Mon-Fri: 9am - 6pm</p>
+            <h3>Позвоните нам</h3>
+            <p>+7 (928) 758-09-09</p>
+            <p>Пн-Пт: 9:00 - 18:00</p>
           </div>
           <div className="info-section">
-            <span className="material-icons">email</span>
-            <h3>Email Us</h3>
-            <p>info@goldperfume.com</p>
-            <p>support@goldperfume.com</p>
+            <a href="https://wa.me/79287580909" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <i className="fa-brands fa-whatsapp" style={{ fontSize: '32px', color: '#25D366' }}></i>
+              <h3>WhatsApp</h3>
+              <p>+7 (928) 758-09-09</p>
+              <p>Напишите нам в WhatsApp</p>
+            </a>
           </div>
           <div className="info-section">
             <span className="material-icons">schedule</span>
-            <h3>Opening Hours</h3>
-            <p>Monday - Saturday: 10am - 8pm</p>
-            <p>Sunday: 11am - 6pm</p>
+            <h3>Часы работы</h3>
+            <p>Понедельник - Суббота: 10:00 - 20:00</p>
+            <p>Воскресенье: 11:00 - 18:00</p>
           </div>
         </div>
 
         <div className="contact-form-container">
-          <h2>Send us a Message</h2>
+          <h2>Отправьте нам сообщение</h2>
           <form onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
               <input
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Ваше имя"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -77,7 +79,7 @@ const Contact = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="Your Email"
+                placeholder="Ваш Email"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -87,7 +89,7 @@ const Contact = () => {
               <input
                 type="text"
                 name="subject"
-                placeholder="Subject"
+                placeholder="Тема сообщения"
                 value={formData.subject}
                 onChange={handleChange}
                 required
@@ -96,19 +98,19 @@ const Contact = () => {
             <div className="form-group">
               <textarea
                 name="message"
-                placeholder="Your Message"
+                placeholder="Ваше сообщение"
                 value={formData.message}
                 onChange={handleChange}
                 required
                 rows="6"
               ></textarea>
             </div>
-            <button type="submit" className="auth-submit">Send Message</button>
+            <button type="submit" className="auth-submit">Отправить сообщение</button>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Contact 
+export default Contact;

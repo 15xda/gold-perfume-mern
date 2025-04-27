@@ -15,11 +15,13 @@ const ProductCard = ({product}) => {
   const favsState = user.data?.favourites || [];
   const cartState = user.data?.cart || [];
 
-  const averageRating = product.ratingsFromDatabase.length > 0 ? product.ratingsFromDatabase.reduce((acc, rating) => acc + rating.rating, 0) / product.ratingsFromDatabase.length : 0;
+  const averageRating = product.ratingsFromDatabase.length > 0 
+    ? product.ratingsFromDatabase.reduce((acc, rating) => acc + rating.rating, 0) / product.ratingsFromDatabase.length 
+    : 0;
 
   const handleAddToFavourite = async () => {
     try {
-      const response = await api.post('/add-to-favorite', {itemId: product.id});
+      const response = await api.post('/cart/add-to-favourite', {itemId: product.id});
       toast.success(response.data.message);
       dispatch(setFavourites(response.data.favourites))
 
@@ -31,6 +33,9 @@ const ProductCard = ({product}) => {
   const handleProductClick = () => {
     navigate(`/product?prId=${product.id}`)
   }
+
+  const price = product && product.salePrices;
+  const uom = product && product.uom.name;
 
 
   return (
@@ -53,13 +58,13 @@ const ProductCard = ({product}) => {
       </div>
       <div className='product-details-container'>
         <h1 onClick={handleProductClick}>
-          {product.name.length > 20 ? product.name.substring(0, 30) + '...' : product.name}
+          {product.name.length > 40 ? product.name.substring(0, 39) + '...' : product.name}
         </h1>
-        <p>{product.salePrices[0].value} ₽</p>
+        <p>{price}₽/{uom}</p>
         <p style={{fontSize: '14px'}}>{(averageRating).toString().slice(0, 3)} ★ ({product.ratingsFromDatabase.length} ratings)</p>
       </div>
       <div className='product-buttons-container'>
-        <AddToCartButton productId={product.id}/>
+        <AddToCartButton product={product}/>
       </div>
     </div>
   );

@@ -20,22 +20,20 @@ const ProductRecommender = () => {
     queryKey: ['recommendedTerm', recommendedTerm],
     queryFn: () => getRecommends(term=recommendedTerm, limit=10),
   })
-
-  console.log(data)
    
   const navigate = useNavigate();
   // Replace context with dummy data
   const dummyProducts = [
-    { id: 1, name: "Sample Product 1", salePrices: [{value: 12}], ratingsFromDatabase: [{rating: 4}] },
-    { id: 2, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}] },   
-    { id: 2, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
-    { id: 3, name: "Sample Product 1", salePrices: [{value: 12}], ratingsFromDatabase: [{rating: 5}] },
-    { id: 4, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
-    { id: 5, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
-    { id: 2, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
-    { id: 3, name: "Sample Product 1", salePrices: [{value: 12}], ratingsFromDatabase: [{rating: 5}] },
-    { id: 4, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
-    { id: 5, name: "Sample Product 2", salePrices: [{value: 14}], ratingsFromDatabase: [{rating: 5}]},
+    { id: 1, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 4}] , uom: {name: 'g', description: 'Gramm'}},
+    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},   
+    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
+    { id: 3, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},
+    { id: 4, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
+    { id: 5, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
+    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
+    { id: 3, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},
+    { id: 4, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
+    { id: 5, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
   ];
 
   return (

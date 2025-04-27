@@ -14,7 +14,7 @@ const fadeUp = {
 const fetchProducts = async (term) => {
   if (!term) return [];
 
-  const response = await api.get('/search', {
+  const response = await api.get('/products/search', {
     params: { term }
   });
   return response.data;

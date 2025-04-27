@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setSubmitted(true);
     try {
-      const response = await api.post('/reset-password', { email });
+      const response = await api.post('/auth/reset-password', { email });
       toast.success('Reset link sent to your email!');
     } catch (error) {
       console.error(error)

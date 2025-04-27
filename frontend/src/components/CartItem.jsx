@@ -2,9 +2,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react";
 import api from "../api/axiosInstance";
 import { setCart } from "../storage/userSlice";
-import { toast } from "react-toastify";
-
-
 
 export const CartItem = ({ product }) => {
   
@@ -14,13 +11,16 @@ export const CartItem = ({ product }) => {
   const productFromState = userCart.find(item => item.itemId === product.id);
   const [productCount, setProductCount] = useState(productFromState?.quantity || 1);
   const [isLoading, setIsLoading] = useState(false);
+  const [prodOpper, setProdOper] = useState(1);
+  const [minQuant, setMinQuant] = useState(1);
+
 
   const updateQuantity = async (newQuantity) => {
     setProductCount(newQuantity);
     setIsLoading(true);
     
     try {
-      const response = await api.put('/update-cart', {
+      const response = await api.put('/cart/update-cart', {
         itemId: product.id,
         quantity: newQuantity
       });
@@ -35,14 +35,27 @@ export const CartItem = ({ product }) => {
 
   const handleRemoveItem = async () => {
     try {
-      const response = await api.put('/delete-from-cart', {itemId: product.id,})
+      const response = await api.put('/cart/delete-from-cart', {itemId: product.id,})
       console.log(response.data);
       dispatch(setCart(response.data.cart))
     } catch (error) {
       console.log(error)
     }
   }
-  
+
+  useEffect(() => {
+
+      const productUOM = product.uom?.name || '';
+
+      if (productUOM === 'шт') {
+          setMinQuant(6);
+          setProdOper(1);
+      } else if (productUOM === 'г') {
+          setMinQuant(30);
+          setProdOper(10);
+      }
+  }, [product]);
+
   return (
     <div className="cart-item">
       <div className="cart-item-image">
@@ -50,17 +63,16 @@ export const CartItem = ({ product }) => {
       </div>
       <div className="cart-item-details">
         <h3>{product.name}</h3>
-        <p className="cart-item-price">{product.price} ₽</p>
+        <p className="cart-item-price">{product.salePrices}₽ / {product.uom.description}</p>
       </div>
       <div className="cart-item-quantity">
-        <button onClick={() => productCount > 1 && updateQuantity(productCount - 5)}>- 5</button>
-        <button onClick={() => productCount > 1 && updateQuantity(productCount - 1)}>-</button>
-        {isLoading ? <div className="loader-small" style={{width: '50px', display: 'flex', justifyContent: 'center'}}></div> : <input type="number" value={productCount} readOnly/>}
-        <button onClick={() => productCount < 100 && updateQuantity(productCount + 1)}>+</button>
-        <button onClick={() => productCount < 100 && updateQuantity(productCount + 5)}>+ 5</button>
+        
+        <button onClick={() => productCount > minQuant && updateQuantity(productCount - prodOpper)}>-</button>
+        {isLoading ? <div className="loader-small" style={{width: '50px', display: 'flex', justifyContent: 'center'}}></div> : <input type="number" defaultValue={productCount}/>}
+        <button onClick={() => updateQuantity(productCount + prodOpper)}>+</button>
       </div>
       <div className="cart-item-total">
-        {product.salePrices[0].value * productCount} ₽
+        {product.salePrices * productCount} ₽
       </div>
       <button className="cart-item-remove" onClick={handleRemoveItem}>
         <span className="material-icons">close</span>

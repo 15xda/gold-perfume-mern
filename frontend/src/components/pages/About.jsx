@@ -5,68 +5,86 @@ const About = () => {
     <div className="about-page">
       <div className="about-hero">
         <div className="about-hero-content">
-          <h1>Our Story</h1>
-          <p>Crafting Luxury Fragrances Since 1995</p>
+          <h1>Gold Parfum - Масляная парфюмерия оптом</h1>
+          <p>Поставщик элитной масляной парфюмерии</p>
         </div>
       </div>
 
       <div className="about-container">
         <section className="about-section">
-          <h2>Who We Are</h2>
+          <h2>О нас</h2>
           <p>
-            Gold Perfume is a luxury fragrance house dedicated to creating unique and memorable scents. 
-            Our commitment to quality and innovation has made us a leader in the fragrance industry for over 25 years.
+            Вас приветствует поставщик элитной масляной парфюмерии Gold Parfum. Наша команда помогла более 100 партнерам осуществить мечту и начать бизнес в прекрасной парфюмерной нише. 
+            Присоединяйтесь к нам и начните бизнес с маслами с закупки товаров от 5.000₽.
           </p>
         </section>
 
         <section className="about-section mission">
           <div className="mission-content">
-            <h2>Our Mission</h2>
-            <p>
-              To create exceptional fragrances that inspire confidence and leave lasting impressions. 
-              We believe in the power of scent to enhance life's moments and create memories.
-            </p>
+            <h2>Наш ассортимент</h2>
+            <ul>
+              <li>Парфюмерные масла в чистом концентрате</li>
+              <li>Парфюмерная вода для изготовления духов</li>
+              <li>Флаконы самых разных видов и объемов</li>
+              <li>Диффузоры для дома</li>
+              <li>Авто-парфюм</li>
+              <li>Свечи ручной работы</li>
+              <li>Полки с парфюмом</li>
+            </ul>
           </div>
+
           <div className="mission-stats">
             <div className="stat-item">
-              <span className="stat-number">25+</span>
-              <span className="stat-label">Years of Excellence</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Unique Fragrances</span>
+              <span className="stat-number">150+</span>
+              <span className="stat-label">Ароматов в ассортименте</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">100+</span>
-              <span className="stat-label">Global Partners</span>
+              <span className="stat-label">Партнеров</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">5 000₽</span>
+              <span className="stat-label">Минимальная закупка</span>
             </div>
           </div>
         </section>
 
         <section className="about-section values">
-          <h2>Our Values</h2>
+          <h2>Преимущества бизнеса с нами</h2>
           <div className="values-grid">
             <div className="value-item">
-              <span className="material-icons">diamond</span>
-              <h3>Quality</h3>
-              <p>Only the finest ingredients and craftsmanship</p>
+              <span className="material-icons">check_circle</span>
+              <h3>Схожесть до 97%</h3>
+              <p>Наши масла максимально приближены к оригинальным ароматам.</p>
             </div>
             <div className="value-item">
-              <span className="material-icons">eco</span>
-              <h3>Sustainability</h3>
-              <p>Committed to environmental responsibility</p>
+              <span className="material-icons">schedule</span>
+              <h3>Высокая стойкость</h3>
+              <p>Часто стойкость масел выше, чем у оригинальных духов.</p>
             </div>
             <div className="value-item">
-              <span className="material-icons">psychology</span>
-              <h3>Innovation</h3>
-              <p>Pushing boundaries in fragrance creation</p>
+              <span className="material-icons">trending_up</span>
+              <h3>Высокая доходность</h3>
+              <p>Быстрая окупаемость и стабильный доход.</p>
             </div>
             <div className="value-item">
-              <span className="material-icons">diversity_3</span>
-              <h3>Community</h3>
-              <p>Building lasting relationships</p>
+              <span className="material-icons">lightbulb</span>
+              <h3>Минимальные вложения</h3>
+              <p>Старт бизнеса от 5 000₽.</p>
+            </div>
+            <div className="value-item">
+              <span className="material-icons">emoji_nature</span>
+              <h3>Творческая работа</h3>
+              <p>Создание парфюмерных композиций - это вдохновение каждый день.</p>
             </div>
           </div>
+        </section>
+
+        <section className="about-section delivery">
+          <h2>Доставка</h2>
+          <p>
+            Мы осуществляем доставку по всей России и странам СНГ.
+          </p>
         </section>
       </div>
     </div>

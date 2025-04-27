@@ -124,38 +124,21 @@ const returnSafeMoyskladData = (data) => {
     const dataList = Array.isArray(data) ? data : [data];
 
     const filteredData = dataList.map(product => {
-        const validPrices = (product.salePrices || [])
-            .filter(p => p.value !== 0)
-            .map(price => ({
-                name: price.priceType?.name,
-                value: (price.value / 100).toFixed(2),
-            }));
-
         return {
             id: product.id,
             name: product.name,
-            salePrices: validPrices,
+            salePrices: (product.salePrices[0].value / 100).toFixed(2),
+            uom: {
+                name: product.uom.name,
+                description: product.uom.description
+            }
         };
     });
-
-    // Keep only products where the first price is not 'розничная'
-
-    const onlyWholesaleProducts = filteredData.filter(product => {
-        const firstPrice = product.salePrices[0];
-        return firstPrice && firstPrice.name !== 'розничная';
-    });
-
-    // remove database unnecessary prices from wholesale products
-
-    const pricesToRemove = ['розничная', 'акционная', 'ВБ']; 
-    
-    const finalOutput = onlyWholesaleProducts.map(product => ({
-        ...product,
-        salePrices: product.salePrices.filter(price => !pricesToRemove.includes(price.name))
-    }));
     
 
-    return Array.isArray(data) ? finalOutput : finalOutput[0] || null;
+    return Array.isArray(data) ? filteredData : filteredData[0] || null;
+
+
 };
 
 
@@ -250,7 +233,6 @@ app.post('/reset-password', async (req, res) => {
 
     try {
         const user = await User.findOne({email: email}); 
-        console.log(user.passwordReset.resetTokenExpiration)
 
         if (!user) {
             return;
@@ -338,7 +320,7 @@ app.post('/update-password', apiLimiter, checkCreds, async (req, res) => {
     }
 })
 
-app.patch('/update-user-info', apiLimiter, checkCreds, async (req, res) => {
+app.post('/update-user-info', apiLimiter, checkCreds, async (req, res) => {
 
     try {
         const updateData = req.body;
@@ -395,13 +377,14 @@ app.post('/reset-password/confirm', async (req, res) => {
     }
 })
 
+/
 
 app.get('/search', async(req, res) => {
     
     try {
         const {term}  = req.query;
 
-        const response = await fetch(`${apiUrlMS}?search=${encodeURI(term)} `, {
+        const response = await fetch(`${apiUrlMS}?search=${encodeURI(term)}&filter=pathName!=Розница&expand=uom&limit=100`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${apiKeyMS}`,
@@ -434,7 +417,7 @@ app.get('/search', async(req, res) => {
         
 
     } catch (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("Error fetching data:", error);
         res.status(500).json({error: 'Ошибка API MoySklad'})
     }
     
@@ -447,7 +430,7 @@ app.get('/product/:productId', async(req, res) => {
 
     try {
         
-        const response = await fetch(`${apiUrlMS}/${productId}`, {
+        const response = await fetch(`${apiUrlMS}/${productId}?expand=uom`, {
             method: 'GET',
             headers: {
                 "Authorization" : `Bearer ${apiKeyMS}`,
@@ -761,6 +744,16 @@ app.post('/delete-address', checkCreds, async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({message: 'Internal Server error'})
+    }
+})
+
+app.post('/order', checkCreds, async (req, res) => {
+    const {orderDetails} = req.body;
+
+    try {
+        const user = await User.findById(req.userId);
+    } catch(error) {
+
     }
 })
 

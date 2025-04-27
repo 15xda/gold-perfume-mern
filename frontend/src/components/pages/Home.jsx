@@ -6,6 +6,7 @@ import BrandSection from '../BrandSection'
 import FAQ from '../FAQ'
 import { motion } from 'framer-motion'
 import Loader from '../Loader'
+import VideoEmbed from '../VideoEmbed'
 
 const Home = () => {
 

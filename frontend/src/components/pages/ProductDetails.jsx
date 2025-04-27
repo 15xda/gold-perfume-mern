@@ -9,6 +9,8 @@ import { AllRatingsAndComments } from '../RatingAndComments';
 import FourBlockContent from '../FourBlockContent';
 import { motion } from 'framer-motion';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const fadeUp = {
   hidden: { opacity: 0, },
   visible: { opacity: 1, transition: { duration: 0.8 } },
@@ -16,7 +18,7 @@ const fadeUp = {
 
 const fetchProduct = async (productId) => {
   if (!productId) return [];
-  const response = await axios.get(`http://localhost:4004/product/${productId}`,);
+  const response = await axios.get(`${apiUrl}/products/${productId}`,);
   return response.data;
 }
 

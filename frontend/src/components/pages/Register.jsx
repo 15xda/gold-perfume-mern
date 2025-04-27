@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import zxcvbn from 'zxcvbn';
 import { motion } from 'framer-motion';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const fadeIn = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { duration: 0.5 } },
@@ -66,7 +68,7 @@ const Register = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:4004/register', formData);
+      const response = await axios.post(`${apiUrl}/auth/register`, formData);
       toast.success(response.data.message);
       navigate('/login', replace);
     } catch (error) {

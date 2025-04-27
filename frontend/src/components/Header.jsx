@@ -11,8 +11,7 @@ const Header = () => {
 
   const user = useSelector((state) => state.user?.data);
   const dispatch = useDispatch();
-  const totalItemsInCart = user ?  user.cart.reduce((acc, item) => acc + item.quantity, 0) : [];
-  console.log(user);
+  const totalItemsInCart = user ?  user.cart.length : 0;
   
   return (
     <div className='header'>
@@ -56,10 +55,10 @@ const Header = () => {
         <div className='header-link-list-container'>
             <div className='header-link-list'>
               <ul>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/">Home</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/about">About</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/products">Products</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/contact">Contact</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/">Главная</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/about">О нас</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/products">Продукты</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/contact">Контакты</NavLink></li>
               </ul>
             </div>
         </div>

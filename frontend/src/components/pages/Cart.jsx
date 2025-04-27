@@ -1,48 +1,64 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartItem } from '../CartItem';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../Loader';
 import api from '../../api/axiosInstance';
 
-const fetchCart = async (ids) => {
+export const fetchCart = async (ids) => {
   if (!ids) return [];
-  const response = await api.post('/product/batch', {productIds: ids});
+  const response = await api.post('/products/batch', { productIds: ids });
   return response.data;
-}
+};
 
 const Cart = () => {
   const navigate = useNavigate();
-  const user = useSelector(state => state.user?.data);
-  const ids = user?.cart.map(item => item.itemId) || [];
-  
-  
-  const {data, error, isLoading} = useQuery({
+  const user = useSelector((state) => state.user?.data);
+  const cart = user?.cart || [];
+  const ids = cart.map((item) => item.itemId);
+  const [cartTotal, setCartTotal] = useState(0);
+
+  const { data: products, error, isLoading } = useQuery({
     queryKey: ['userCart', ids],
     queryFn: () => fetchCart(ids),
-    enabled: !!ids.length,
-  })
+    enabled: Array.isArray(ids) && ids.length > 0,
+  });
 
-  if (isLoading) return <Loader/>;
-  if (error) return <p>Error fetching Cart</p>;
-  if (!user) return  <div className='loader-main'><h3>Please <a className='gold-link' href="/login">login</a> to view cart</h3></div>;
-    
-  const products = data || [];
+  useEffect(() => {
+    if (products && cart.length) {
+      const total = cart.reduce((sum, cartItem) => {
+        const product = products.find((p) => p.id === cartItem.itemId);
+        if (!product) return sum;
+        return sum + product.salePrices * cartItem.quantity;
+      }, 0);
+      setCartTotal(total);
+    }
+  }, [products, cart]);
 
-  const subtotal = 20;
   const shipping = 10;
-  const total = 10 + shipping;
+
+  if (isLoading) return <Loader />;
+  if (error) return <p>Ошибка при загрузке корзины</p>;
+  if (!user) {
+    return (
+      <div className="loader-main">
+        <h3>
+          Пожалуйста, <a className="gold-link" href="/login">войдите</a>, чтобы просматривать корзину
+        </h3>
+      </div>
+    );
+  }
 
   return (
     <div className="cart-page">
       <div className="cart-container">
         <div className="cart-header">
-          <h1>Shopping Cart</h1>
-          <p className="cart-count">{products.length} items</p>
+          <h1>Корзина покупок</h1>
+          <p className="cart-count">{products?.length || 0} товаров</p>
         </div>
-        
-        {products.length > 0 ? (
+
+        {products?.length > 0 ? (
           <div className="cart-content">
             <div className="cart-items">
               {products.map((product) => (
@@ -50,40 +66,35 @@ const Cart = () => {
               ))}
             </div>
             <div className="cart-summary">
-              <h2>Order Summary</h2>
+              <h2>Итог заказа</h2>
               <div className="summary-row">
-                <span>Subtotal</span>
-                <span>{subtotal.toFixed(2)} ₽</span>
-              </div>
-              <div className="summary-row">
-                <span>Shipping</span>
-                <span>{shipping.toFixed(2)} ₽</span>
+                <span>Промежуточный итог</span>
+                <span>{cartTotal.toFixed(2)} ₽</span>
               </div>
               <div className="summary-row total">
-                <span>Total</span>
-                <span>{total.toFixed(2)} ₽</span>
+                <span>Итого</span>
+                <span>{cartTotal.toFixed(2)} ₽</span>
               </div>
               <button className="checkout-button" onClick={() => navigate('/checkout')}>
-                Proceed to Checkout
+                Перейти к оформлению заказа
               </button>
               <button className="continue-shopping" onClick={() => navigate('/')}>
-                Continue Shopping
+                Продолжить покупки
               </button>
             </div>
           </div>
         ) : (
           <div className="cart-empty">
             <span className="material-icons">shopping_cart</span>
-            <p>Your cart is empty</p>
+            <p>Ваша корзина пуста</p>
             <button className="continue-shopping" onClick={() => navigate('/')}>
-              Start Shopping
+              Начать покупки
             </button>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Cart 
-export {fetchCart}
+export default Cart;

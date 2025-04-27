@@ -7,7 +7,7 @@ import { store } from "../storage/store";
 export const logoutGlobal = async () => {
     try {
 
-        await api.post('/logout')
+        await api.post('/auth/logout')
         store.dispatch(clearAccessToken());
         store.dispatch(logout()); 
         window.location.replace(window.location.href);

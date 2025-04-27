@@ -8,7 +8,7 @@ import Loader from '../Loader';
 
 const fetchFavourites = async (ids) => {
   if (!ids) return [];
-  const response = await api.post('/product/batch', {productIds: ids});
+  const response = await api.post('/products/batch', {productIds: ids});
   return response.data;
 }
 
@@ -16,10 +16,12 @@ const Favorites = () => {
   const user = useSelector(state => state.user?.data);
   const ids = user?.favourites || [];
 
+  console.log(user?.favourites);
+
   const {data, error, isLoading} = useQuery({
     queryKey: ['userFavourites', ids],
     queryFn: () => fetchFavourites(ids),
-    enabled: !!ids.length,
+    enabled: Array.isArray(ids) && ids.length > 0,
   })
 
   if (isLoading) return <Loader/>;

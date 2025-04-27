@@ -54,7 +54,7 @@ const Dashboard = () => {
 
   const updatePassword = async (currentPassword, newPassword) => {
     try {
-      const res = await api.post('/update-password', passwordForm);
+      const res = await api.post('/auth/update-password', passwordForm);
       toast.success(res.data.message);
       setPasswordForm({
         currentPassword: '',
@@ -102,7 +102,7 @@ const Dashboard = () => {
   const updateUserData = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.patch('/update-user-info', userData);
+      const res = await api.post('/user/update-user-info', userData);
       dispatch(replaceUserData(res.data.user))
       toast.success(res.data.message);
     } catch (error) {
@@ -113,7 +113,7 @@ const Dashboard = () => {
   const saveAddress = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/add-address', {
+      const res = await api.post('/user/add-address', {
         address: `${addressForm.city}, ${addressForm.street}, ${addressForm.house}, ${addressForm.zip}`, 
         userId: user.id,
       })
@@ -128,7 +128,7 @@ const Dashboard = () => {
 
   const deleteAddress = async (address) => {
     try {
-      const res = await api.post('/delete-address', {address})
+      const res = await api.post('/user/delete-address', {address})
       dispatch(setAddresses(res.data.addresses))
       toast.success('Address Deleted Successfully')
     } catch (error) {

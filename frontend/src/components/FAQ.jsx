@@ -1,21 +1,29 @@
 import React from 'react'
 import Accordion from './Accordion'
 const FAQ = () => {
-    const accordionItems = [
-        {
-          title: "Shipping Information",
-          content: "We offer free shipping on all orders over $50. Delivery typically takes 3-5 business days."
-        },
-        {
-          title: "Return Policy",
-          content: "Returns are accepted within 30 days of purchase. Items must be unused and in original packaging."
-        },
-        {
-          title: "Payment Methods",
-          content: "We accept Visa, Mastercard, American Express, and PayPal. All transactions are secure and encrypted."
-        },
-        
-      ];
+  const accordionItems = [
+    {
+      title: "О нас",
+      content: "Вас приветствует поставщик элитной масляной парфюмерии Gold Parfum. Наша команда помогла более 100 партнерам осуществить мечту и начать бизнес в прекрасной парфюмерной нише."
+    },
+    {
+      title: "Наши товары",
+      content: "Мы предлагаем более 150 ароматов от ведущих европейских парфюмерных заводов: Giauvadan, Luzi, CPL, Seluz. В нашем ассортименте: парфюмерные масла в чистом концентрате, парфюмерная вода, флаконы разных видов и объемов, диффузоры для дома, авто-парфюм и свечи ручной работы."
+    },
+    {
+      title: "Преимущества бизнеса",
+      content: "Схожесть с оригиналами до 97%. Стойкость выше чем у оригинала. Высокая окупаемость и доход. Маленькие вложения от 5000р. Приятная и творческая работа с парфюмом."
+    },
+    {
+      title: "Доставка",
+      content: "Мы осуществляем доставку по всей России и СНГ."
+    },
+    {
+      title: "Начало бизнеса",
+      content: "Присоединяйтесь к нам и начните бизнес с маслами с закупки товаров от 5000р."
+    }
+  ];
+  
   return (
     <div className='faq-container'>
         <h1>Часто задаваемые вопросы</h1>

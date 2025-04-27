@@ -4,9 +4,10 @@ import { setAccessToken } from "../storage/authSlice";
 import {refreshUserInfo} from './refreshUserInfo';
 import { logoutGlobal } from "./logout";
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-    baseURL: 'http://localhost:4004',
+    baseURL: apiUrl,
     withCredentials: true,
 });
 

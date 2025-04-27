@@ -16,7 +16,7 @@ const RatingAndComments = ({ product }) => {
 
   const handleCommentSubmit = async () => {
     try {
-      const response = await api.post('/rating', {
+      const response = await api.post('/products/rating', {
         productId: product.id,
         comment,
         rating,
@@ -33,7 +33,7 @@ const RatingAndComments = ({ product }) => {
 
   const handleCommentDelete = async () => {
     try {
-      const response = await api.post('/delete-rating', {
+      const response = await api.post('/products/delete-rating', {
           productId: product.id,
         });
 

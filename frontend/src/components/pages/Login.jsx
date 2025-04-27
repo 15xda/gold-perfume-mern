@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const fadeIn = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { duration: 0.5 } },
@@ -26,7 +28,7 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:4004/login', formData, {withCredentials: true});
+      const response = await axios.post(`${apiUrl}/auth/login`, formData, {withCredentials: true});
       dispatch(setUser(response.data.userData));
       dispatch(setAccessToken(response.data.accessToken));
       toast.success(response.data.message);

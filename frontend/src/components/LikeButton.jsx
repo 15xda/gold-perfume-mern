@@ -14,7 +14,7 @@ const LikeButton = ({productId}) => {
 
     const handleAddToFavourite = async () => {
         try {
-          const response = await api.post('/add-to-favorite', { itemId: productId, userId: user.id});
+          const response = await api.post('/cart/add-to-favourite', { itemId: productId, userId: user.id});
           toast.success(response.data.message);
           dispatch(setFavourites(response.data.favourites))
     

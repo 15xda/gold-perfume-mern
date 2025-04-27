@@ -1,6 +1,7 @@
 import React from 'react'
 import ButtonJumpAnimation from './ButtonJumpAnimation'
 import { motion } from 'framer-motion'
+import VideoEmbed from './VideoEmbed'
 
 const slideRight = {
   hidden: { opacity: 0, x: -30 },
@@ -25,11 +26,14 @@ export default function BigPreviewer() {
             </motion.section>  
 
             <div className='bigpreviewer-image'>
-                <div className='square-image-container'>
-                  <div className='square-image-container-image'>
-                    <img src='https://cdn.aromo.ru/upload/users_accounts_news_pictures/2c8/5asrg5z905uwlhcxdp660gmolk2esw4d/424661503-701634372152634-1530270099222053251-n.jpg' />
-                  </div>
-                </div>
+              <div className='video-container'>
+                <iframe
+                  src="https://vk.com/video_ext.php?oid=-211095776&id=456239221&hash=8d6f22975045c475"
+                  title="VK Video"
+                  frameBorder="0"
+                  allow="encrypted-media; fullscreen"
+                ></iframe>
+              </div>
             </div>
         </div>
     </div>
