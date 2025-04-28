@@ -6,7 +6,7 @@ const apiKeyMS = '76adf5d95c3c43a6dde48d5947b27ae6c2f675db';
 
 const fetchProducts =  async () => {
     try {
-        const response = await fetch(`${apiUrlMS}?search=${encodeURI('luzi')}&filter=pathName!=Розница&expand=uom&limit=1`, {
+        const response = await fetch(`${apiUrlMS}?filter=pathName!=Розница`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${apiKeyMS}`,
