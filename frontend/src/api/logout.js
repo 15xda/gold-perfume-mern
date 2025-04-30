@@ -10,7 +10,7 @@ export const logoutGlobal = async () => {
         await api.post('/auth/logout')
         store.dispatch(clearAccessToken());
         store.dispatch(logout()); 
-        window.location.reload(window.location.href);
+        window.location.href = '/login';
 
     } catch (error) {
         console.error('Logout error:', error);
