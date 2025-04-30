@@ -34,7 +34,7 @@ const Header = () => {
                 (<div className='header-auth-buttons'>
                   <Link to='/dashboard'><span className="material-icons" >person</span><div className='logged-in'>
                   {user.name.length > 15 ? user.name.slice(0, 14) + '...' : user.name}</div></Link>
-                  <span title='Log Out' className="material-icons logout" onClick={() => handleLogout}>logout</span>
+                  <span title='Log Out' className="material-icons logout" onClick={handleLogout}>logout</span>
                 </div>) :
 
                 (<div className='header-auth-buttons'>

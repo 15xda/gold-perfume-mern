@@ -354,7 +354,7 @@ const Dashboard = () => {
             </button>
             <button
               className="nav-item logout"
-              onClick={() => handleLogout}
+              onClick={handleLogout}
             >
               <span className="material-icons">logout</span>
               Logout
