@@ -10,11 +10,11 @@ const BrandSection = () => {
             <span>Наши производители</span>
         </div>
         <div className='brand-section-container'>
-            <BrandCard title='LUZI' onClick={() => navigate('/luzi')} image='src/images/logos/luzi-logo.png' />
-            <BrandCard title='Givaudan' onClick={() => navigate('/givaudan')} image='src/images/logos/givaudan-logo.png' />
-            <BrandCard title='Seluz' onClick={() => navigate('/seluz')} image='src/images/logos/seluz-logo.png' />
-            <BrandCard title='Iberchem' onClick={() => navigate('/iberchem')} image='src/images/logos/iberchem-logo.png' />
-            <BrandCard title='Symrise' onClick={() => navigate('/symrise')} image='src/images/logos/symrise-logo.png' />
+            <BrandCard title='LUZI' onClick={() => navigate('/luzi')} image='/images/logos/luzi-logo.png' />
+            <BrandCard title='Givaudan' onClick={() => navigate('/givaudan')} image='/images/logos/givaudan-logo.png' />
+            <BrandCard title='Seluz' onClick={() => navigate('/seluz')} image='/images/logos/seluz-logo.png' />
+            <BrandCard title='Iberchem' onClick={() => navigate('/iberchem')} image='/images/logos/iberchem-logo.png' />
+            <BrandCard title='Symrise' onClick={() => navigate('/symrise')} image='/images/logos/symrise-logo.png' />
         </div>
       <div/>
     </div>

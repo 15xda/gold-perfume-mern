@@ -78,7 +78,7 @@ const Register = () => {
   return (
     <div className="auth-page">
       <div className="auth-container">
-      <div className='auth-logo'><img src="src/images/logo-dark-font.png" alt="" /></div>
+      <div className='auth-logo'><img src="/images/logo-dark-font.png" alt="" /></div>
         <h1>Создать аккаунт</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

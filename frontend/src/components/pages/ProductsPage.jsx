@@ -31,27 +31,27 @@ const ProductsPage = () => {
     {
       id: 'luzi',
       title: 'LUZI',
-      image: 'src/images/logos/luzi-logo.png',
+      image: '/images/logos/luzi-logo.png',
     },
     {
       id: 'givaudan',
       title: 'Givaudan',
-      image: 'src/images/logos/givaudan-logo.png',
+      image: '/images/logos/givaudan-logo.png',
     },
     {
       id: 'symrise',
       title: 'Symrise',
-      image: 'src/images/logos/symrise-logo.png',
+      image: '/images/logos/symrise-logo.png',
     },
     {
       id: 'seluz',
       title: 'Seluz',
-      image: 'src/images/logos/seluz-logo.png',
+      image: '/images/logos/seluz-logo.png',
     },
     {
       id: 'iberchem',
       title: 'Iberchem',
-      image: 'src/images/logos/iberchem-logo.png',
+      image: '/images/logos/iberchem-logo.png',
     },
   ];
   

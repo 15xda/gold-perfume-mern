@@ -9,7 +9,7 @@ const navigate = useNavigate();
     <footer>
         <div className='footer-main-container'>
                 <div className='footer-logo-container' onClick={() => navigate('/')}>
-                    <img src='src/images/logo-dark-font.png' alt='logo' />
+                    <img src='/images/logo-dark-font.png' alt='logo' />
                 </div>
                 <div className="footer-links-container">
                     <ul>

@@ -8,10 +8,10 @@ const FourBlockContent = () => {
             <p>Наши парфюмерные масла точно передают дух оригинала.</p>
         </div>
         <div className='four-block-content-image'>
-            <img src='src/images/stock/some-perfumes.png' alt='Original perfume' />
+            <img src='/images/stock/some-perfumes.png' alt='Original perfume' />
         </div>
         <div className='four-block-content-image'>
-            <img src='src/images/stock/mixing-perfume.png' alt='Perfume oil' />
+            <img src='/images/stock/mixing-perfume.png' alt='Perfume oil' />
         </div>
         <div className='four-block-content-text'>
             <h1>Точно так же, но доступнее.</h1>

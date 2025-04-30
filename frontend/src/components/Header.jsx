@@ -19,7 +19,7 @@ const Header = () => {
         <div className='header-main-container'>
 
                 <div className='header-logo-container' onClick={() => window.location.replace('/')}>
-                    <img src="src/images/logo-dark-font.png" alt="" />
+                    <img src="/images/logo-dark-font.png" alt="" />
                 </div>
 
                 <SearchBar />
