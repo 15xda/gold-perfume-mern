@@ -137,7 +137,7 @@ const Dashboard = () => {
     }
   }
 
-  const handleUnauthorized = async () => {
+  const handleLogout = async () => {
     await logoutGlobal();
     navigate(0);
   };
