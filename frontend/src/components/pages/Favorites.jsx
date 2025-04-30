@@ -25,9 +25,7 @@ const Favorites = () => {
   })
 
   if (isLoading) return <Loader/>;
-  if (error) return <p>Error fetching favourites</p>;
-  if (!user) return  <div className='loader-main'><h3>Please <a className='gold-link' href="/login">login</a> to view favourites</h3></div>;
-  
+  if (error) return <p>Error fetching favourites</p>;  
   const products = data || [];
 
   return (

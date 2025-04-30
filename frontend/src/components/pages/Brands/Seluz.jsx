@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LazyLoadImage } from 'react-lazy-load-image-component'; // Import LazyLoadImage
+import 'react-lazy-load-image-component/src/effects/blur.css'; // Import the blur effect CSS
 import ButtonJumpAnimation from '../../ButtonJumpAnimation';
 
 const fadeUp = {
@@ -22,22 +24,26 @@ const SeluzPage = () => {
                 <p className="brand-intro">
                     Seluz — это турецкая компания, специализирующаяся на создании уникальных ароматов и вкусов, сочетая современные технологии с традиционным мастерством.
                 </p>
-                <img
-                    src="https://pbs.twimg.com/media/DoF9zysXUAAgGNB.jpg"
+                <LazyLoadImage
+                    src="src/images/pages/seluz/1.png"
                     alt="Флаконы Seluz"
                     className="brand-hero-image"
-                    style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                    effect="blur"  // Blur effect for lazy loading
+                    width="100%"
+                    height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                 />
             </motion.section>
 
             <main className="brand-content">
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
-                    <img
-                        src="https://4.bp.blogspot.com/-V5oDAGJ8qpE/Utw3Sm374YI/AAAAAAAAAME/qLuPzmaL5Zc/s1600/Untitled-2.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/seluz/2.png"
                         alt="Завод Seluz"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Seluz была основана в 2011 году в Стамбуле, Турция. Компания начала свою деятельность с производства ароматов и вкусов, быстро завоевав признание на рынке.
@@ -53,27 +59,25 @@ const SeluzPage = () => {
                 <motion.section className="product-showcase" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Коллекции Seluz</h2>
                     <div className="product-grid">
-                        {[
+                        {[ 
                             { 
                                 title: 'Fine Fragrance', 
-                                image: 'https://wl-img-prd.s3-accelerate.amazonaws.com/fa92ce00-e911-4dcc-b15f-f5d8da591d91-h.jpeg', 
+                                image: "src/images/pages/seluz/3.png", 
                                 description: 'Эксклюзивные ароматы для премиальных парфюмерных брендов.', 
                                 features: ['Высококачественные ингредиенты', 'Уникальные композиции', 'Долговечный эффект']
                               }, 
                               { 
                                 title: 'Fragrance Oils', 
-                                image: 'http://selpakimya.com/images/tesis/4.jpg', 
+                                image: "src/images/pages/seluz/4.png", 
                                 description: 'Концентрированные ароматные масла для создания парфюмерных композиций и ароматизации продуктов.', 
                                 features: ['Высокая концентрация', 'Долговечность', 'Широкий выбор ароматов']
                               }, 
                               { 
                                 title: 'Fragrance for Household Products', 
-                                image: 'https://ounass-sa.atgcdn.ae/contentful/b3xlytuyfm3e/3sjnXl701iv4DrinRWloB4/bcdde338448a3f1d3993660d860f4e1a/Home_Fragrances_APP_PLP_Banner.jpg?q=70', 
+                                image: "src/images/pages/seluz/5.png", 
                                 description: 'Ароматы для использования в бытовой химии, включая средства для стирки и чистки.', 
                                 features: ['Экологичные решения', 'Долговечный аромат', 'Безопасные формулы']
                               }
-                              
-                              
                         ].map((product, index) => (
                             <motion.div
                                 className="product-card"
@@ -83,7 +87,15 @@ const SeluzPage = () => {
                                 whileInView="visible"
                                 viewport={{ once: true }}
                             >
-                                <img src={product.image} alt={product.title} className="product-image" />
+                                <LazyLoadImage
+                                    src={product.image}
+                                    alt={product.title}
+                                    className="product-image"
+                                    effect="blur"
+                                    width="100%"
+                                    height="auto"
+                                    style={{ objectFit: 'cover' }}
+                                />
                                 <h3>{product.title}</h3>
                                 <p>{product.description}</p>
                                 <ul className="product-features">
@@ -98,11 +110,13 @@ const SeluzPage = () => {
 
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Мастерство</h2>
-                    <img
-                        src="http://selpakimya.com/images/tesis/3.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/seluz/6.png"
                         alt="Лаборатория Seluz"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <div className="process-steps">
                         <div className="step">
@@ -122,11 +136,13 @@ const SeluzPage = () => {
 
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
-                    <img
-                        src="http://selpakimya.com/images/tesis/5.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/seluz/7.png"
                         alt="Экологичное производство Seluz"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Seluz активно работает над снижением воздействия на окружающую среду и внедряет устойчивые практики в производство.
@@ -149,9 +165,8 @@ const SeluzPage = () => {
                     />
                 </div>
             </main>
-            
         </div>
     );
 };
 
-export default SeluzPage; 
+export default SeluzPage;

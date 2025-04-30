@@ -5,18 +5,18 @@ const User = require('../models/user');
 // Search for products
 const searchProducts = async (req, res) => {
     try {
-        const { term } = req.query;
+        const { term, limit, offset } = req.query;
         
         // Get products from Moysklad
-        const products = await moyskladService.searchProducts(term);
+        const searchResult = await moyskladService.searchProducts(term, limit, offset);
         
         // Get ratings from database
         const matchedProductRatings = await productDetails.find({
-            productId: products.map(product => product.id)
+            productId: searchResult.products.map(product => product.id)
         });
         
         // Combine product data with ratings
-        const combinedData = products.map(product => {
+        const combinedData = searchResult.products.map(product => {
             const matchingProduct = matchedProductRatings.find(
                 rating => rating.productId === product.id
             );
@@ -27,7 +27,7 @@ const searchProducts = async (req, res) => {
             };
         });
 
-        return res.status(200).json(combinedData);
+        return res.status(200).json({...searchResult, products: combinedData});
     } catch (error) {
         console.error("Error fetching data:", error);
         res.status(500).json({error: 'Ошибка API MoySklad'});

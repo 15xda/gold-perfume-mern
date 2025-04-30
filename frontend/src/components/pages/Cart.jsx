@@ -40,15 +40,6 @@ const Cart = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <p>Ошибка при загрузке корзины</p>;
-  if (!user) {
-    return (
-      <div className="loader-main">
-        <h3>
-          Пожалуйста, <a className="gold-link" href="/login">войдите</a>, чтобы просматривать корзину
-        </h3>
-      </div>
-    );
-  }
 
   return (
     <div className="cart-page">

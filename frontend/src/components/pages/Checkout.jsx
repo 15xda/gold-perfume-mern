@@ -46,7 +46,6 @@ export default function Checkout() {
     // Handle loading and error states first
     if (isLoading) return <Loader />;
     if (error) return <p>Ошибка при загрузке корзины: {error.message}</p>;
-    if (!user) return <p>Пожалуйста, войдите в аккаунт для оформления заказа</p>;
 
     const products = data || [];
 
@@ -112,7 +111,6 @@ export default function Checkout() {
         }
     };
 
-    console.log(orderForm)
 
     return (
         <div className="checkout-page">

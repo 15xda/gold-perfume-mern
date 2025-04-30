@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ButtonJumpAnimation from '../../ButtonJumpAnimation';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -22,22 +24,24 @@ const GivaudanPage = () => {
                 <p className="brand-intro">
                     Givaudan — это компания, которая соединяет науку с искусством для создания лучших ароматов и вкусов.
                 </p>
-                <img
-                    src="https://www.arquimaster.com.ar/web/wp-content/uploads/2019/04/oficinas_givaudan5.jpg"
+                <LazyLoadImage
+                    src="src/images/pages/givaudan/1.png"
                     alt="Штаб-квартира Givaudan"
                     className="brand-hero-image"
-                    style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                    effect="blur"
+                    style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                 />
             </motion.header>
 
             <main className="brand-content">
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Наследие</h2>
-                    <img
-                        src="https://i.ytimg.com/vi/SBwShXc4T5s/maxresdefault.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/givaudan/2.png"
                         alt="Историческое здание Givaudan"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Givaudan была основана в 1895 году в Цюрихе и с тех пор стала крупнейшей в мире компанией в области ароматов и вкусов. Она начала свою историю с инновационных молекул и с тех пор создала глобальное наследие творчества и инноваций.
@@ -53,19 +57,19 @@ const GivaudanPage = () => {
                         {[
                             {
                                 title: 'Изысканные ароматы',
-                                image: 'https://cdn.fifi.ru/news/origin/krupnejshij-proizvoditel-parfyumerii-givaudan-obnovlyaet-oficialnyj-sajt-2.jpg',
+                                image: "src/images/pages/givaudan/3.png",
                                 description: 'Компания создает уникальные ароматы для ведущих мировых брендов люксовой продукции.',
                                 features: ['Инновационная молекулярная технология', 'Индивидуальные ароматы', 'Партнерства с люксовыми брендами']
                             },
                             {
                                 title: 'Потребительские товары',
-                                image: 'https://theblueprint.ru/upload/8040/b5b50bdc1de0c36cdfda00c6c462199d.jpg',
+                                image: "src/images/pages/givaudan/4.png",
                                 description: 'Инновационные ароматы для различных потребительских товаров.',
                                 features: ['Товары для дома и личной гигиены', 'Ароматы для тканей и воздуха', 'Устойчивые решения']
                             },
                             {
                                 title: 'Активная красота',
-                                image: 'https://cloud.jpnn.com/photo/arsip/normal/2024/06/21/suasana-peluncuran-situs-web-givaudanperfumeid-foto-dokument-sgkl.jpg',
+                                image: "src/images/pages/givaudan/5.png",
                                 description: 'Продвинутые ингредиенты для косметики и личной гигиены.',
                                 features: ['Инновационные активные компоненты', 'Натуральные ингредиенты', 'Научные решения']
                             },
@@ -78,7 +82,12 @@ const GivaudanPage = () => {
                                 whileInView="visible"
                                 viewport={{ once: true }}
                             >
-                                <img src={product.image} alt={product.title} className="product-image" />
+                                <LazyLoadImage
+                                    src={product.image}
+                                    alt={product.title}
+                                    className="product-image"
+                                    effect="blur"
+                                />
                                 <h3>{product.title}</h3>
                                 <p>{product.description}</p>
                                 <ul className="product-features">
@@ -93,11 +102,12 @@ const GivaudanPage = () => {
 
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Инновации</h2>
-                    <img
-                        src="https://images.neventum.com/photos/2021/39/1400/60225b8a89a34-givaudanptinptcosmepticspt1pt2019pt1pt1920x1178.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/givaudan/6.png"
                         alt="Исследовательская лаборатория"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <div className="process-steps">
                         <div className="step">
@@ -117,11 +127,12 @@ const GivaudanPage = () => {
 
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Стратегия устойчивого развития</h2>
-                    <img
-                        src="https://aromo.ru/upload/iblock/c58/BB_ARTFULLY-79-stock.adobe_.com_173731674.jpeg"
+                    <LazyLoadImage
+                        src="src/images/pages/givaudan/7.png"
                         alt="Устойчивые практики"
                         className="section-image"
-                        style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                        effect="blur"
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Givaudan лидирует в отрасли по устойчивому развитию, стремясь стать климатически позитивной компанией до 2050 года.
@@ -144,7 +155,6 @@ const GivaudanPage = () => {
                     />
                 </div>
             </main>
-            
         </div>
     );
 };

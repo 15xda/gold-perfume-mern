@@ -8,6 +8,7 @@ import RatingAndComments from '../RatingAndComments';
 import { AllRatingsAndComments } from '../RatingAndComments';
 import FourBlockContent from '../FourBlockContent';
 import { motion } from 'framer-motion';
+import ProductRecommender from '../ProductRecommender';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -38,19 +39,23 @@ const ProductDetails = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   const product = data.product;
+  const nameFirstWord = product?.name.split(' ')[0] || 'e';
 
   return (
     <>
-        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
             <ProductsPreviewer product={product} />
         </motion.section>
-        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+            <ProductRecommender term={product.name} productInspect={true}/>
+        </motion.section>
+        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
           <FourBlockContent />
         </motion.section>
-        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
           <AllRatingsAndComments product={product}/>
         </motion.section>
-        <motion.section variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
+        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
           <RatingAndComments product={product}/>
         </motion.section>
 

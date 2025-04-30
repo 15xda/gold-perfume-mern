@@ -63,8 +63,9 @@ const Contact = () => {
         </div>
 
         <div className="contact-form-container">
-          <h2>Отправьте нам сообщение</h2>
-          <form onSubmit={handleSubmit} className="contact-form">
+          <h2>Мы на карте</h2>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4729.061605402286!2d42.04415134365007!3d44.211618148024755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x405800e60f3eaa87%3A0x82ec76986af8e90d!2sProspekt%20Lenina%2C%20154%20%D0%90%2C%20Cherkessk%2C%20Karachayevo-Cherkesskaya%20Respublika%2C%20Russia%2C%20369001!5e1!3m2!1sen!2ssa!4v1745829743681!5m2!1sen!2ssa" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          {/* <form onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
               <input
                 type="text"
@@ -106,7 +107,8 @@ const Contact = () => {
               ></textarea>
             </div>
             <button type="submit" className="auth-submit">Отправить сообщение</button>
-          </form>
+          </form> */}
+          
         </div>
       </div>
     </div>

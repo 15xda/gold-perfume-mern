@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const BuyNowButton = ({product}) => {
+const BuyNowButton = ({product, quantity}) => {
   const navigate = useNavigate();
 
   const handleBuyNow = () => {
-    navigate('/checkout/buy-now', {state: {product}})
+    navigate('/checkout/buy-now', {state: {product, quantity}})
   }
 
   return (

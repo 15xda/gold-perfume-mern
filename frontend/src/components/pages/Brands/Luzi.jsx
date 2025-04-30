@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ButtonJumpAnimation from '../../ButtonJumpAnimation';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 40 },
@@ -22,22 +24,28 @@ const LuziPage = () => {
                 <p className="brand-intro">
                     LUZI предлагает искусство швейцарской парфюмерии — наследие мастерства, инноваций и устойчивости.
                 </p>
-                <img
-                    src="https://floralodor.ru/images/blog/MadeinSwitzerland_1920x600.jpg?1712912923652"
+                <LazyLoadImage
+                    src="src/images/pages/luzi/1.png"
                     alt="Флаконы LUZI"
                     className="brand-hero-image"
-                    style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                    effect="blur"
+                    placeholderSrc="https://via.placeholder.com/600x400?text=Loading..."
+                    width="100%"
+                    height="400px"
+                    style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                 />
             </motion.section>
 
             <main className="brand-content">
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
-                    <img
-                        src="https://scentlab.co.za/wp-content/uploads/2021/06/Hero_02.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/luzi/2.png"
                         alt="Историческая лаборатория LUZI"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        placeholderSrc="https://via.placeholder.com/600x400?text=Loading..."
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         LUZI была основана в 1926 году Германом Луци в Швейцарии и стала символом парфюмерного мастерства.
@@ -52,26 +60,22 @@ const LuziPage = () => {
                 <motion.section className="product-showcase" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Коллекции LUZI</h2>
                     <div className="product-grid">
-                        {[
-                            {
-                                title: 'LUZI Signature',
-                                image: 'https://static.wixstatic.com/media/aa660f_1212865e3f034f6ca5024c750a9df886~mv2.jpg',
-                                description: 'Элегантность вне времени и утончённые швейцарские композиции.',
-                                features: ['Классические ароматические профили', 'Высококачественные ингредиенты', 'Долговечный эффект']
-                            },
-                            {
-                                title: 'LUZI Naturals',
-                                image: 'https://static.wixstatic.com/media/aa660f_1dfa52c0783446d99589b3bf4b7df7f5~mv2.jpg',
-                                description: 'Чистота и устойчивость — 100% натуральные компоненты.',
-                                features: ['Сертифицированные натуральные компоненты', 'Экологичное производство', 'Минимальное воздействие упаковки']
-                            },
-                            {
-                                title: 'LUZI Exclusive',
-                                image: 'https://static.wixstatic.com/media/aa660f_08c2f79564f74f1594de96c2c588db88~mv2.jpg',
-                                description: 'Редкость и роскошь — ограниченные издания для ценителей.',
-                                features: ['Редкие компоненты', 'Нумерованные коллекционные серии', 'Премиальное оформление']
-                            },
-                        ].map((product, index) => (
+                        {[{
+                            title: 'LUZI Signature',
+                            image: 'src/images/pages/luzi/3.png',
+                            description: 'Элегантность вне времени и утончённые швейцарские композиции.',
+                            features: ['Классические ароматические профили', 'Высококачественные ингредиенты', 'Долговечный эффект']
+                        }, {
+                            title: 'LUZI Naturals',
+                            image: 'src/images/pages/luzi/4.png',
+                            description: 'Чистота и устойчивость — 100% натуральные компоненты.',
+                            features: ['Сертифицированные натуральные компоненты', 'Экологичное производство', 'Минимальное воздействие упаковки']
+                        }, {
+                            title: 'LUZI Exclusive',
+                            image: 'src/images/pages/luzi/5.png',
+                            description: 'Редкость и роскошь — ограниченные издания для ценителей.',
+                            features: ['Редкие компоненты', 'Нумерованные коллекционные серии', 'Премиальное оформление']
+                        }].map((product, index) => (
                             <motion.div
                                 className="product-card"
                                 key={index}
@@ -80,7 +84,12 @@ const LuziPage = () => {
                                 whileInView="visible"
                                 viewport={{ once: true }}
                             >
-                                <img src={product.image} alt={product.title} className="product-image" />
+                                <LazyLoadImage
+                                    src={product.image}
+                                    alt={product.title}
+                                    className="product-image"
+                                    effect="blur"
+                                />
                                 <h3>{product.title}</h3>
                                 <p>{product.description}</p>
                                 <ul className="product-features">
@@ -95,11 +104,13 @@ const LuziPage = () => {
 
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Мастерство</h2>
-                    <img
-                        src="https://sc04.alicdn.com/kf/Hce00d3b24bfe408eb521b86fde455540L/268734895/Hce00d3b24bfe408eb521b86fde455540L.png"
+                    <LazyLoadImage
+                        src="src/images/pages/luzi/6.png"
                         alt="Лаборатория ароматов"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        placeholderSrc="https://via.placeholder.com/600x400?text=Loading..."
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <div className="process-steps">
                         <div className="step">
@@ -119,11 +130,13 @@ const LuziPage = () => {
 
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
-                    <img
-                        src="https://static.wixstatic.com/media/11062b_6ec38afbe78f4fbdbdb799c40dd5993ff000.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/luzi/7.png"
                         alt="Экологичное производство"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        placeholderSrc="https://via.placeholder.com/600x400?text=Loading..."
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         LUZI — экологически ответственная марка. С июля 2022 года все ароматы производятся исключительно с использованием возобновляемой энергии.

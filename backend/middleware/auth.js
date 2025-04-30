@@ -27,12 +27,12 @@ const checkRefreshToken = (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
     
     if (!refreshToken) {
-        return res.status(401).json({ message: "Токен обновления не обнаружен." });
+        return res.status(401).json({ message: "Пожалуйста, войдите в аккаунт." });
     }
 
     jwt.verify(refreshToken, jwtSecretKey, (err, decoded) => {
         if (err) {
-            return res.status(401).json({ message: "Недействительный токен обновления." });
+            return res.status(403).json({ message: "Недействительный токен обновления." });
         }
         req.user = decoded;
         next();

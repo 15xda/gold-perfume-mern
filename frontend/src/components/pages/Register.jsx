@@ -3,14 +3,10 @@ import { Link, replace, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import zxcvbn from 'zxcvbn';
-import { motion } from 'framer-motion';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const fadeIn = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.5 } },
-}
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -80,7 +76,7 @@ const Register = () => {
   };
 
   return (
-    <motion.section variants={fadeIn} initial="initial" whileInView="animate" viewport={{ once: true }} className="auth-page">
+    <div className="auth-page">
       <div className="auth-container">
       <div className='auth-logo'><img src="src/images/logo-dark-font.png" alt="" /></div>
         <h1>Создать аккаунт</h1>
@@ -137,7 +133,7 @@ const Register = () => {
           <p>Уже есть аккаунт? <Link to="/login">Войти</Link></p>
         </div>
       </div>
-    </motion.section>
+    </div>
   );
 };
 

@@ -17,10 +17,11 @@ import Checkout from "./components/pages/Checkout";
 import LuziPage from "./components/pages/Brands/Luzi";
 import GivaudanPage from "./components/pages/Brands/Givaudan";
 import SeluzPage from "./components/pages/Brands/Seluz";
-import FirmenichPage from "./components/pages/Brands/Firmenich";
 import SymrisePage from "./components/pages/Brands/Symrise";
 import ResetPassword from './components/pages/ResetPassword';
 import ProductsPage from "./components/pages/ProductsPage";
+import BuyNowCheckout from "./components/pages/BuyNowCheckout";
+import IberchemPage from "./components/pages/Brands/Iberchem";
 
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer, Flip } from "react-toastify";
@@ -30,7 +31,6 @@ import { setUser } from "./storage/userSlice";
 import { setAccessToken } from "./storage/authSlice";
 import { useEffect } from "react";
 import { refreshUserInfo } from './api/refreshUserInfo';
-import BuyNowCheckout from "./components/pages/BuyNowCheckout";
 
 const client = new QueryClient();
 
@@ -79,21 +79,22 @@ function App() {
             <Route path="/search" element={<SearchResult />} />
             <Route path="/product" element={<ProductDetails />} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/checkout/buy-now" element={<BuyNowCheckout/>}/>
+            
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/luzi" element={<LuziPage />} />
             <Route path="/givaudan" element={<GivaudanPage />} />
             <Route path="/seluz" element={<SeluzPage />} />
-            <Route path="/firmenich" element={<FirmenichPage />} />
+            <Route path="/iberchem" element={<IberchemPage />} />
             <Route path="/symrise" element={<SymrisePage />} />
 
             {/* Protected */}
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/buy-now" element={<BuyNowCheckout/>}/>
             </Route>
 
             <Route path="*" element={<NotFound />} />

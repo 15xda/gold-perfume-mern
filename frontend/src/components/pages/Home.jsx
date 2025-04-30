@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import Loader from '../Loader'
 import VideoEmbed from '../VideoEmbed'
 
+
 const Home = () => {
 
   const fadeUp = {
@@ -23,7 +24,7 @@ const Home = () => {
       </motion.section>
 
       <motion.section initial='hidden' whileInView='visible' viewport={{ once: true }} variants={fadeUp}>
-        <ProductRecommender />
+        <ProductRecommender term={'oud'}/>
       </motion.section>
 
       <motion.section initial='hidden' whileInView='visible' viewport={{ once: true }} variants={fadeUp}>

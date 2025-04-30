@@ -1,54 +1,47 @@
-import React from 'react'
-import Product from './ProductCard'
-import ButtonJumpAnimation from './ButtonJumpAnimation'
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { motion } from 'framer-motion'
+import React from 'react';
+import Product from './ProductCard';
+import ButtonJumpAnimation from './ButtonJumpAnimation';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import api from '../api/axiosInstance';
+import Loader from './Loader';
+
 
 
 const getRecommends =  async (term, limit) => {
   if (!term) return [];
-  const res = await axios.get('/search', { params: {term: term, limit: limit}})
+  const res = await api.get('/products/search', { params: {term, limit} })
   return res.data
 }
 
-const ProductRecommender = () => {
-  const recommendedTerm = 'Luzi';
+const ProductRecommender = ({term, productInspect}) => {
+  const navigate = useNavigate();
+
+  const finalTerm = term.split(' ')[0] || 'e';
 
   const {data, isLoading, error} = useQuery({
-    queryKey: ['recommendedTerm', recommendedTerm],
-    queryFn: () => getRecommends(term=recommendedTerm, limit=10),
+    queryKey: ['recommendedTerm', finalTerm],
+    queryFn: () => getRecommends(finalTerm, 10),
   })
-   
-  const navigate = useNavigate();
-  // Replace context with dummy data
-  const dummyProducts = [
-    { id: 1, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 4}] , uom: {name: 'g', description: 'Gramm'}},
-    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},   
-    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-    { id: 3, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},
-    { id: 4, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-    { id: 5, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-    { id: 2, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-    { id: 3, name: "Sample Product 1", salePrices: 10, ratingsFromDatabase: [{rating: 5}] , uom: {name: 'g', description: 'Gramm'}},
-    { id: 4, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-    { id: 5, name: "Sample Product 2", salePrices: 10, ratingsFromDatabase: [{rating: 5}], uom: {name: 'g', description: 'Gramm'}},
-  ];
+
+  if (isLoading) return <Loader />;
+  if (error) return <h1>Error</h1>
+
 
   return (
       <div className='recommended-products-container'>
           <div className='recommended-products-main-container'>
             <div className='recommended-products-title'>
-              <span>Рекомендуемые ароматы</span>
+              {productInspect ? <span style={{fontSize:'35px'}}>Больше похоже на <strong>{term}</strong></span> : 
+              <span>Рекомендуемые ароматы</span>}
             </div>
             <div className='recommended-products-products'>
-              {dummyProducts.map((product, index) => (
+              {data.products.map((product, index) => (
                 <Product key={index} productId={product.id} product={product}/>
               ))}
             </div>
             <div className='recommended-products-button'>
-              <ButtonJumpAnimation text='Get More' onClick={() => navigate('/search?term=luzi')}/>
+              <ButtonJumpAnimation text='Больше' onClick={() => navigate(`/search?term=${finalTerm}`)}/>
             </div>
           </div>
         </div>

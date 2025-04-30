@@ -1,11 +1,27 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const ProtectedRoutes = () => {
-  const user = useSelector(state => state.user?.data)
-  
-  return user ? <Outlet /> : <Navigate to='/login'/>
-}
+const ProtectedRoute = () => {
+  const user = useSelector(state => state.user?.data);
+  const location = useLocation();
 
-export default ProtectedRoutes
+
+  if (!user) {
+    
+    if (location.pathname !== "/login") {
+      return (
+        <Navigate 
+          to="/login"
+          state={{ from: location.pathname }}
+          replace
+        />
+      );
+    }
+
+    return null;
+  }
+
+  return <Outlet />;
+};
+
+export default ProtectedRoute;

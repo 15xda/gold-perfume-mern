@@ -34,10 +34,10 @@ const Header = () => {
 
                 (<div className='header-auth-buttons'>
                   <Link to="/login">
-                    <span className="material-icons">person</span> Login
+                    <span className="material-icons">person</span> Вход
                   </Link>
                   <span className="auth-divider">|</span>
-                  <Link to="/register">Register</Link>
+                  <Link to="/register">Регистрация</Link>
                 </div>)}
 
                 <div className='header-shopping-interactions'>

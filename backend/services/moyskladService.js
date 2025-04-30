@@ -21,10 +21,10 @@ const returnSafeMoyskladData = (data) => {
     return Array.isArray(data) ? filteredData : filteredData[0] || null;
 };
 
-const searchProducts = async (searchTerm) => {
+const searchProducts = async (searchTerm, limit, offset) => {
     try {
         const response = await fetch(
-            `${apiUrlMS}?search=${encodeURI(searchTerm)}&filter=pathName!=Розница&expand=uom&limit=100`, 
+            `${apiUrlMS}?search=${encodeURI(searchTerm)}&filter=pathName!=Розница&expand=uom&limit=${limit || 10}&offset=${offset || 0}`, 
             {
                 method: "GET",
                 headers: {
@@ -39,7 +39,17 @@ const searchProducts = async (searchTerm) => {
         }
 
         const data = await response.json();
-        return returnSafeMoyskladData(data.rows);
+        const products = returnSafeMoyskladData(data.rows);
+        const total = data.meta.size;
+
+        return {
+            products,
+            total,
+            totalPages: Math.ceil(total / (limit ? limit : 10)),
+            limit: limit || 10, 
+            offset: offset || 0,
+        };
+
     } catch (error) {
         console.error("Error fetching data from Moysklad:", error);
         throw error;

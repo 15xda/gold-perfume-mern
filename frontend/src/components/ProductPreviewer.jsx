@@ -3,11 +3,9 @@ import AddToCartButton from './AddToCartButton';
 import BuyNowButton from './BuyNowButton';
 import { useSelector, useDispatch } from 'react-redux';
 import LikeButton from './LikeButton';
+import ProductImage from './ProductImage';
 
 const ProductPreviewer = ({ product }) => {
-    const imgUrl = 'https://media.istockphoto.com/id/1214012618/vector/spray-bottle-with-transparent-cap-mockup-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=mTcNdKvFukD9WPEkoKGfrnBqHhHNDkgoC0i-QZGHqho=';
-    const mainImg = 'https://etiket.ca/cdn/shop/files/Encelade-EDP-30ml-Marc-AntoineBarrois-Etiket.jpg?v=1694706918&width=1080';
-    const [selectedImage, setSelectedImage] = useState(mainImg);
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.data);
     const [quantity, setQuantity] = useState(0);
@@ -17,12 +15,6 @@ const ProductPreviewer = ({ product }) => {
 
     // Calculate the average rating from productComments
     const rating = product.productComments.length > 0 ? (product.productComments.reduce((acc, rating) => acc + rating.rating, 0) / product.productComments.length).toString().slice(0, 3) : '0';
-
-    const productImages = [
-        mainImg, 
-        imgUrl, 
-        imgUrl
-    ];
 
     useEffect(() => {
         const productUOM = product.uom?.name || '';
@@ -57,18 +49,7 @@ const ProductPreviewer = ({ product }) => {
         <div className='product-previewer'>
             <div className='product-previewer-main-container'>
                 <div className='product-previewer-images'>
-                    <div className='product-previewer-image-left-block'>
-                        {productImages.map((image, index) => (
-                            <div key={index} onClick={() => handleImageClick(image)}>
-                                <img src={image} alt={`Product view ${index + 1}`} />
-                            </div>
-                        ))}
-                    </div>
-                    <div className='product-previewer-image-right-block'>
-                        <div>
-                            <img src={selectedImage} alt={product.name} />
-                        </div>
-                    </div>
+                    <ProductImage product={product}/>
                 </div>
                 <div className='product-previewer-interaction-container'>
                     <div className='interaction-container-upper'>
@@ -107,7 +88,7 @@ const ProductPreviewer = ({ product }) => {
                             </div>
                             <div className='pr-pr-row'>
                                 <LikeButton productId={product.id}/>
-                                <BuyNowButton product={product}/>
+                                <BuyNowButton product={product} quantity={quantity}/>
                             </div>
                         </div>
                     </div>

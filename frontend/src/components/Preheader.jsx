@@ -37,14 +37,18 @@ const Preheader = () => {
         <div className="preheader-quick-links">
           <ul>
             <li>
-              <Link to="/search?term=luzi">Luzi</Link>
+              <Link to="/luzi">Luzi</Link>
             </li>
             <li>
-              <Link to="/search?term=givaudan">Givaudan</Link>
+              <Link to="/givaudan">Givaudan</Link>
             </li><li>
-              <Link to="/search?term=seluz">Seluz</Link>
-            </li><li>
-              <Link to="/search?term=symrise">Symrise</Link>
+              <Link to="/seluz">Seluz</Link>
+            </li>
+            <li>
+              <Link to="/symrise">Symrise</Link>
+            </li>
+            <li>
+              <Link to="/iberchem">Iberchem</Link>
             </li>
           </ul>
         </div>

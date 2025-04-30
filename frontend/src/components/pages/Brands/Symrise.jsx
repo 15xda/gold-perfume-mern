@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LazyLoadImage } from 'react-lazy-load-image-component'; // Import LazyLoadImage
+import 'react-lazy-load-image-component/src/effects/blur.css'; // Import the blur effect CSS
 import ButtonJumpAnimation from '../../ButtonJumpAnimation';
 
 const fadeUp = {
@@ -22,22 +24,25 @@ const SymrisePage = () => {
                 <p className="brand-intro">
                     Symrise — это немецкая компания с богатой историей, начавшейся в 1874 году с открытия синтеза ванилина. Сегодня мы продолжаем традиции инноваций и качества, создавая уникальные ароматы и вкусы для мирового рынка.
                 </p>
-                <img
-                    src="https://wwd.com/wp-content/uploads/2020/05/mockup_hero_final-page-001.jpg"
+                <LazyLoadImage
+                    src="src/images/pages/symrise/1.png"
                     alt="Флаконы Symrise"
                     className="brand-hero-image"
-                    style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                    effect="blur"  // Blur effect for lazy loading
+                    width="100%"
                 />
             </motion.section>
 
             <main className="brand-content">
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
-                    <img
-                        src="https://www.symrise.com/fileadmin/symrise/Corporate/Our_company/Our_history/1874.png"
+                    <LazyLoadImage
+                        src="src/images/pages/symrise/2.png"
                         alt="История Symrise"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         История Symrise началась в 1874 году, когда Фердинанд Тьеманн и Вильгельм Хаарманн открыли метод синтеза ванилина в Хольцминден, Германия. В 1919 году была основана компания Dragoco, которая стала одним из ведущих поставщиков парфюмерных композиций.
@@ -53,22 +58,22 @@ const SymrisePage = () => {
                 <motion.section className="product-showcase" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Коллекции Symrise</h2>
                     <div className="product-grid">
-                        {[
+                        {[ 
                             {
                                 title: 'Fine Fragrance',
-                                image: 'https://www.symrise.com/fileadmin/symrise/News/2020/packshot_reveal.jpg',
+                                image: "src/images/pages/symrise/3.png",
                                 description: 'Эксклюзивные ароматы для премиальных парфюмерных брендов.',
                                 features: ['Высококачественные ингредиенты', 'Инновационные композиции', 'Уникальные аккорды']
                             },
                             {
                                 title: 'Consumer Fragrances',
-                                image: 'https://www.reuters.com/resizer/v2/JWTLWYJLTJOFXGVXAPTGJ2WKUM.jpg?auth=24536c14f6a0be022ce9d283f4a46c2cde7bb0f676a1dcdb79347825c6cedaaa&width=1080&quality=80',
+                                image: "src/images/pages/symrise/4.png",
                                 description: 'Ароматы для массового рынка, включая косметику и средства личной гигиены.',
                                 features: ['Безопасные формулы', 'Широкий ассортимент', 'Стабильное качество']
                             },
                             {
                                 title: 'Natural Ingredients',
-                                image: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Cosmetic_ingredients/CI-landingpage-nature-science-desire.jpg',
+                                image: "src/images/pages/symrise/5.png",
                                 description: 'Натуральные ингредиенты для создания экологичных ароматов.',
                                 features: ['Устойчивое производство', 'Экологичные ингредиенты', 'Ответственные закупки']
                             },
@@ -81,7 +86,15 @@ const SymrisePage = () => {
                                 whileInView="visible"
                                 viewport={{ once: true }}
                             >
-                                <img src={product.image} alt={product.title} className="product-image" />
+                                <LazyLoadImage
+                                    src={product.image}
+                                    alt={product.title}
+                                    className="product-image"
+                                    effect="blur"
+                                    width="100%"
+                                    height="auto"
+                                    style={{ objectFit: 'cover' }}
+                                />
                                 <h3>{product.title}</h3>
                                 <p>{product.description}</p>
                                 <ul className="product-features">
@@ -96,11 +109,13 @@ const SymrisePage = () => {
 
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Мастерство</h2>
-                    <img
-                        src="https://images.wsj.net/im-709735?width=700&height=481"
+                    <LazyLoadImage
+                        src="src/images/pages/symrise/6.png"
                         alt="Лаборатория Symrise"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <div className="process-steps">
                         <div className="step">
@@ -120,11 +135,13 @@ const SymrisePage = () => {
 
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
-                    <img
-                        src="https://www.symrise.com/fileadmin/_processed_/e/8/csm_20120817_STK_Tea_Plantation__2__Header_1400px_59b91e0da4.jpg"
+                    <LazyLoadImage
+                        src="src/images/pages/symrise/7.png"
                         alt="Экологичное производство Symrise"
                         className="section-image"
-                        style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+                        effect="blur"
+                        width="100%"
+                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Symrise активно работает над снижением воздействия на окружающую среду и внедряет устойчивые практики во все аспекты своей деятельности.
@@ -141,15 +158,14 @@ const SymrisePage = () => {
                     </ul>
                 </motion.section>
                 <div className="brand-cta">
-                    <ButtonJumpAnimation 
-                        text={'Посмотреть продукты Symrise'} 
-                        onClick={() => window.location.href = '/search?term=Symrise'}
-                    />
+                        <ButtonJumpAnimation
+                            text={'Посмотреть продукты Symrise'}
+                            onClick={() => window.location.href = '/search?term=Symrise'}
+                        />
                 </div>
             </main>
-           
         </div>
     );
 };
 
-export default SymrisePage; 
+export default SymrisePage;

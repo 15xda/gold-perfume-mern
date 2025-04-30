@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import api from '../api/axiosInstance';
 import { toast } from 'react-toastify';
 import { setFavourites, setCart } from '../storage/userSlice';
+import ProductImage from './ProductImage';
 
 
 const ProductCard = ({product}) => {
@@ -41,11 +42,7 @@ const ProductCard = ({product}) => {
   return (
     <div className='product-container'>
       <div className='product-image-container'>
-        <img
-          src={'https://media.istockphoto.com/id/1214012618/vector/spray-bottle-with-transparent-cap-mockup-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=mTcNdKvFukD9WPEkoKGfrnBqHhHNDkgoC0i-QZGHqho='}
-          alt={product.name}
-          className='product-image'
-        />
+        <ProductImage product={product}/>
         <div 
             className='product-heart-button' 
             onClick={handleAddToFavourite} 
