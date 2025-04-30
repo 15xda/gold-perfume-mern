@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import zxcvbn from 'zxcvbn';
 import { toast } from 'react-toastify';
 import api from '../../api/axiosInstance';
+import { logoutGlobal } from '../../api/logout';
 import { replaceUserData, setAddresses } from '../../storage/userSlice';
 
 const Dashboard = () => {
@@ -135,6 +136,11 @@ const Dashboard = () => {
       console.log(error)
     }
   }
+
+  const handleUnauthorized = async () => {
+    await logoutGlobal();
+    navigate(0);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -348,7 +354,7 @@ const Dashboard = () => {
             </button>
             <button
               className="nav-item logout"
-              onClick={() => navigate('/login')}
+              onClick={() => handleLogout}
             >
               <span className="material-icons">logout</span>
               Logout

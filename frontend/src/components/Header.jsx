@@ -12,13 +12,18 @@ const Header = () => {
   const user = useSelector((state) => state.user?.data);
   const dispatch = useDispatch();
   const totalItemsInCart = user ?  user.cart.length : 0;
+
+  const handleLogout = async () => {
+    await logoutGlobal(); 
+    navigate(0);  
+  };
   
   return (
     <div className='header'>
         
         <div className='header-main-container'>
 
-                <div className='header-logo-container' onClick={() => window.location.replace('/')}>
+                <div className='header-logo-container' onClick={() => window.location.reload('/')}>
                     <img src="/images/logo-dark-font.png" alt="" />
                 </div>
 
@@ -29,7 +34,7 @@ const Header = () => {
                 (<div className='header-auth-buttons'>
                   <Link to='/dashboard'><span className="material-icons" >person</span><div className='logged-in'>
                   {user.name.length > 15 ? user.name.slice(0, 14) + '...' : user.name}</div></Link>
-                  <span title='Log Out' className="material-icons logout" onClick={() => logoutGlobal()}>logout</span>
+                  <span title='Log Out' className="material-icons logout" onClick={() => handleLogout}>logout</span>
                 </div>) :
 
                 (<div className='header-auth-buttons'>
