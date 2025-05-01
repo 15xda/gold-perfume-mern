@@ -56,7 +56,7 @@ const ProductPreviewer = ({ product }) => {
                         <div><h1>{product.name}</h1></div>
                         <div><span className='prp-price-text'>{product.salePrices}₽ / {product.uom?.description}</span></div>
                         <div><strong>Customer Rating</strong></div>
-                        <div><p>{ `${rating} ⭐` || 'No rating'}  ({product.productComments.length || 0} reviews)</p></div>
+                        <div><p>{ `${rating} ⭐` || 'Нет рейтинга'}  ({product.productComments.length || 0} оценок)</p></div>
                     </div>
                     <div className='interaction-container-lower'>
                         <div className='price-notice-box'>

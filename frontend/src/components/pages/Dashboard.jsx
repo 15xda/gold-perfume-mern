@@ -90,8 +90,6 @@ const Dashboard = () => {
     telephone: user.telephone,
   });
 
-
-
   const handleUserDataChange = (e) => {
     const {name, value} = e.target;
     setUserData((prevData) => ({
@@ -120,7 +118,7 @@ const Dashboard = () => {
       })
       dispatch(setAddresses(res.data.addresses));
       setAddingAddress(false);
-      toast.success('Address Was Added!')
+      toast.success('Адрес успешно добавлен!')
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
@@ -131,7 +129,7 @@ const Dashboard = () => {
     try {
       const res = await api.post('/user/delete-address', {address})
       dispatch(setAddresses(res.data.addresses))
-      toast.success('Address Deleted Successfully')
+      toast.success('Адрес успешно удален')
     } catch (error) {
       console.log(error)
     }
@@ -147,18 +145,18 @@ const Dashboard = () => {
       case 'profile':
         return (
           <div className="dashboard-content-section">
-            <h2>Profile Information</h2>
+            <h2>Информация профиля</h2>
             <form onSubmit={updateUserData}>
               <div className="profile-form">
                 <div className="form-group">
-                  <label>Full Name</label>
+                  <label>Полное имя</label>
                   <input type="text" required defaultValue={user.name} name='name' onChange={handleUserDataChange} />
                 </div>
                 <div className="form-group">
-                  <label>Phone</label>
-                  <input type="tel" defaultValue={user.telephone} name='telephone' onChange={handleUserDataChange}  placeholder='Example: +123 456 789 000'/>
+                  <label>Телефон</label>
+                  <input type="tel" defaultValue={user.telephone} name='telephone' onChange={handleUserDataChange}  placeholder='Пример: +123 456 789 000'/>
                 </div>
-                <button type='submit' className="dashboard-button">Update Profile</button>
+                <button type='submit' className="dashboard-button">Обновить профиль</button>
                 </div>
             </form>
           </div>
@@ -167,23 +165,23 @@ const Dashboard = () => {
       case 'orders':
         return (
           <div className="dashboard-content-section">
-            <h2>Order History</h2>
+            <h2>История заказов</h2>
             <div className="orders-list">
               {user.orders && user.orders.length > 0 ? user.orders.map(order => (
                 <div key={order.id} className="order-item">
                   <div className="order-header">
-                    <span>Order #{order.id}</span>
+                    <span>Заказ #{order.id}</span>
                     <span className={`order-status ${order.status.toLowerCase()}`}>
                       {order.status}
                     </span>
                   </div>
                   <div className="order-details">
-                    <p>Date: {order.date}</p>
-                    <p>Total: ${order.total}</p>
+                    <p>Дата: {order.date}</p>
+                    <p>Итого: ${order.total}</p>
                   </div>
-                  <button className="view-order-button">View Details</button>
+                  <button className="view-order-button">Просмотр деталей</button>
                 </div>
-              )) : <p>No orders available. Make the First order to see it here.</p>}
+              )) : <p>Нет доступных заказов. Сделайте первый заказ, чтобы увидеть его здесь.</p>}
             </div>
           </div>
         );
@@ -191,13 +189,13 @@ const Dashboard = () => {
         case 'addresses':
           return (
             <div className="dashboard-content-section">
-              <h2>Saved Addresses</h2>
+              <h2>Сохраненные адреса</h2>
               <div className="addresses-list">
                 {!addingAddress && user.addresses && user.addresses.map((address, index) => (
                   <div key={index} className="address-card">
                     <div className="address-type">{address}</div>
                     <div className="address-actions">
-                      <button className="delete-button" onClick={() => deleteAddress(address)}>Delete</button>
+                      <button className="delete-button" onClick={() => deleteAddress(address)}>Удалить</button>
                     </div>
                   </div>
                 ))}
@@ -265,10 +263,10 @@ const Dashboard = () => {
       case 'security':
         return (
           <div className="dashboard-content-section">
-            <h2>Security Settings</h2>
+            <h2>Настройки безопасности</h2>
             <div className="security-form">
               <div className="form-group">
-                <label>Current Password</label>
+                <label>Текущий пароль</label>
                 <input
                   type="password"
                   name="currentPassword"
@@ -277,7 +275,7 @@ const Dashboard = () => {
                 />
               </div>
               <div className="form-group">
-                <label>New Password</label>
+                <label>Новый пароль</label>
                 <input
                   type="password"
                   name="newPassword"
@@ -286,7 +284,7 @@ const Dashboard = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Confirm New Password</label>
+                <label>Подтвердите новый пароль</label>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -303,7 +301,7 @@ const Dashboard = () => {
                 disabled={passwordScore < 2 || passwordError !== ''}
                 onClick={() => updatePassword(passwordForm.currentPassword, passwordForm.newPassword)}
               >
-                Change Password
+                Изменить пароль
               </button>
             </div>
           </div>
@@ -329,35 +327,35 @@ const Dashboard = () => {
               onClick={() => setActiveTab('profile')}
             >
               <span className="material-icons">person</span>
-              Profile
+              Профиль
             </button>
             <button
               className={`nav-item ${activeTab === 'orders' ? 'active' : ''}`}
               onClick={() => setActiveTab('orders')}
             >
               <span className="material-icons">shopping_bag</span>
-              Orders
+              Заказы
             </button>
             <button
               className={`nav-item ${activeTab === 'addresses' ? 'active' : ''}`}
               onClick={() => setActiveTab('addresses')}
             >
               <span className="material-icons">location_on</span>
-              Addresses
+              Адреса
             </button>
             <button
               className={`nav-item ${activeTab === 'security' ? 'active' : ''}`}
               onClick={() => setActiveTab('security')}
             >
               <span className="material-icons">security</span>
-              Security
+              Безопасность
             </button>
             <button
               className="nav-item logout"
               onClick={handleLogout}
             >
               <span className="material-icons">logout</span>
-              Logout
+              Выход
             </button>
           </nav>
         </div>
