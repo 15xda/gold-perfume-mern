@@ -1,6 +1,5 @@
 import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 const ProductImage = ({ product }) => {
   const defaultImage = '/images/products/placeholder.png';
@@ -23,7 +22,7 @@ const ProductImage = ({ product }) => {
     return defaultImage;
   };
 
-  return <LazyLoadImage src={getImageSrc()} alt={product.name} effect='blur'/>;
+  return <img src={getImageSrc()} alt={product.name} />;
 };
 
 export default ProductImage;
