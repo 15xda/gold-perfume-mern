@@ -25,14 +25,13 @@ const LuziPage = () => {
                     LUZI предлагает искусство швейцарской парфюмерии — наследие мастерства, инноваций и устойчивости.
                 </p>
                 <LazyLoadImage
-                    src="src/images/pages/luzi/1.png"
+                    src="/images/pages/luzi/1.png"
                     alt="Флаконы LUZI"
                     className="brand-hero-image"
                     effect="blur"
                     placeholderSrc="https://via.placeholder.com/600x400?text=Loading..."
                     width="100%"
-                    height="400px"
-                    style={{ objectFit: 'cover', aspectRatio:'30/9' }}
+                    style={{ objectFit: 'cover' }}
                 />
             </motion.section>
 
@@ -40,7 +39,7 @@ const LuziPage = () => {
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
                     <LazyLoadImage
-                        src="src/images/pages/luzi/2.png"
+                        src="/images/pages/luzi/2.png"
                         alt="Историческая лаборатория LUZI"
                         className="section-image"
                         effect="blur"
@@ -62,17 +61,17 @@ const LuziPage = () => {
                     <div className="product-grid">
                         {[{
                             title: 'LUZI Signature',
-                            image: 'src/images/pages/luzi/3.png',
+                            image: '/images/pages/luzi/3.png',
                             description: 'Элегантность вне времени и утончённые швейцарские композиции.',
                             features: ['Классические ароматические профили', 'Высококачественные ингредиенты', 'Долговечный эффект']
                         }, {
                             title: 'LUZI Naturals',
-                            image: 'src/images/pages/luzi/4.png',
+                            image: '/images/pages/luzi/4.png',
                             description: 'Чистота и устойчивость — 100% натуральные компоненты.',
                             features: ['Сертифицированные натуральные компоненты', 'Экологичное производство', 'Минимальное воздействие упаковки']
                         }, {
                             title: 'LUZI Exclusive',
-                            image: 'src/images/pages/luzi/5.png',
+                            image: '/images/pages/luzi/5.png',
                             description: 'Редкость и роскошь — ограниченные издания для ценителей.',
                             features: ['Редкие компоненты', 'Нумерованные коллекционные серии', 'Премиальное оформление']
                         }].map((product, index) => (
@@ -105,7 +104,7 @@ const LuziPage = () => {
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Мастерство</h2>
                     <LazyLoadImage
-                        src="src/images/pages/luzi/6.png"
+                        src="/images/pages/luzi/6.png"
                         alt="Лаборатория ароматов"
                         className="section-image"
                         effect="blur"
@@ -131,7 +130,7 @@ const LuziPage = () => {
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
                     <LazyLoadImage
-                        src="src/images/pages/luzi/7.png"
+                        src="/images/pages/luzi/7.png"
                         alt="Экологичное производство"
                         className="section-image"
                         effect="blur"

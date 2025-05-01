@@ -25,7 +25,7 @@ const SymrisePage = () => {
                     Symrise — это немецкая компания с богатой историей, начавшейся в 1874 году с открытия синтеза ванилина. Сегодня мы продолжаем традиции инноваций и качества, создавая уникальные ароматы и вкусы для мирового рынка.
                 </p>
                 <LazyLoadImage
-                    src="src/images/pages/symrise/1.png"
+                    src="/images/pages/symrise/1.png"
                     alt="Флаконы Symrise"
                     className="brand-hero-image"
                     effect="blur"  // Blur effect for lazy loading
@@ -37,12 +37,12 @@ const SymrisePage = () => {
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
                     <LazyLoadImage
-                        src="src/images/pages/symrise/2.png"
+                        src="/images/pages/symrise/2.png"
                         alt="История Symrise"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         История Symrise началась в 1874 году, когда Фердинанд Тьеманн и Вильгельм Хаарманн открыли метод синтеза ванилина в Хольцминден, Германия. В 1919 году была основана компания Dragoco, которая стала одним из ведущих поставщиков парфюмерных композиций.
@@ -61,19 +61,19 @@ const SymrisePage = () => {
                         {[ 
                             {
                                 title: 'Fine Fragrance',
-                                image: "src/images/pages/symrise/3.png",
+                                image: "/images/pages/symrise/3.png",
                                 description: 'Эксклюзивные ароматы для премиальных парфюмерных брендов.',
                                 features: ['Высококачественные ингредиенты', 'Инновационные композиции', 'Уникальные аккорды']
                             },
                             {
                                 title: 'Consumer Fragrances',
-                                image: "src/images/pages/symrise/4.png",
+                                image: "/images/pages/symrise/4.png",
                                 description: 'Ароматы для массового рынка, включая косметику и средства личной гигиены.',
                                 features: ['Безопасные формулы', 'Широкий ассортимент', 'Стабильное качество']
                             },
                             {
                                 title: 'Natural Ingredients',
-                                image: "src/images/pages/symrise/5.png",
+                                image: "/images/pages/symrise/5.png",
                                 description: 'Натуральные ингредиенты для создания экологичных ароматов.',
                                 features: ['Устойчивое производство', 'Экологичные ингредиенты', 'Ответственные закупки']
                             },
@@ -110,12 +110,12 @@ const SymrisePage = () => {
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Мастерство</h2>
                     <LazyLoadImage
-                        src="src/images/pages/symrise/6.png"
+                        src="/images/pages/symrise/6.png"
                         alt="Лаборатория Symrise"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <div className="process-steps">
                         <div className="step">
@@ -136,12 +136,12 @@ const SymrisePage = () => {
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
                     <LazyLoadImage
-                        src="src/images/pages/symrise/7.png"
+                        src="/images/pages/symrise/7.png"
                         alt="Экологичное производство Symrise"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"style={{ objectFit: 'cover', aspectRatio:'30/9' }}
+                        style={{ objectFit: 'cover', aspectRatio:'30/9' }}
                     />
                     <p>
                         Symrise активно работает над снижением воздействия на окружающую среду и внедряет устойчивые практики во все аспекты своей деятельности.

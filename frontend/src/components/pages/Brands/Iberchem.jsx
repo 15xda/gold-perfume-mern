@@ -25,12 +25,11 @@ const IberchemPage = () => {
                     Iberchem — ведущий мировой производитель ароматов, основанный в 1985 году в Мурсии, Испания. Компания разрабатывает ароматы для парфюмерии, средств гигиены, бытовой химии и ароматизации воздуха.
                 </p>
                 <LazyLoadImage
-                    src="src/images/pages/iberchem/1.png"
+                    src="/images/pages/iberchem/1.png"
                     alt="Флаконы Iberchem"
                     className="brand-hero-image"
                     effect="blur"
                     width="100%"
-                    height="400px"
                     style={{ objectFit: 'cover', aspectRatio: '30/9' }}
                 />
             </motion.section>
@@ -39,12 +38,11 @@ const IberchemPage = () => {
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>История бренда</h2>
                     <LazyLoadImage
-                        src="src/images/pages/iberchem/2.png"
+                        src="/images/pages/iberchem/2.png"
                         alt="История Iberchem"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"
                         style={{ objectFit: 'cover', aspectRatio: '30/9' }}
                     />
                     <p>
@@ -60,19 +58,19 @@ const IberchemPage = () => {
                     <div className="product-grid">
                         {[{
                             title: 'Парфюмерия',
-                            image: "src/images/pages/iberchem/3.png",
+                            image: "/images/pages/iberchem/3.png",
                             description: 'Ароматы для парфюмерной продукции от нишевых до массовых брендов.',
                             features: ['Изысканные композиции', 'Стойкость и выразительность', 'Глобальное признание']
                         },
                         {
                             title: 'Средства гигиены',
-                            image: "src/images/pages/iberchem/4.png",
+                            image: "/images/pages/iberchem/4.png",
                             description: 'Ароматы для шампуней, мыла, лосьонов и кремов.',
                             features: ['Безопасные формулы', 'Современный дизайн ароматов', 'Нежное воздействие']
                         },
                         {
                             title: 'Бытовая химия',
-                            image: "src/images/pages/iberchem/5.png",
+                            image: "/images/pages/iberchem/5.png",
                             description: 'Парфюмерные композиции для моющих и чистящих средств.',
                             features: ['Свежесть и чистота', 'Стабильные формулы', 'Широкий ассортимент']
                         }].map((product, index) => (
@@ -105,12 +103,11 @@ const IberchemPage = () => {
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Процесс производства</h2>
                     <LazyLoadImage
-                        src="src/images/pages/iberchem/6.png"
+                        src="/images/pages/iberchem/6.png"
                         alt="Производство Iberchem"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"
                         style={{ objectFit: 'cover', aspectRatio: '30/9' }}
                     />
                     <div className="process-steps">
@@ -132,12 +129,11 @@ const IberchemPage = () => {
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Устойчивое развитие</h2>
                     <LazyLoadImage
-                        src="src/images/pages/iberchem/7.png"
+                        src="/images/pages/iberchem/7.png"
                         alt="Экологичность Iberchem"
                         className="section-image"
                         effect="blur"
                         width="100%"
-                        height="400px"
                         style={{ objectFit: 'cover', aspectRatio: '30/9' }}
                     />
                     <p>

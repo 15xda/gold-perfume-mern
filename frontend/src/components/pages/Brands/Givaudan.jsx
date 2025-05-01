@@ -25,7 +25,7 @@ const GivaudanPage = () => {
                     Givaudan — это компания, которая соединяет науку с искусством для создания лучших ароматов и вкусов.
                 </p>
                 <LazyLoadImage
-                    src="src/images/pages/givaudan/1.png"
+                    src="/images/pages/givaudan/1.png"
                     alt="Штаб-квартира Givaudan"
                     className="brand-hero-image"
                     effect="blur"
@@ -37,7 +37,7 @@ const GivaudanPage = () => {
                 <motion.section className="brand-story" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Наследие</h2>
                     <LazyLoadImage
-                        src="src/images/pages/givaudan/2.png"
+                        src="/images/pages/givaudan/2.png"
                         alt="Историческое здание Givaudan"
                         className="section-image"
                         effect="blur"
@@ -57,19 +57,19 @@ const GivaudanPage = () => {
                         {[
                             {
                                 title: 'Изысканные ароматы',
-                                image: "src/images/pages/givaudan/3.png",
+                                image: "/images/pages/givaudan/3.png",
                                 description: 'Компания создает уникальные ароматы для ведущих мировых брендов люксовой продукции.',
                                 features: ['Инновационная молекулярная технология', 'Индивидуальные ароматы', 'Партнерства с люксовыми брендами']
                             },
                             {
                                 title: 'Потребительские товары',
-                                image: "src/images/pages/givaudan/4.png",
+                                image: "/images/pages/givaudan/4.png",
                                 description: 'Инновационные ароматы для различных потребительских товаров.',
                                 features: ['Товары для дома и личной гигиены', 'Ароматы для тканей и воздуха', 'Устойчивые решения']
                             },
                             {
                                 title: 'Активная красота',
-                                image: "src/images/pages/givaudan/5.png",
+                                image: "/images/pages/givaudan/5.png",
                                 description: 'Продвинутые ингредиенты для косметики и личной гигиены.',
                                 features: ['Инновационные активные компоненты', 'Натуральные ингредиенты', 'Научные решения']
                             },
@@ -103,7 +103,7 @@ const GivaudanPage = () => {
                 <motion.section className="manufacturing-process" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Инновации</h2>
                     <LazyLoadImage
-                        src="src/images/pages/givaudan/6.png"
+                        src="/images/pages/givaudan/6.png"
                         alt="Исследовательская лаборатория"
                         className="section-image"
                         effect="blur"
@@ -128,7 +128,7 @@ const GivaudanPage = () => {
                 <motion.section className="quality-commitment" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                     <h2>Стратегия устойчивого развития</h2>
                     <LazyLoadImage
-                        src="src/images/pages/givaudan/7.png"
+                        src="/images/pages/givaudan/7.png"
                         alt="Устойчивые практики"
                         className="section-image"
                         effect="blur"
