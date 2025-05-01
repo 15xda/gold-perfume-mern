@@ -2023,7 +2023,7 @@ html {
 
 .contact-hero {
   height: 300px;
-  background: var(--element-color);
+  background: linear-gradient(135deg, var(--secondary-color), #C3C6BF);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2580,7 +2580,7 @@ html {
   .brand-section-wrapper {
     padding: 10px !important;
   } 
-  
+
   .bigpreviewer-image {
     width: 90%;
   }
