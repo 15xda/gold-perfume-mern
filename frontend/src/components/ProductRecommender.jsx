@@ -32,7 +32,7 @@ const ProductRecommender = ({term, productInspect}) => {
       <div className='recommended-products-container'>
           <div className='recommended-products-main-container'>
             <div className='recommended-products-title'>
-              {productInspect ? <span style={{fontSize:'35px'}}>Больше похоже на <strong>{term}</strong></span> : 
+              {productInspect ? <span style={{fontSize:'35px'}}>Вам также может понравиться:</span> : 
               <span>Рекомендуемые ароматы</span>}
             </div>
             <div className='recommended-products-products'>
