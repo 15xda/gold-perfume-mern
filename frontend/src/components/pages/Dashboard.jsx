@@ -316,7 +316,7 @@ const Dashboard = () => {
     <div className="dashboard-page">
       <div className="dashboard-container">
         <div className="dashboard-sidebar">
-          <div className="user-info">
+          <div className="user-info-dashboard">
             <span className="material-icons user-icon">account_circle</span>
             <h3>{user.name}</h3>
             <p>{user.email}</p>

@@ -2409,25 +2409,25 @@ html {
   height: fit-content;
 }
 
-.user-info {
+.user-info-dashboard {
   text-align: center;
   padding-bottom: 30px;
   border-bottom: 1px solid #333;
   margin-bottom: 30px;
 }
 
-.user-info .user-icon {
+.user-info-dashboard .user-icon {
   font-size: 64px;
   color: var(--theme-color);
   margin-bottom: 15px;
 }
 
-.user-info h3 {
+.user-info-dashboard h3 {
   font-size: 20px;
   margin-bottom: 5px;
 }
 
-.user-info p {
+.user-info-dashboard p {
   color: #999;
   font-size: 14px;
 }
