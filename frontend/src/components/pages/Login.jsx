@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className="auth-page">
       <div className="auth-container">
-        <div className="auth-logo"><img src="/images/logo-dark-font.png" alt="" /></div>
+        <div className="auth-logo"><img src="/images/logo.png" alt="" /></div>
         <h1>Добро пожаловать</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

@@ -104,7 +104,7 @@ export default function Checkout() {
         try {
             const response = await api.post('/cart/checkout', {orderForm: updatedForm});
             dispatch(setCart(response.data.cart));
-            navigate('/')
+            navigate('/order-success', {state: {orderForm: updatedForm}})
             toast.success(response.data.message)
         } catch (error) {
             console.error(error.response.data.message)

@@ -9,7 +9,7 @@ const navigate = useNavigate();
     <footer>
         <div className='footer-main-container'>
                 <div className='footer-logo-container' onClick={() => navigate('/')}>
-                    <img src='/images/logo-dark-font.png' alt='logo' />
+                    <img src='/images/logo.png' alt='logo' />
                 </div>
                 <div className="footer-links-container">
                     <ul>
@@ -38,9 +38,6 @@ const navigate = useNavigate();
                         </a>
                     </li>
                     <li>
-                        <i className="fa-brands fa-telegram"></i>
-                    </li>
-                    <li>
                         <a href="https://wa.me/79287580909" target='_blank' rel='noopener noreferrer'>
                         <i className="fa-brands fa-whatsapp"></i>
                         </a>
@@ -50,7 +47,7 @@ const navigate = useNavigate();
                 </div>
         </div>
         <div className='footer-copyright-container'>
-            <p>Copyright © Gold Perfume {date} All rights reserved</p>
+            <p>© Gold Perfume {date} | Все права защищены</p>
         </div>
     </footer>
  

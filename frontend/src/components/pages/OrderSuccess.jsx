@@ -1,23 +1,17 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { FaCheckCircle } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import './OrderSuccess.css';
 
 const OrderSuccess = () => {
   const navigate = useNavigate();
-  const orderDetails = useSelector((state) => state.order?.orderDetails);
+  const location = useLocation();
+  const {orderForm} = location.state || {} ;
 
-  useEffect(() => {
-    if (!orderDetails) {
-      navigate('/');
-    }
-  }, [orderDetails, navigate]);
-
-  if (!orderDetails) {
-    return null;
+  if (!orderForm) {
+    return navigate('/');
   }
+
+  console.log(orderForm)
 
   return (
     <div className="order-success-container">
@@ -28,7 +22,7 @@ const OrderSuccess = () => {
         className="order-success-card"
       >
         <div className="order-success-header">
-          <FaCheckCircle className="success-icon" />
+          
           <h2 className="success-title">
             Order Placed Successfully!
           </h2>
@@ -44,25 +38,48 @@ const OrderSuccess = () => {
           
           <div className="details-grid">
             <div className="detail-row">
-              <span className="detail-label">Order Number:</span>
-              <span className="detail-value">{orderDetails.orderNumber}</span>
+              <span className="detail-label">Order ID:</span>
+              <span className="detail-value">{orderForm.orderId}</span>
             </div>
             
             <div className="detail-row">
               <span className="detail-label">Order Date:</span>
               <span className="detail-value">
-                {new Date(orderDetails.orderDate).toLocaleDateString()}
+                {new Date(orderForm.date).toLocaleDateString()}
               </span>
             </div>
 
             <div className="detail-row">
               <span className="detail-label">Total Amount:</span>
-              <span className="detail-value">${orderDetails.totalAmount}</span>
+              <span className="detail-value">{orderForm.orderTotal} R</span>
             </div>
 
             <div className="detail-row">
-              <span className="detail-label">Payment Method:</span>
-              <span className="detail-value">{orderDetails.paymentMethod}</span>
+              <span className="detail-label">Total Items:</span>
+              <span className="detail-value">{orderForm.totalItems}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="order-section">
+          <h3 className="section-title">
+            Customer Information
+          </h3>
+          
+          <div className="details-grid">
+            <div className="detail-row">
+              <span className="detail-label">Name:</span>
+              <span className="detail-value">{orderForm.userInfo.name}</span>
+            </div>
+            
+            <div className="detail-row">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">{orderForm.userInfo.email}</span>
+            </div>
+
+            <div className="detail-row">
+              <span className="detail-label">Telephone:</span>
+              <span className="detail-value">{orderForm.userInfo.telephone}</span>
             </div>
           </div>
         </div>
@@ -74,14 +91,34 @@ const OrderSuccess = () => {
           
           <div className="shipping-info">
             <p className="shipping-text">
-              {orderDetails.shippingAddress.street}
+              {orderForm.userInfo.address}
             </p>
-            <p className="shipping-text">
-              {orderDetails.shippingAddress.city}, {orderDetails.shippingAddress.state} {orderDetails.shippingAddress.zipCode}
-            </p>
-            <p className="shipping-text">
-              {orderDetails.shippingAddress.country}
-            </p>
+            {orderForm.userInfo.customAddress && (
+              <p className="shipping-text">
+                {orderForm.userInfo.customAddress}
+              </p>
+            )}
+            {orderForm.userInfo.comment && (
+              <div className="note-section">
+                <h4 className="note-title">Additional Comments:</h4>
+                <p className="note-content">{orderForm.userInfo.comment}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="order-section">
+          <h3 className="section-title">
+            Order Items
+          </h3>
+          
+          <div className="order-items">
+            {orderForm.products.map((product, index) => (
+              <div key={index} className="product-item">
+                <span className="product-name">{product.name}</span>
+                <span className="product-quantity">x{product.quantity}</span>
+              </div>
+            ))}
           </div>
         </div>
 

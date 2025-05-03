@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './SearchBar';
 import { logoutGlobal } from '../api/logout';
+import Sidebar from './Sidebar';
 
 const Header = () => {
   const navigate = useNavigate();
   const searchRef = useRef();
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.user?.data);
   const dispatch = useDispatch();
   const totalItemsInCart = user ?  user.cart.length : 0;
@@ -17,17 +18,38 @@ const Header = () => {
     await logoutGlobal(); 
     navigate(0);  
   };
+
+  const toggleMenu = () => {
+    setMenuOpen(prevState => !prevState);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
   
   return (
     <div className='header'>
         
         <div className='header-main-container'>
 
-                <div className='header-logo-container' onClick={() => navigate('/')}>
-                    <img src="/images/logo-dark-font.png" alt="" />
-                </div>
+                <Sidebar open={menuOpen} onClose={closeMenu}/>
+                
+                
+                  <div className='header-logo-container' onClick={() => navigate('/')}>
+                      <img src="/images/logo.png" alt="" />
+                  </div>
+
+                  <div className='side-bar-control'>
+                    <div><img src="/images/logo.png" alt="" /></div>
+                    <span className='material-icons' onClick={toggleMenu}>menu</span>
+                  </div>
+                
+                
 
                 <SearchBar />
+
+
+                
                 
                 {user ?  
 

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import './HowToOrder.css';
 
 const HowToOrder = () => {
   return (
@@ -11,20 +10,19 @@ const HowToOrder = () => {
         transition={{ duration: 0.5 }}
         className="how-to-order-card"
       >
-        <h1 className="page-title">How to Order</h1>
+        <h1 className="page-title">Как оформить заказ</h1>
 
         <div className="step-section">
           <h2 className="step-title">
             <span className="step-number">1</span>
-            Browse Our Products
+            Войдите или создайте аккаунт
           </h2>
           <div className="step-content">
-            <p>Start by exploring our extensive collection of premium fragrances:</p>
+            <p>Для начала войдите в свой аккаунт. Если у вас его нет, вы можете легко создать новый аккаунт:</p>
             <ul className="step-list">
-              <li>Use the search bar to find specific products</li>
-              <li>Browse by categories or brands</li>
-              <li>Read detailed product descriptions and reviews</li>
-              <li>Add items to your favorites for later</li>
+              <li>Нажмите "Войти" в верхней части страницы</li>
+              <li>Если вы новичок, нажмите "Создать аккаунт" и укажите свои данные</li>
+              <li>Наличие аккаунта ускоряет оформление заказа и отслеживание заказа</li>
             </ul>
           </div>
         </div>
@@ -32,15 +30,15 @@ const HowToOrder = () => {
         <div className="step-section">
           <h2 className="step-title">
             <span className="step-number">2</span>
-            Add to Cart
+            Просмотрите нашу коллекцию
           </h2>
           <div className="step-content">
-            <p>When you find a product you like:</p>
+            <p>Исследуйте наш широкий ассортимент премиальных ароматов:</p>
             <ul className="step-list">
-              <li>Select your desired quantity</li>
-              <li>Click "Add to Cart" or "Buy Now"</li>
-              <li>Review your cart to ensure all items are correct</li>
-              <li>You can modify quantities or remove items at any time</li>
+              <li>Используйте строку поиска для поиска конкретных товаров</li>
+              <li>Фильтруйте по бренду, ценовому диапазону или типу аромата</li>
+              <li>Читайте подробные описания товаров и отзывы</li>
+              <li>Добавляйте понравившиеся товары в список желаемого для быстрого доступа позже</li>
             </ul>
           </div>
         </div>
@@ -48,16 +46,15 @@ const HowToOrder = () => {
         <div className="step-section">
           <h2 className="step-title">
             <span className="step-number">3</span>
-            Checkout Process
+            Добавьте товары в корзину
           </h2>
           <div className="step-content">
-            <p>Complete your purchase in a few simple steps:</p>
+            <p>Когда вы нашли нужные товары:</p>
             <ul className="step-list">
-              <li>Sign in to your account or create a new one</li>
-              <li>Review your order summary</li>
-              <li>Enter your shipping address</li>
-              <li>Choose your preferred payment method</li>
-              <li>Review and confirm your order</li>
+              <li>Выберите желаемое количество</li>
+              <li>Нажмите "Добавить в корзину" или "Купить сейчас", чтобы продолжить</li>
+              <li>Проверьте свою корзину, чтобы убедиться, что все верно</li>
+              <li>Вы можете изменять количество или удалять товары в любой момент перед оформлением заказа</li>
             </ul>
           </div>
         </div>
@@ -65,41 +62,58 @@ const HowToOrder = () => {
         <div className="step-section">
           <h2 className="step-title">
             <span className="step-number">4</span>
-            Order Confirmation
+            Оформление заказа
           </h2>
           <div className="step-content">
-            <p>After placing your order:</p>
+            <p>Завершите заказ в несколько простых шагов:</p>
             <ul className="step-list">
-              <li>You'll receive an order confirmation email</li>
-              <li>Track your order status in your account dashboard</li>
-              <li>Receive shipping updates via email</li>
-              <li>Contact customer support if you need any assistance</li>
+              <li>Подтвердите свои учетные данные</li>
+              <li>Проверьте данные заказа</li>
+              <li>Укажите адрес доставки</li>
+              <li>Выберите предпочтительный способ оплаты</li>
+              <li>Подтвердите заказ и отправьте</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="step-section">
+          <h2 className="step-title">
+            <span className="step-number">5</span>
+            Подтверждение заказа
+          </h2>
+          <div className="step-content">
+            <p>После оформления заказа:</p>
+            <ul className="step-list">
+              <li>Вы получите подтверждение по электронной почте с деталями вашего заказа</li>
+              <li>Наша команда проверит ваш заказ и обсудит окончательную цену и количество товаров</li>
+              <li>Отслеживайте статус вашего заказа и получите номер отслеживания прямо в личном кабинете</li>
+              <li>Получайте обновления по электронной почте, Telegram или WhatsApp</li>
+              <li>Если вам нужна помощь, обратитесь в нашу службу поддержки</li>
             </ul>
           </div>
         </div>
 
         <div className="note-section">
-          <h3 className="note-title">Important Notes</h3>
+          <h3 className="note-title">Важная информация</h3>
           <div className="note-content">
-            <p>• All prices include applicable taxes</p>
-            <p>• We offer secure payment processing</p>
-            <p>• Free shipping on orders over $100</p>
-            <p>• Returns accepted within 30 days of delivery</p>
+            <p>• Все цены включают применимые налоги</p>
+            <p>• Доступны безопасные способы оплаты</p>
+            <p>• Минимальная сумма заказа 3000 ₽</p>
           </div>
         </div>
 
         <div className="contact-info">
-          <p>Need help with your order?</p>
+          <p>Если вам нужна помощь с заказом, наша служба поддержки готова помочь вам:</p>
           <p>
-            Contact our customer support team at{' '}
-            <a href="mailto:support@goldparfume.com" className="contact-link">
-              support@goldparfume.com
+            Напишите нам на{' '}
+            <a href="https://wa.me/79287580909" target='_blank' rel='noopener noreferrer'>
+              <span className='fa-brands fa-whatsapp'></span> WhatsApp
             </a>
           </p>
           <p>
-            Or visit our{' '}
+            Или посетите нашу{' '}
             <Link to="/contact" className="contact-link">
-              Contact page
+              страницу контактов
             </Link>
           </p>
         </div>
@@ -108,4 +122,4 @@ const HowToOrder = () => {
   );
 };
 
-export default HowToOrder; 
+export default HowToOrder;

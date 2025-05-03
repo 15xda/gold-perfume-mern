@@ -50,9 +50,6 @@ const ProductDetails = () => {
             <ProductRecommender term={product.name} productInspect={true}/>
         </motion.section>
         <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
-          <FourBlockContent />
-        </motion.section>
-        <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
           <AllRatingsAndComments product={product}/>
         </motion.section>
         <motion.section layout variants={fadeUp} initial='hidden' whileInView='visible' viewport={{once: true}}>
