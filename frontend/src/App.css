@@ -46,6 +46,21 @@ html {
   font-size: 14px;
 }
 
+.preheader-contact-list {
+  a {
+      appearance:none;
+      text-decoration: none;
+      color: var(--secondary-color);
+      margin-left: 10px; 
+  }
+  a:hover {
+      text-decoration: underline;
+  }
+  a:focus {
+      text-decoration: underline;
+  }
+}
+
 .preheader-quick-links {
   display: flex;
   align-items: center;
