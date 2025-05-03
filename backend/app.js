@@ -24,7 +24,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ 
-    origin: frontendUrl, 
+    origin: 'https://gold-perfume-mern-frontend.onrender.com', 
     credentials: true 
 }));
 
