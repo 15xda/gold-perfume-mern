@@ -40,9 +40,9 @@ const ProductRecommender = ({term, productInspect}) => {
                 <Product key={index} productId={product.id} product={product}/>
               ))}
             </div>
-            <div className='recommended-products-button'>
+            {!productInspect && <div className='recommended-products-button'>
               <ButtonJumpAnimation text='Больше' onClick={() => navigate(`/search?term=${finalTerm}`)}/>
-            </div>
+            </div>}
           </div>
         </div>
   );
