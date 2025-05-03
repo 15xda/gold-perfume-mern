@@ -7,8 +7,16 @@ const userSchema = new mongoose.Schema({
   telephone: {type: String, default: ''},
 
   addresses: [{ type: String }],
-  orders: [{ type: String }],
   favourites: [{ type: String }],
+  orders: [
+    {
+      orderId: {type: String, required: true},
+      orderTotal: {type: Number},
+      products: [mongoose.Schema.Types.Mixed],
+      date: {type: String },
+      totalItems: {type: Number, required: true}
+    }
+  ],
 
   cart: [
     {

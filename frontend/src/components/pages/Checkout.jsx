@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api/axiosInstance";
 import { useDispatch } from "react-redux";
-import { setCart } from "../../storage/userSlice";
+import { replaceUserData } from "../../storage/userSlice";
 import {toast} from "react-toastify";
 
 export default function Checkout() {
@@ -103,7 +103,7 @@ export default function Checkout() {
 
         try {
             const response = await api.post('/cart/checkout', {orderForm: updatedForm});
-            dispatch(setCart(response.data.cart));
+            dispatch(replaceUserData(response.data?.user));
             navigate('/order-success', {state: {orderForm: updatedForm}})
             toast.success(response.data.message)
             console.log(updatedForm)

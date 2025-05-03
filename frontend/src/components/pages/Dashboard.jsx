@@ -170,16 +170,24 @@ const Dashboard = () => {
               {user.orders && user.orders.length > 0 ? user.orders.map(order => (
                 <div key={order.id} className="order-item">
                   <div className="order-header">
-                    <span>Заказ #{order.id}</span>
-                    <span className={`order-status ${order.status.toLowerCase()}`}>
+                    <span>Заказ {order.orderId}</span>
+                    {/* <span className={`order-status ${order.status.toLowerCase()}`}>
                       {order.status}
-                    </span>
+                    </span> */}
                   </div>
                   <div className="order-details">
                     <p>Дата: {order.date}</p>
-                    <p>Итого: ${order.total}</p>
+                    <p>Итого: {order.orderTotal} ₽</p>
+                    <div className='order-items'>
+                      <span>Товары</span>
+                      <ul>
+                        {order.products.map(product => {
+                          return <li key={product.itemId}>{product.name} x {product.quantity} {product.uom}</li>
+                        })}
+                      </ul>
+                    </div>
                   </div>
-                  <button className="view-order-button">Просмотр деталей</button>
+                
                 </div>
               )) : <p>Нет доступных заказов. Сделайте первый заказ, чтобы увидеть его здесь.</p>}
             </div>

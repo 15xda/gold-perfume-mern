@@ -1,15 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import api from "../../api/axiosInstance";
 import { toast } from "react-toastify";
 import ProductImage from "../ProductImage";
+import { replaceUserData } from "../../storage/userSlice";
 
 export default function BuyNowCheckout() {
     const user = useSelector(state => state.user?.data);
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     // Get the product passed via state (from the Buy Now button)
     const product = location.state?.product;
@@ -108,7 +110,8 @@ export default function BuyNowCheckout() {
         
         try {
             const response = await api.post('/cart/checkout', { orderForm: orderData });
-            navigate('/');
+            dispatch(replaceUserData(response.data?.user))
+            navigate('/order-success', {state: {orderForm: orderData}});
             toast.success(response.data.message || 'Заказ успешно оформлен');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Ошибка при оформлении заказа');

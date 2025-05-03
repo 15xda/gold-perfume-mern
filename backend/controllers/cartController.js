@@ -2,6 +2,7 @@ const User = require('../models/user');
 const { sendOrderToTelegram } = require('../services/telegramService');
 const ProductDetails = require('../models/productDetailes');
 const saveProductsStatistics = require('../utils/saveProductsStatistics');
+const returnSafeUserData = require('../utils/returnSafeUserData');
 
 
 const addToFavourite =  async (req, res) => {
@@ -152,13 +153,24 @@ const checkout = async (req, res) => {
             return res.status(404).json({ message: 'Пользователь не найден' }); 
         }
         
-        await sendOrderToTelegram(orderForm);
+        
         const productsOrdered = orderForm.products.map(product => product.itemId);
+       
 
-        await saveProductsStatistics(productsOrdered);
         user.cart = [];
+        user.orders.push({
+              orderId: orderForm.orderId,
+              orderTotal: orderForm.orderTotal,
+              products: orderForm.products,
+              date: orderForm.date,
+              totalItems: orderForm.totalItems
+        }); 
+
         await user.save();
-        res.status(200).json({message: 'Заказ успешно размещен',  cart: user.cart})
+        await saveProductsStatistics(productsOrdered);
+
+        await sendOrderToTelegram(orderForm);
+        res.status(200).json({message: 'Заказ успешно размещен',  user: returnSafeUserData(user),})
         
     } catch (error) {
         res.status(500).json({message: 'Internal Server Error'})

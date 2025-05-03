@@ -5,13 +5,13 @@ import { motion } from 'framer-motion';
 const OrderSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {orderForm} = location.state || {} ;
+  const { orderForm } = location.state || {};
 
   if (!orderForm) {
     return navigate('/');
   }
 
-  console.log(orderForm)
+  console.log(orderForm);
 
   return (
     <div className="order-success-container">
@@ -22,40 +22,39 @@ const OrderSuccess = () => {
         className="order-success-card"
       >
         <div className="order-success-header">
-          
           <h2 className="success-title">
-            Order Placed Successfully!
+            Заказ успешно оформлен!
           </h2>
           <p className="success-message">
-            Thank you for your purchase. Your order has been confirmed.
+            Спасибо за ваш заказ! Мы скоро с вами свяжемся.
           </p>
         </div>
 
         <div className="order-section">
           <h3 className="section-title">
-            Order Details
+            Детали заказа
           </h3>
-          
+
           <div className="details-grid">
             <div className="detail-row">
-              <span className="detail-label">Order ID:</span>
+              <span className="detail-label">Номер заказа:</span>
               <span className="detail-value">{orderForm.orderId}</span>
             </div>
-            
+
             <div className="detail-row">
-              <span className="detail-label">Order Date:</span>
+              <span className="detail-label">Дата оформления:</span>
               <span className="detail-value">
                 {new Date(orderForm.date).toLocaleDateString()}
               </span>
             </div>
 
             <div className="detail-row">
-              <span className="detail-label">Total Amount:</span>
-              <span className="detail-value">{orderForm.orderTotal} R</span>
+              <span className="detail-label">Сумма заказа:</span>
+              <span className="detail-value">{orderForm.orderTotal} ₽</span>
             </div>
 
             <div className="detail-row">
-              <span className="detail-label">Total Items:</span>
+              <span className="detail-label">Товаров в заказе:</span>
               <span className="detail-value">{orderForm.totalItems}</span>
             </div>
           </div>
@@ -63,22 +62,22 @@ const OrderSuccess = () => {
 
         <div className="order-section">
           <h3 className="section-title">
-            Customer Information
+            Информация о клиенте
           </h3>
-          
+
           <div className="details-grid">
             <div className="detail-row">
-              <span className="detail-label">Name:</span>
+              <span className="detail-label">Имя:</span>
               <span className="detail-value">{orderForm.userInfo.name}</span>
             </div>
-            
+
             <div className="detail-row">
               <span className="detail-label">Email:</span>
               <span className="detail-value">{orderForm.userInfo.email}</span>
             </div>
 
             <div className="detail-row">
-              <span className="detail-label">Telephone:</span>
+              <span className="detail-label">Телефон:</span>
               <span className="detail-value">{orderForm.userInfo.telephone}</span>
             </div>
           </div>
@@ -86,9 +85,9 @@ const OrderSuccess = () => {
 
         <div className="order-section">
           <h3 className="section-title">
-            Shipping Information
+            Адрес доставки
           </h3>
-          
+
           <div className="shipping-info">
             <p className="shipping-text">
               {orderForm.userInfo.address}
@@ -100,7 +99,7 @@ const OrderSuccess = () => {
             )}
             {orderForm.userInfo.comment && (
               <div className="note-section">
-                <h4 className="note-title">Additional Comments:</h4>
+                <h4 className="note-title">Комментарий к заказу:</h4>
                 <p className="note-content">{orderForm.userInfo.comment}</p>
               </div>
             )}
@@ -109,14 +108,14 @@ const OrderSuccess = () => {
 
         <div className="order-section">
           <h3 className="section-title">
-            Order Items
+            Состав заказа
           </h3>
-          
+
           <div className="order-items">
             {orderForm.products.map((product, index) => (
               <div key={index} className="product-item">
                 <span className="product-name">{product.name}</span>
-                <span className="product-quantity">x{product.quantity}</span>
+                <span className="product-quantity">{product.quantity} {product.uom}</span>
               </div>
             ))}
           </div>
@@ -127,13 +126,13 @@ const OrderSuccess = () => {
             onClick={() => navigate('/dashboard')}
             className="primary-button"
           >
-            View Orders
+            Перейти к заказам
           </button>
           <button
             onClick={() => navigate('/')}
             className="secondary-button"
           >
-            Continue Shopping
+            Продолжить покупки
           </button>
         </div>
       </motion.div>
@@ -141,4 +140,4 @@ const OrderSuccess = () => {
   );
 };
 
-export default OrderSuccess; 
+export default OrderSuccess;
