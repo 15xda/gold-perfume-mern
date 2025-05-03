@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const { sendOrderToTelegram } = require('../services/telegramService');
+const ProductDetails = require('../models/productDetailes');
+const saveProductsStatistics = require('../utils/saveProductsStatistics');
 
 
 const addToFavourite =  async (req, res) => {
@@ -149,7 +151,11 @@ const checkout = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' }); 
         }
-        const response = await sendOrderToTelegram(orderForm);
+        
+        await sendOrderToTelegram(orderForm);
+        const productsOrdered = orderForm.products.map(product => product.itemId);
+
+        await saveProductsStatistics(productsOrdered);
         user.cart = [];
         await user.save();
         res.status(200).json({message: 'Заказ успешно размещен',  cart: user.cart})

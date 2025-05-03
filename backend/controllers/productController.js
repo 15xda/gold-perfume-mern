@@ -166,10 +166,46 @@ const deleteRating = async (req, res) => {
     }
 };
 
+const getTopTenProducts = async (req, res) => {
+    try {
+        const topTenProducts = await productDetails.find().sort({timesOrdered: -1}).limit(10);
+        const productIds = topTenProducts.map(product => product.productId);
+        
+        // Get products from Moysklad and filter out any that failed to load
+
+        if (productIds.length >= 5) {
+            const products = await moyskladService.getProductsByBatchIds(productIds);
+            const validProducts = products.filter(product => product !== null);
+        
+            // Combine product data with ratings
+            const combinedData = validProducts.map(product => {
+            const matchingProduct = topTenProducts.find(
+                rating => rating.productId === product.id
+            );
+
+                return {
+                    ...product,
+                    ratingsFromDatabase: matchingProduct ? matchingProduct.productRating : []
+                };
+            });
+
+            return res.status(200).json(combinedData);
+        } else {
+            return res.status(200).json([])
+        }
+        
+    } catch (error) {
+        console.error("Error fetching top ten products:", error);
+        res.status(500).json({ error: 'Ошибка при получении топ-10 продуктов' });
+    }
+};
+
+
 module.exports = {
     searchProducts,
     getProductById,
     getProductsBatch,
     rateProduct,
-    deleteRating
+    deleteRating,
+    getTopTenProducts
 };

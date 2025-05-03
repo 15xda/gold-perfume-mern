@@ -83,7 +83,6 @@ const getProductById = async (productId) => {
 
 const getProductsByBatchIds = async (pIds) => {
     try {
-
         const iDfilterString = pIds.map(id => `id=${id}`).join(';');
 
         const response = await fetch(
@@ -98,15 +97,15 @@ const getProductsByBatchIds = async (pIds) => {
         );
 
         if (!response.ok) {
-            throw new Error('Failed to load products by batch IDs');
+            console.warn(`Warning: Some products not found in Moysklad. Status: ${response.status}`);
+            return [];
         }
 
         const data = await response.json();
-        
-        return returnSafeMoyskladData(data.rows);
+        return returnSafeMoyskladData(data.rows) || [];
     } catch (error) {
         console.error("Error fetching batch product data:", error.message);
-        throw error;
+        return [];
     }
 };
 

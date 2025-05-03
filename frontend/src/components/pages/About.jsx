@@ -53,7 +53,7 @@ const About = () => {
           <div className="values-grid">
             <div className="value-item">
               <span className="material-icons">check_circle</span>
-              <h3>Схожесть до 97%</h3>
+              <h3>Схожесть до 95%</h3>
               <p>Наши масла максимально приближены к оригинальным ароматам.</p>
             </div>
             <div className="value-item">

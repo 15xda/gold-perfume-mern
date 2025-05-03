@@ -106,6 +106,7 @@ export default function Checkout() {
             dispatch(setCart(response.data.cart));
             navigate('/order-success', {state: {orderForm: updatedForm}})
             toast.success(response.data.message)
+            console.log(updatedForm)
         } catch (error) {
             console.error(error.response.data.message)
         }

@@ -8,21 +8,22 @@ import Loader from './Loader';
 
 
 
-const getRecommends =  async (term, limit) => {
-  if (!term) return [];
-  const res = await api.get('/products/search', { params: {term, limit} })
+const getRecommends =  async () => {
+  
+  const res = await api.get('/products/get-top-ten')
   return res.data
 }
 
-const ProductRecommender = ({term, productInspect}) => {
+const TopProducts = () => {
   const navigate = useNavigate();
 
-  const finalTerm = term.split(' ')[0] || 'e';
 
   const {data, isLoading, error} = useQuery({
-    queryKey: ['recommendedTerm', finalTerm],
-    queryFn: () => getRecommends(finalTerm, 10),
+    queryKey: ['topProducts'],
+    queryFn: getRecommends,
   })
+
+  console.log(data)
 
   if (isLoading) return <Loader />;
   if (error) return <h1>Error</h1>
@@ -32,21 +33,19 @@ const ProductRecommender = ({term, productInspect}) => {
       <div className='recommended-products-container'>
           <div className='recommended-products-main-container'>
             <div className='recommended-products-title'>
-              {productInspect ? <span style={{fontSize:'35px'}}>Больше похоже на <strong>{term}</strong></span> : 
-              <span>Рекомендуемые ароматы</span>}
+              <span>Хит продаж</span>
             </div>
             <div className='recommended-products-products'>
-              {data.products.map((product, index) => (
+              {data.map((product, index) => (
                 <Product key={index} productId={product.id} product={product}/>
               ))}
             </div>
             <div className='recommended-products-button'>
-              <ButtonJumpAnimation text='Больше' onClick={() => navigate(`/search?term=${finalTerm}`)}/>
             </div>
           </div>
         </div>
   );
 }
 
-export default ProductRecommender
+export default TopProducts
        

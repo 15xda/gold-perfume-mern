@@ -5,6 +5,7 @@ const { checkAuth } = require('../middleware/auth');
 
 // Product routes
 router.get('/search', productController.searchProducts);
+router.get('/get-top-ten', productController.getTopTenProducts);
 router.get('/:productId', productController.getProductById);
 router.post('/batch', productController.getProductsBatch);
 router.post('/rating', checkAuth, productController.rateProduct);

@@ -5,7 +5,7 @@ const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 async function sendOrderToTelegram(order) {
 
-    console.log(order)
+    
     const message = `
 
 
