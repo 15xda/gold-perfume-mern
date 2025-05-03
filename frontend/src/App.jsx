@@ -22,6 +22,8 @@ import ResetPassword from './components/pages/ResetPassword';
 import ProductsPage from "./components/pages/ProductsPage";
 import BuyNowCheckout from "./components/pages/BuyNowCheckout";
 import IberchemPage from "./components/pages/Brands/Iberchem";
+import OrderSuccess from "./components/pages/OrderSuccess";
+import HowToOrder from "./components/pages/HowToOrder";
 
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer, Flip } from "react-toastify";
@@ -79,6 +81,7 @@ function App() {
             <Route path="/search" element={<SearchResult />} />
             <Route path="/product" element={<ProductDetails />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/how-to-order" element={<HowToOrder />} />
             
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
@@ -95,6 +98,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/checkout/buy-now" element={<BuyNowCheckout/>}/>
+              <Route path="/order-success" element={<OrderSuccess />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
