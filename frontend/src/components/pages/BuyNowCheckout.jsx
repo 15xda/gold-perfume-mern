@@ -119,7 +119,7 @@ export default function BuyNowCheckout() {
         <div className="checkout-page">
             <div className="checkout-main-container">
                 <div className="checkout-left">
-                    <h2>Сводка заказа</h2>
+                    <h2>Ваш заказ</h2>
                     <div className="order-summary-container">
                         <div className="order-details">
                             <h3>Детали заказа</h3>

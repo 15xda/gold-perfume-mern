@@ -58,7 +58,7 @@ const ProductCard = ({product}) => {
           {product.name.length > 40 ? product.name.substring(0, 39) + '...' : product.name}
         </h1>
         <p>{price}₽/{uom}</p>
-        <p style={{fontSize: '14px'}}>{(averageRating).toString().slice(0, 3)} ★ ({product.ratingsFromDatabase.length} ratings)</p>
+        <p style={{fontSize: '14px'}}>{(averageRating).toString().slice(0, 3)} ★ ({product.ratingsFromDatabase.length} оценок)</p>
       </div>
       <div className='product-buttons-container'>
         <AddToCartButton product={product}/>

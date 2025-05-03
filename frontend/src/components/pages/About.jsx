@@ -14,8 +14,8 @@ const About = () => {
         <section className="about-section">
           <h2>О нас</h2>
           <p>
-            Вас приветствует поставщик элитной масляной парфюмерии Gold Parfum. Наша команда помогла более 100 партнерам осуществить мечту и начать бизнес в прекрасной парфюмерной нише. 
-            Присоединяйтесь к нам и начните бизнес с маслами с закупки товаров от 5.000₽.
+            Вас приветствует поставщик элитной масляной парфюмерии Gold Parfum. Наша команда помогла более 500 партнерам осуществить мечту и начать бизнес в прекрасной парфюмерной нише. 
+            Присоединяйтесь к нам и начните бизнес с маслами с закупки товаров от 3.000₽.
           </p>
         </section>
 
@@ -28,22 +28,21 @@ const About = () => {
               <li>Флаконы самых разных видов и объемов</li>
               <li>Диффузоры для дома</li>
               <li>Авто-парфюм</li>
-              <li>Свечи ручной работы</li>
               <li>Полки с парфюмом</li>
             </ul>
           </div>
 
           <div className="mission-stats">
             <div className="stat-item">
-              <span className="stat-number">150+</span>
+              <span className="stat-number">200+</span>
               <span className="stat-label">Ароматов в ассортименте</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">100+</span>
+              <span className="stat-number">500+</span>
               <span className="stat-label">Партнеров</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">5 000₽</span>
+              <span className="stat-number">3 000₽</span>
               <span className="stat-label">Минимальная закупка</span>
             </div>
           </div>
@@ -70,7 +69,7 @@ const About = () => {
             <div className="value-item">
               <span className="material-icons">lightbulb</span>
               <h3>Минимальные вложения</h3>
-              <p>Старт бизнеса от 5 000₽.</p>
+              <p>Старт бизнеса от 3 000₽.</p>
             </div>
             <div className="value-item">
               <span className="material-icons">emoji_nature</span>

@@ -68,9 +68,8 @@ const ProductsPage = () => {
     <div className='products-page'>
       <div className='products-page-main-container'>
         <div className='products-page-title'>
-          <span className="material-icons">inventory_2</span>
-          <h1>Наши Производители</h1>
-          <p>Ведущие Производители Парфюмерных Композиций</p>
+          <h1>Наши производители</h1>
+          <p>Ведущие производители парфюмерных композиций</p>
         </div>
 
         {brands.map((brand, index) => {

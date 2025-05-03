@@ -61,8 +61,9 @@ const Header = () => {
             <div className='header-link-list'>
               <ul>
                 <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/">Главная</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/products">Товары</NavLink></li>
                 <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/about">О нас</NavLink></li>
-                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/products">Продукты</NavLink></li>
+                <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/how-to-order">Как заказать</NavLink></li>
                 <li><NavLink style={({isActive}) => ({color: isActive ? '#23645c' : '#33312E'})} to="/contact">Контакты</NavLink></li>
               </ul>
             </div>

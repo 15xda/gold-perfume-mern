@@ -19,9 +19,6 @@ const Preheader = () => {
               </a>
             </li>
             <li>
-              <i className="fa-brands fa-telegram"></i>
-            </li>
-            <li>
               <a href="https://wa.me/79287580909" target='_blank' rel='noopener noreferrer'>
                 <i className="fa-brands fa-whatsapp"></i>
               </a>
@@ -31,24 +28,26 @@ const Preheader = () => {
 
         <div className="preheader-contact-list">
           <i class="fa-solid fa-phone"></i>
-          <span> +7 (928) 758-09-09</span>
+          <a href="tel:+79287580909">+7 (928) 758-09-09</a>
         </div>
 
         <div className="preheader-quick-links">
           <ul>
+          <li>
+              <Link to="/givaudan">Givaudan</Link>
+            </li>
             <li>
               <Link to="/luzi">Luzi</Link>
             </li>
+            
             <li>
-              <Link to="/givaudan">Givaudan</Link>
-            </li><li>
               <Link to="/seluz">Seluz</Link>
             </li>
             <li>
-              <Link to="/symrise">Symrise</Link>
+              <Link to="/iberchem">Iberchem</Link>
             </li>
             <li>
-              <Link to="/iberchem">Iberchem</Link>
+              <Link to="/symrise">Symrise</Link>
             </li>
           </ul>
         </div>

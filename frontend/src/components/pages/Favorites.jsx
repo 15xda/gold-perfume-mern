@@ -32,7 +32,7 @@ const Favorites = () => {
     <div className="favorites-page">
       <div className="favorites-container">
         <div className="favorites-header">
-          <h1>My Favorites</h1>
+          <h1>Мои избранные</h1>
           <p className="favorites-count">{products.length} items</p>
         </div>
         
@@ -45,8 +45,8 @@ const Favorites = () => {
         ) : (
           <div className="favorites-empty">
             <span className="material-icons">favorite_border</span>
-            <p>No favorites yet</p>
-            <p>Products you like will appear here</p>
+            <p>Пока нет избранных</p>
+            <p>Товары, которые вам нравятся, появятся здесь</p>
           </div>
         )}
       </div>
