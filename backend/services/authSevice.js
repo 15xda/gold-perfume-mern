@@ -11,6 +11,10 @@ const generateRefreshToken = (userId) => {
     return jwt.sign({ user: userId }, jwtSecretKey, { expiresIn: '31d' });
 };
 
+const verifyToken = (token) => {
+    return jwt.verify(token, jwtSecretKey);
+}
+
 const generateResetToken = (email) => {
     return jwt.sign({ email }, jwtSecretKey, { expiresIn: '1h' });
 };
@@ -26,6 +30,7 @@ const comparePassword = async (password, hashedPassword) => {
 module.exports = {
     generateAccessToken,
     generateRefreshToken,
+    verifyToken,
     generateResetToken,
     hashPassword,
     comparePassword

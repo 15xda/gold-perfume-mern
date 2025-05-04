@@ -12,6 +12,7 @@ export default function BuyNowCheckout() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const isVerified = user && user.isVerified;
 
     // Get the product passed via state (from the Buy Now button)
     const product = location.state?.product;
@@ -259,8 +260,13 @@ export default function BuyNowCheckout() {
                                 onChange={handleInputChange}
                             ></textarea>
                         </div>
+
+                        {!isVerified && <div className='checkout-notice-box'>
+                            <span className='material-icons'>info</span>
+                            <p>Пожалуйста, подтвердите свой Email для заказа</p>
+                        </div>}
                         
-                        <button className="auth-submit" type="submit">
+                        <button className="auth-submit" type="submit" disabled={!isVerified}>
                             Оформить заказ
                         </button>
                     </form>

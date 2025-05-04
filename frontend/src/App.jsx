@@ -24,6 +24,7 @@ import BuyNowCheckout from "./components/pages/BuyNowCheckout";
 import IberchemPage from "./components/pages/Brands/Iberchem";
 import OrderSuccess from "./components/pages/OrderSuccess";
 import HowToOrder from "./components/pages/HowToOrder";
+import ConfirmEmail from "./components/pages/ConfirmEmail";
 
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer, Flip } from "react-toastify";
@@ -72,6 +73,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 

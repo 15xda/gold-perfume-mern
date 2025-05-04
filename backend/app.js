@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const connectDB = require('./config/db');
+const TelegramBot = require('./config/telegramBot');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');

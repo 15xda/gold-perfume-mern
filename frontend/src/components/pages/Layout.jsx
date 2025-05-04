@@ -5,6 +5,7 @@ import Footer from '../Footer'
 import { Outlet } from 'react-router-dom'
 import FixedFooter from '../FixedFooter'
 import { motion } from 'framer-motion';
+import ConfirmHeader from '../ConfirmHeader'
 
 const fadeUp = {
   hidden: { opacity: 0,},
@@ -14,6 +15,7 @@ const fadeUp = {
 const Layout = () => {
   return (
     <div>
+        <ConfirmHeader/>
         <Preheader />
         <Header />
         <main><Outlet /></main>

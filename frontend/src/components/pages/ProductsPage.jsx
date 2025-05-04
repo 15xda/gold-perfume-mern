@@ -8,9 +8,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 const fetchProducts = async (term, limit = 10, offset = 0) => {
-  console.log('Загрузка продуктов с параметрами:', { term, limit, offset });
   const response = await api.get('products/search', { params: { term, limit, offset } });
-  console.log('Получен ответ о продуктах:', response.data);
   return response.data;
 };
 
@@ -44,11 +42,11 @@ const ProductsPage = () => {
   };
 
   const slideRight = {
-    hidden: { opacity: 0, x: -50},
+    hidden: { opacity: 0, y: 50},
     visible: {
       opacity: 1,
-      x: 0,
-      transition: { duration: 1.5 },
+      y: 0,
+      transition: { duration: 0.8 },
     },
   };
 

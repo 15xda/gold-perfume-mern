@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  isVerified: {type: Boolean, default: false},
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   telephone: {type: String, default: ''},
@@ -12,6 +13,7 @@ const userSchema = new mongoose.Schema({
     {
       orderId: {type: String, required: true},
       orderTotal: {type: Number},
+      status: {type: String, default: 'pending'},
       products: [mongoose.Schema.Types.Mixed],
       date: {type: String },
       totalItems: {type: Number, required: true}

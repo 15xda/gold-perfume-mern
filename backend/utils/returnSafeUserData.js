@@ -7,6 +7,7 @@ const returnSafeUserData = (user) => ({
     orders: user.orders,
     favourites: user.favourites,
     cart: user.cart,
+    isVerified: user.isVerified,
 });
 
 module.exports = returnSafeUserData;

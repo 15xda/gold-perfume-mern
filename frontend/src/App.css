@@ -12,6 +12,7 @@
   --theme-secondary-color: #BC964E;
   --secondary-color:#ECE6D9;
   --element-color: white;
+  --muted-red: #ca4c50;
   --text-color: #33312e;
   --font-family: 'Inter', sans-serif;
   --secondary-font-family: 'Playfair Display', serif;
@@ -316,6 +317,17 @@ html {
 .dashboard-btn {
   background-color: #23645c;
   color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .dashboard-btn:hover {
@@ -1551,11 +1563,6 @@ html {
   color: var(--theme-color);
 }
 
-.auth-success p {
-  color: #fff;
-  line-height: 1.5;
-}
-
 
 
 .favorites-page {
@@ -1776,6 +1783,28 @@ html {
   cursor: pointer;
   margin-top: 20px;
   transition: all 0.3s ease;
+}
+.checkout-notice-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--muted-red);
+  padding: 15px;
+  font-size: 14px;
+  color: var(--font-color);
+  word-wrap: break-word;
+}
+
+.checkout-notice-box .material-icons {
+  color: white; 
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.checkout-notice-box p {
+  margin: 0;
+  font-weight: 500;
+  color: white;
+  line-height: 1.4;
 }
 
 .checkout-button:hover {
@@ -2519,14 +2548,14 @@ html {
   height: 400px;
   overflow: scroll;
   overflow-x: hidden;
+  padding: 10px ;
 }
 
 .order-items {
   margin-top: 10px;
-
 }
 
-.order-items span{
+.order-items span {
   font-weight: bold;
 }
 
@@ -2543,27 +2572,41 @@ html {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.order-header span{
+.order-header span {
   font-size: 16px;
   font-weight: bold;
   color: var(--theme-color);
 }
 
-.order-status {
-  padding: 4px 12px;
+.order-status span {
+  color: white;
+  padding: 5px;
+  font-weight: 400;
   font-size: 14px;
 }
 
-.order-status.delivered {
-  background: #28a745;
-  color: var(--text-color);
+.order-status span {
+  background-color: var(--order-status-color);
 }
 
-.order-status.processing {
-  background: #ffc107;
-  color: var(--text-color);
+.order-status span.pending {
+  background-color: #d9822b;
+}
+
+.order-status span.canceled {
+  background-color: var(--muted-red);
+}
+
+.order-status span.confirmed {
+  background-color: #4b7776;
+}
+
+.order-status span.done {
+  background-color: #3b7bbf;
 }
 
 .order-details {
@@ -2919,6 +2962,11 @@ html {
 
 @media (max-width: 768px) {
 
+  .order-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .header-logo-container {
     display: none;
   }
@@ -2992,7 +3040,6 @@ html {
 
   .search-result-main {
     display: flex;
-    align-items: center;
     width: 100%;
   }
 
@@ -4704,4 +4751,63 @@ input[type="number"] {
     font-size: 0.9rem;
     min-width: 150px;
   }
+}
+
+.confirm-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: var(--muted-red);
+  color: var(--secondary-color);
+  padding: 10px 20px;
+}
+
+.confirm-header span {
+  max-width: 40%;
+  font-size: 14px;
+}
+
+.confirm-header button {
+  appearance: none;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  border: none;
+  width: 150px;
+  height: 35px;
+  transition: all ease-in-out;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-header button:hover {
+  transform: translateY(-2px);
+  color: var(--muted-red);
+}
+
+.confirm-header button:disabled{
+  opacity: 0.8;
+}
+.confirm-header .material-icons {
+  position: absolute;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  
+  font-weight: bold;
+  padding: 3px;
+  border-radius: 15px;
+  right: 20px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.confirm-header .material-icons:hover {
+  transform: rotate(90deg);
+  color: var(--muted-red);
 }

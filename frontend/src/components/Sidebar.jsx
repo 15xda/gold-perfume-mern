@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, Link,  useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutGlobal } from '../api/logout';
 
@@ -7,6 +7,7 @@ const Sidebar = ({ open, onClose }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user?.data);
+  const location = useLocation();
 
   const handleLogout = async () => {
     await logoutGlobal();
@@ -26,6 +27,7 @@ const Sidebar = ({ open, onClose }) => {
             <li>
               <NavLink 
                 to="/" 
+                onClick={onClose}
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Главная
@@ -33,7 +35,8 @@ const Sidebar = ({ open, onClose }) => {
             </li>
             <li>
               <NavLink 
-                to="/products" 
+                to="/products"
+                onClick={onClose} 
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Товары
@@ -42,6 +45,7 @@ const Sidebar = ({ open, onClose }) => {
             <li>
               <NavLink 
                 to="/about" 
+                onClick={onClose}
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 О нас
@@ -50,6 +54,7 @@ const Sidebar = ({ open, onClose }) => {
             <li>
               <NavLink 
                 to="/how-to-order" 
+                onClick={onClose}
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Как заказать
@@ -58,6 +63,7 @@ const Sidebar = ({ open, onClose }) => {
             <li>
               <NavLink 
                 to="/contact" 
+                onClick={onClose}
                 className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Контакты
@@ -73,10 +79,11 @@ const Sidebar = ({ open, onClose }) => {
                 <span className="material-icons">person</span>
                 <span>{user.name}</span>
               </div>
-              <button onClick={() => navigate('/dashboard')} className="dashboard-btn">
+              <span className="dashboard-btn" onClick={onClose}>
+                <Link to='/dashboard'/>
                 <span className="material-icons">dashboard</span>
                 Личный кабинет
-              </button>
+              </span>
               <button onClick={handleLogout} className="logout-btn">
                 <span className="material-icons">logout</span>
                 Выйти

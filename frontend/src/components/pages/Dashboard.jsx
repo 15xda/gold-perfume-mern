@@ -7,6 +7,24 @@ import api from '../../api/axiosInstance';
 import { logoutGlobal } from '../../api/logout';
 import { replaceUserData, setAddresses } from '../../storage/userSlice';
 
+
+const getRussianStatusText = (text) => {
+  if (text === 'pending') {
+    return '🕒 Ожидается подтверждение'
+  }
+  else if (text === 'confirmed') {
+    return '✅ Подтверждено'
+  }
+  else if (text === 'canceled') {
+    return '❌ Отклонено'
+  } 
+  else if (text === 'done') {
+    return '📦 Был доставлен'
+  } 
+  else return '❓ Неизвестно'
+}
+
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -140,6 +158,7 @@ const Dashboard = () => {
     navigate(0);
   };
 
+  
   const renderContent = () => {
     switch (activeTab) {
       case 'profile':
@@ -171,9 +190,11 @@ const Dashboard = () => {
                 <div key={order.id} className="order-item">
                   <div className="order-header">
                     <span>Заказ {order.orderId}</span>
-                    {/* <span className={`order-status ${order.status.toLowerCase()}`}>
-                      {order.status}
-                    </span> */}
+                    
+                    <span className='order-status'>
+                      <span className={order.status}> {getRussianStatusText(order.status)}</span>
+                    </span>
+
                   </div>
                   <div className="order-details">
                     <p>Дата: {order.date}</p>

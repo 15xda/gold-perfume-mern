@@ -19,6 +19,7 @@ export default function Checkout() {
     const formattedDate = currDate.toLocaleDateString();
     const totalItems = userCartItems.length;
     const dispatch = useDispatch();
+    const isVerified = user && user.isVerified;
     
     // Moved useState hook to top level before conditional returns
     const [orderForm, setOrderForm] = useState({
@@ -236,8 +237,13 @@ export default function Checkout() {
                                 onChange={handleFDUserInfoChange}
                             ></textarea>
                         </div>
+                        
+                        {!isVerified && <div className='checkout-notice-box'>
+                            <span className='material-icons'>info</span>
+                            <p>Пожалуйста, подтвердите свой Email для заказа</p>
+                        </div>}
 
-                        <button className="auth-submit" type="submit">
+                        <button className="auth-submit" type="submit" disabled={!isVerified}>
                             Оформить заказ
                         </button>
                     </form>

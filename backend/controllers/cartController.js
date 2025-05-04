@@ -178,10 +178,38 @@ const checkout = async (req, res) => {
     }
 }
 
+const updateOrderStatus = async (req, res) => {
+    const {orderId, action} = req.body;
+
+    try {
+        const user = await User.findOne({'orders.orderId': orderId});
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' }); 
+        }
+
+        const userOrder = user.orders.find(order => order.orderId === orderId);
+
+        if (!userOrder) {
+            return res.status(404).json({ message: 'Заказ не найден!' }); 
+        }
+
+        userOrder.status = action;
+        await user.save();
+        res.status(200).json({message: 'Статус заказа обновлен'})
+
+
+    } catch (error) {
+        res.status(500).json({message: 'Internal Server Error'})
+        console.log(error)
+    }
+}
+
 module.exports = {
     addToFavourite,
     addToCart,
     updateCart,
     deleteFromCart,
+    updateOrderStatus,
     checkout
 }

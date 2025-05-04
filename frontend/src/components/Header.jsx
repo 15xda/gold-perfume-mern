@@ -35,8 +35,9 @@ const Header = () => {
                 <Sidebar open={menuOpen} onClose={closeMenu}/>
                 
                 
-                  <div className='header-logo-container' onClick={() => navigate('/')}>
+                  <div style={{cursor: 'pointer'}} className='header-logo-container' onClick={() => navigate('/')}>
                       <img src="/images/logo.png" alt="" />
+                      <Link to='/'/>
                   </div>
 
                   <div className='side-bar-control'>

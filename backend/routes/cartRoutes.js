@@ -9,7 +9,7 @@ router.post('/add-to-cart', checkAuth, cartController.addToCart);
 router.put('/update-cart', checkAuth, cartController.updateCart);
 router.put('/delete-from-cart', checkAuth, cartController.deleteFromCart);
 router.post('/checkout', checkAuth, cartController.checkout);
-
+router.post('/update-order-status', cartController.updateOrderStatus);
 
 
 module.exports = router;

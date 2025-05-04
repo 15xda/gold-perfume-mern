@@ -26,6 +26,8 @@ async function sendOrderToTelegram(order) {
 🛍️ *Состав заказа:*
 ${order.products.map(item => `• ${item.name} — ${item.quantity} (${item.uom})`).join('\n')}
 
+📌 *Статус заказа:* Ожидает подтверждения
+
 ✅ Пора обрабатывать заказ!
 
 
@@ -38,6 +40,15 @@ ${order.products.map(item => `• ${item.name} — ${item.quantity} (${item.uom}
             chat_id: TELEGRAM_CHAT_ID,
             text: message,
             parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [
+                  [
+                    { text: '✅ Подтвердить', callback_data: `confirm_${order.orderId}` },
+                    { text: '❌ Отклонить', callback_data: `cancel_${order.orderId}` },
+                    { text: '🤝 Выполнено', callback_data: `done_${order.orderId}` }
+                  ]
+                ]
+            }
         });
     } catch (error) {
         console.error('Ошибка при отправке сообщения в Telegram:', error.message);

@@ -15,6 +15,9 @@ const userSlice = createSlice({
         }
       }
     },
+    setVerification: (state, action) => {
+      state.data.isVerified = action.payload;
+    },
     setAddresses: (state, action) => {
       if (state.data) {
         state.data.addresses = action.payload;
@@ -34,5 +37,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setFavourites, replaceUserData, setAddresses, setCart, logout } = userSlice.actions;
+export const { setUser, setFavourites, replaceUserData, setVerification, setAddresses, setCart, logout } = userSlice.actions;
 export default userSlice.reducer; 

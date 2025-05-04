@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const EmailConfirmations = require('../models/emailConfirmations');
 const authService = require('../services/authSevice');
 const emailService = require('../services/emailService');
 const returnSafeUserData = require('../utils/returnSafeUserData');
@@ -162,6 +163,73 @@ const confirmPasswordReset = async (req, res) => {
     }
 };
 
+const requestEmailConfirmation = async (req, res) => {
+    const { email } = req.body;
+    
+    // Validate email
+    if (!email) {
+        return res.status(400).json({ message: 'Email обязателен.' });
+    }
+    
+    try {
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            return res.status(404).json({message: 'Пользователь не найден'});
+        }
+        
+        const token = authService.generateResetToken(email);
+        
+        // Send the confirmation email and await the result
+        await emailService.sendConfirmEmailLink(email, token);
+
+        const emailConfirmationRecord = new EmailConfirmations({
+            email: email,
+            token: token,
+        })
+
+        await emailConfirmationRecord.save();
+        
+        return res.status(200).json({ message: 'Пожалуйста, проверьте свой Email ссылки для подтверждения. Не забудьте папку «СПАМ»' });
+    } catch (error) {
+        console.error('Error in requestEmailConfirmation:', error);
+        return res.status(500).json({ 
+            message: 'Ошибка при отправке электронного письма для подтверждения'
+        });
+    }
+};
+
+const confirmEmailVerification = async (req, res) => {
+    const { token } = req.body;
+
+    try {
+        const tokenInDatabase = await EmailConfirmations.findOne({ token });
+
+        if (!tokenInDatabase) {
+            return res.status(404).json({ message: 'Неверная ссылка.' });
+        }
+
+        const decodedToken = authService.verifyToken(token);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email });
+
+        if (!email || !user) {
+            return res.status(404).json({ message: 'Что-то пошло не так.' });
+        }
+
+        user.isVerified = true;
+        await user.save();
+        await EmailConfirmations.deleteOne({ token });
+
+        res.status(200).json({ message: 'Email успешно подтвержден!' });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Ошибка подтверждения электронной почты' });
+        console.log(error)
+    }
+};
+
+
 // Logout
 const logout = (req, res) => {
     res.clearCookie('refreshToken', {
@@ -208,6 +276,8 @@ module.exports = {
     login,
     refreshToken,
     requestPasswordReset,
+    requestEmailConfirmation,
+    confirmEmailVerification,
     confirmPasswordReset,
     logout,
     updatePassword
