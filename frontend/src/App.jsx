@@ -30,7 +30,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer, Flip } from "react-toastify";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./storage/userSlice";
+import { setUser, setVerification } from "./storage/userSlice";
 import { setAccessToken } from "./storage/authSlice";
 import { useEffect } from "react";
 import { refreshUserInfo } from './api/refreshUserInfo';
@@ -48,6 +48,11 @@ function App() {
           const res = await refreshUserInfo();
           dispatch(setUser(res.userData));
           dispatch(setAccessToken(res.accessToken));
+
+          if (res.userData && res.userData.isVerified !== 'undefined') {
+            dispatch(setVerification(res.userData.isVerified))
+          }
+          
         } catch (error) {
           console.log(error);
         }

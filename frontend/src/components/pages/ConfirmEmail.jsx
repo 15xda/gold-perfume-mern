@@ -5,7 +5,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 import { setVerification } from '../../storage/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EmailConfirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +15,7 @@ const EmailConfirmation = () => {
   const dispatch = useDispatch();
   let decodedToken = null;
   const confirmationAttempted = useRef(false);
+  const user = useSelector(state => state?.user?.data)
 
   useEffect(() => {
 
@@ -35,7 +36,7 @@ const EmailConfirmation = () => {
       try {
         const response = await api.post('/auth/confirm-email-verification', { token });
         toast.success(response.data.message);
-        dispatch(setVerification(true))
+        user && dispatch(setVerification(true))
       } catch (error) {
         toast.error(error?.response?.data?.message || 'Ошибка при подтверждении');
         navigate('/');
