@@ -77,7 +77,7 @@ function App() {
     verifyLogin();
     
 
-  }, [accessToken, dispatch, isVerified]);
+  }, [accessToken, dispatch]);
 
   return (
     <QueryClientProvider client={client}>
