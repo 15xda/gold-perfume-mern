@@ -250,8 +250,8 @@ const confirmEmailVerification = async (req, res) => {
 const logout = (req, res) => {
     res.clearCookie('refreshToken', {
         httpOnly: true,
-        secure: false,
-        sameSite: 'strict',
+        secure: isProduction,
+        sameSite: 'None',
         path: '/'
     });
     res.json({message: 'Выход выполнен успешно'});
