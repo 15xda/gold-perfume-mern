@@ -42,7 +42,7 @@ function App() {
   const accessToken = useSelector(state => state.auth?.accessToken);
   const dispatch = useDispatch();
   const user = useSelector(state => state?.user?.data);
-  const isVerified = user && useSelector(state => state.user?.isVerified);
+  const isVerified = useSelector(state => state.user?.isVerified);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function App() {
           dispatch(setUser(res.userData));
           dispatch(setAccessToken(res.accessToken));
           
-          if (typeof res.userData.isVerified !== 'undefined') {
+          if (res.userData && res.userData.isVerified !== 'undefined') {
             dispatch(setVerification(res.userData.isVerified))
           }
 
@@ -77,7 +77,7 @@ function App() {
     verifyLogin();
     
 
-  }, [accessToken, dispatch]);
+  }, [accessToken, dispatch, isVerified]);
 
   return (
     <QueryClientProvider client={client}>
