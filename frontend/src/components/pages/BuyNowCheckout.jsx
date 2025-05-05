@@ -13,6 +13,7 @@ export default function BuyNowCheckout() {
     const location = useLocation();
     const dispatch = useDispatch();
     const isVerified = user && useSelector(state => state.user?.isVerified);
+    const [mainLoading, setMainLoading] = useState(false);
 
     // Get the product passed via state (from the Buy Now button)
     const product = location.state?.product;
@@ -86,7 +87,7 @@ export default function BuyNowCheckout() {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        setMainLoading(true);
         // Create order object
         const orderData = {
             date: new Date().toLocaleDateString(),
@@ -114,8 +115,10 @@ export default function BuyNowCheckout() {
             dispatch(replaceUserData(response.data?.user))
             navigate('/order-success', {state: {orderForm: orderData}});
             toast.success(response.data.message || 'Заказ успешно оформлен');
+            setMainLoading(false);
         } catch (error) {
             toast.error(error.response?.data?.message || 'Ошибка при оформлении заказа');
+            setMainLoading(false);
         }
     };
 
@@ -266,8 +269,8 @@ export default function BuyNowCheckout() {
                             <p>Пожалуйста, подтвердите свой Email для заказа</p>
                         </div>}
                         
-                        <button className="auth-submit" type="submit" disabled={!isVerified}>
-                            Оформить заказ
+                        <button className="auth-submit" type="submit" disabled={!isVerified || mainLoading}>
+                            {mainLoading ? <div className="loader-small"></div> : 'Оформить заказ'} 
                         </button>
                     </form>
                 </div>

@@ -20,6 +20,7 @@ export default function Checkout() {
     const totalItems = userCartItems.length;
     const dispatch = useDispatch();
     const isVerified = user && useSelector(state => state.user?.isVerified);
+    const [mainLoading, setMainloading] = useState(false);
     
     // Moved useState hook to top level before conditional returns
     const [orderForm, setOrderForm] = useState({
@@ -87,6 +88,7 @@ export default function Checkout() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMainloading(true);
 
         const updatedForm = {
             ...orderForm,
@@ -105,11 +107,13 @@ export default function Checkout() {
         try {
             const response = await api.post('/cart/checkout', {orderForm: updatedForm});
             dispatch(replaceUserData(response.data?.user));
+            setMainloading(false)
             navigate('/order-success', {state: {orderForm: updatedForm}})
             toast.success(response.data.message)
             console.log(updatedForm)
         } catch (error) {
             console.error(error.response.data.message)
+            setMainloading(false); 
         }
     };
 
@@ -243,8 +247,8 @@ export default function Checkout() {
                             <p>Пожалуйста, подтвердите свой Email для заказа</p>
                         </div>}
 
-                        <button className="auth-submit" type="submit" disabled={!isVerified}>
-                            Оформить заказ
+                        <button className="auth-submit" type="submit" disabled={!isVerified || mainLoading}>
+                           {mainLoading ? <div className="loader-small"></div> : 'Оформить заказ'} 
                         </button>
                     </form>
                 </div>

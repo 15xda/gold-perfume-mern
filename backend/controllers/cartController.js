@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const { sendOrderToTelegram } = require('../services/telegramService');
+const emailService = require('../services/emailService');
 const ProductDetails = require('../models/productDetailes');
 const saveProductsStatistics = require('../utils/saveProductsStatistics');
 const returnSafeUserData = require('../utils/returnSafeUserData');
@@ -168,10 +169,12 @@ const checkout = async (req, res) => {
 
         await user.save();
         await saveProductsStatistics(productsOrdered);
-
         await sendOrderToTelegram(orderForm);
+        await emailService.sendOrderConfirmationEmail(orderForm);
+
         res.status(200).json({message: 'Заказ успешно размещен',  user: returnSafeUserData(user),})
-        
+
+
     } catch (error) {
         res.status(500).json({message: 'Internal Server Error'})
         console.log(error)
@@ -194,16 +197,31 @@ const updateOrderStatus = async (req, res) => {
             return res.status(404).json({ message: 'Заказ не найден!' }); 
         }
 
-        userOrder.status = action;
-        await user.save();
-        res.status(200).json({message: 'Статус заказа обновлен'})
+        const order = user.orders.find(order => order.orderId === orderId);
 
+        userOrder.status = action;
+
+        await user.save();
+        
+        if (action === 'confirmed' || action === 'canceled') {
+            await emailService.sendOrderStatusUpdateEmail({
+                order:userOrder, 
+                name: user.name,
+                email: user.email, 
+                status:action
+            })
+        }
+        
+
+        res.status(200).json({message: 'Статус заказа обновлен'})
 
     } catch (error) {
         res.status(500).json({message: 'Internal Server Error'})
         console.log(error)
     }
 }
+
+
 
 module.exports = {
     addToFavourite,
