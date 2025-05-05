@@ -59,7 +59,10 @@ const EmailConfirmation = () => {
       <div className="auth-container">
         <h1>Подтверждение Email: {decodedToken?.email || ''}</h1>
         {isLoading ? (
-          <div className='loader'></div>
+          <div style={{margin: '0 50%'}}>
+            <div className='loader'></div>
+          </div>
+          
         ) : (
           <div className="auth-success">
             <span className="material-icons success-icon">check_circle</span>
