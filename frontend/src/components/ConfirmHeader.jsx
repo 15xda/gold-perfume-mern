@@ -5,7 +5,7 @@ import  { toast } from 'react-toastify';
 
 const ConfirmHeader = () => {
   const user = useSelector((state) => state.user?.data);
-  const isVerified = user && user.isVerified;
+  const isVerified = user && useSelector(state => state.user?.isVerified);
   const [hide, setHide] = useState(false);
   const [isLoading, setIsloading] = useState(false);
 

@@ -12,7 +12,7 @@ export default function BuyNowCheckout() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const isVerified = user && user.isVerified;
+    const isVerified = user && useSelector(state => state.user?.isVerified);
 
     // Get the product passed via state (from the Buy Now button)
     const product = location.state?.product;

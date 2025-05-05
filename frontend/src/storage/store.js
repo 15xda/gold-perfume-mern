@@ -8,6 +8,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'user',
   storage,
+  blacklist: ['isVerified'],
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);

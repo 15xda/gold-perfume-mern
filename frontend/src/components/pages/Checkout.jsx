@@ -19,7 +19,7 @@ export default function Checkout() {
     const formattedDate = currDate.toLocaleDateString();
     const totalItems = userCartItems.length;
     const dispatch = useDispatch();
-    const isVerified = user && user.isVerified;
+    const isVerified = user && useSelector(state => state.user?.isVerified);
     
     // Moved useState hook to top level before conditional returns
     const [orderForm, setOrderForm] = useState({

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { data: null },
+  initialState: { data: null, isVerified: false },
   reducers: {
     setUser: (state, action) => {
       state.data = action.payload;
@@ -16,7 +16,7 @@ const userSlice = createSlice({
       }
     },
     setVerification: (state, action) => {
-      state.data.isVerified = action.payload;
+      state.isVerified = action.payload;
     },
     setAddresses: (state, action) => {
       if (state.data) {

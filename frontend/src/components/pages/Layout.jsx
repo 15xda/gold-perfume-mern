@@ -15,6 +15,7 @@ const fadeUp = {
 const Layout = () => {
   return (
     <div>
+        
         <ConfirmHeader/>
         <Preheader />
         <Header />

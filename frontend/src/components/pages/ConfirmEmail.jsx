@@ -5,26 +5,31 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 import { setVerification } from '../../storage/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const EmailConfirmation = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [decodedToken, setDecodedToken] = useState(null); // <== FIX HERE
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const dispatch = useDispatch();
-  let decodedToken = null;
   const confirmationAttempted = useRef(false);
-  const user = useSelector(state => state?.user?.data)
 
   useEffect(() => {
+    if (confirmationAttempted.current) return;
+    confirmationAttempted.current = true;
 
-    if (confirmationAttempted.current) {
+    if (!token) {
+      toast.error('Недопустимый токен');
+      navigate('/');
       return;
     }
 
+    let decoded;
     try {
-      decodedToken = token ? jwtDecode(token) : null;
+      decoded = jwtDecode(token);
+      setDecodedToken(decoded);
     } catch (e) {
       toast.error('Недопустимый токен');
       navigate('/');
@@ -32,15 +37,13 @@ const EmailConfirmation = () => {
     }
 
     const confirmEmail = async () => {
-      confirmationAttempted.current = true;
       try {
         const response = await api.post('/auth/confirm-email-verification', { token });
-        toast.success(response.data.message);
-        user && dispatch(setVerification(true))
+        dispatch(setVerification(true));
       } catch (error) {
         toast.error(error?.response?.data?.message || 'Ошибка при подтверждении');
         navigate('/');
-        console.log(error?.response?.data)
+        console.log(error?.response?.data);
       } finally {
         setIsLoading(false);
       }
@@ -52,7 +55,7 @@ const EmailConfirmation = () => {
   return (
     <div className="auth-page">
       <div className="auth-container">
-        <h1>Подтверждение Email: {decodedToken?.email}</h1>
+        <h1>Подтверждение Email: {decodedToken?.email || ''}</h1>
         {isLoading ? (
           <div className='loader'></div>
         ) : (
@@ -66,5 +69,6 @@ const EmailConfirmation = () => {
     </div>
   );
 };
+
 
 export default EmailConfirmation;

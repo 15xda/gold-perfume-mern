@@ -201,33 +201,47 @@ const requestEmailConfirmation = async (req, res) => {
 
 const confirmEmailVerification = async (req, res) => {
     const { token } = req.body;
-
+  
     try {
-        const tokenInDatabase = await EmailConfirmations.findOne({ token });
-
-        if (!tokenInDatabase) {
-            return res.status(404).json({ message: 'Неверная ссылка.' });
-        }
-
-        const decodedToken = authService.verifyToken(token);
-        const email = decodedToken.email;
-        const user = await User.findOne({ email });
-
-        if (!email || !user) {
-            return res.status(404).json({ message: 'Что-то пошло не так.' });
-        }
-
-        user.isVerified = true;
-        await user.save();
-        await EmailConfirmations.deleteOne({ token });
-
-        res.status(200).json({ message: 'Email успешно подтвержден!' });
-
+      const tokenInDatabase = await EmailConfirmations.findOne({ token });
+  
+      if (!tokenInDatabase) {
+        return res.status(404).json({ message: 'Недействительная или просроченная ссылка' });
+      }
+  
+      if (tokenInDatabase.used) {
+        return res.status(200).json({ message: 'Email уже подтвержден!' });
+      }
+  
+      let decodedToken;
+      try {
+        decodedToken = authService.verifyToken(token);
+      } catch (err) {
+        return res.status(400).json({ message: 'Недействительный или просроченный токен' });
+      }
+  
+      const email = decodedToken.email;
+      const user = await User.findOne({ email });
+  
+      if (!email || !user) {
+        return res.status(404).json({ message: 'Что-то пошло не так.' });
+      }
+  
+      user.isVerified = true;
+      tokenInDatabase.used = true;
+      tokenInDatabase.usedAt = Date.now();
+  
+      await user.save();
+      await tokenInDatabase.save();
+  
+      return res.status(200).json({ message: 'Email успешно подтвержден!' });
+  
     } catch (error) {
-        res.status(500).json({ message: 'Ошибка подтверждения электронной почты' });
-        console.log(error)
+      console.error('Email verification error:', error);
+      return res.status(500).json({ message: 'Ошибка подтверждения электронной почты' });
     }
-};
+  };
+  
 
 
 // Logout

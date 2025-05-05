@@ -32,38 +32,56 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setVerification } from "./storage/userSlice";
 import { setAccessToken } from "./storage/authSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { refreshUserInfo } from './api/refreshUserInfo';
+import MainLoading from "./components/MainLoading";
 
 const client = new QueryClient();
 
 function App() {
   const accessToken = useSelector(state => state.auth?.accessToken);
   const dispatch = useDispatch();
+  const user = useSelector(state => state?.user?.data);
+  const isVerified = user && useSelector(state => state.user?.isVerified);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+
+    
+
     const verifyLogin = async () => {
-      if (!accessToken) {
+
+      setIsLoading(true);
+
+      if (!accessToken || !isVerified) {
         try {
           const res = await refreshUserInfo();
           dispatch(setUser(res.userData));
           dispatch(setAccessToken(res.accessToken));
-
+          
           if (res.userData && res.userData.isVerified !== 'undefined') {
             dispatch(setVerification(res.userData.isVerified))
           }
-          
+
         } catch (error) {
           console.log(error);
         }
       }
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500)
+      
     };
 
     verifyLogin();
+    
+
   }, [accessToken, dispatch]);
 
   return (
     <QueryClientProvider client={client}>
+      {isLoading ? <MainLoading/> :
       <Router>
         <ScrollToTop />
         <ToastContainer
@@ -112,7 +130,7 @@ function App() {
             <Route path="/404" element={<NotFound />}/>
           </Route>
         </Routes>
-      </Router>
+      </Router>}
     </QueryClientProvider>
   );
 }
