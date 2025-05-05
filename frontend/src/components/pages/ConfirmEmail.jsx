@@ -17,7 +17,6 @@ const EmailConfirmation = () => {
   const confirmationAttempted = useRef(false);
 
   useEffect(() => {
-    if (confirmationAttempted.current) return;
     confirmationAttempted.current = true;
 
     if (!token) {
@@ -50,7 +49,9 @@ const EmailConfirmation = () => {
       }
     };
 
-    confirmEmail();
+    if (!confirmationAttempted.current) {
+      confirmEmail();
+    }
   }, [token, navigate, dispatch]);
 
   return (
