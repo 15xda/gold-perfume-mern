@@ -59,7 +59,7 @@ function App() {
           dispatch(setUser(res.userData));
           dispatch(setAccessToken(res.accessToken));
           
-          if (res.userData && res.userData.isVerified !== 'undefined') {
+          if (typeof res.userData.isVerified !== 'undefined') {
             dispatch(setVerification(res.userData.isVerified))
           }
 
