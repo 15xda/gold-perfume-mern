@@ -39,6 +39,7 @@ const EmailConfirmation = () => {
     const confirmEmail = async () => {
       try {
         const response = await api.post('/auth/confirm-email-verification', { token });
+        toast.success(response.data.message);
         dispatch(setVerification(true));
       } catch (error) {
         toast.error(error?.response?.data?.message || 'Ошибка при подтверждении');
