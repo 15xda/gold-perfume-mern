@@ -16,7 +16,10 @@ const EmailConfirmation = () => {
   const dispatch = useDispatch();
   const confirmationAttempted = useRef(false);
 
+
   useEffect(() => {
+    if (confirmationAttempted.current) return;
+    confirmationAttempted.current = true;
     
 
     if (!token) {
@@ -36,7 +39,7 @@ const EmailConfirmation = () => {
     }
 
     const confirmEmail = async () => {
-      confirmationAttempted.current = true;
+      
       try {
         const response = await api.post('/auth/confirm-email-verification', { token });
         toast.success(response.data.message);
@@ -50,9 +53,8 @@ const EmailConfirmation = () => {
       }
     };
 
-    if (!confirmationAttempted.current) {
-      confirmEmail();
-    }
+    confirmEmail();
+     
   }, [token, navigate, dispatch]);
 
   return (
@@ -60,10 +62,9 @@ const EmailConfirmation = () => {
       <div className="auth-container">
         <h1>Подтверждение Email: {decodedToken?.email || ''}</h1>
         {isLoading ? (
-          <div style={{margin: '0 50%'}}>
+          <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
             <div className='loader'></div>
           </div>
-          
         ) : (
           <div className="auth-success">
             <span className="material-icons success-icon">check_circle</span>
