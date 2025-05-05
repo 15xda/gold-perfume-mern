@@ -4,6 +4,8 @@ const authService = require('../services/authSevice');
 const emailService = require('../services/emailService');
 const returnSafeUserData = require('../utils/returnSafeUserData');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 
 // Register new user
 const register = async (req, res) => {
@@ -51,8 +53,8 @@ const login = async (req, res) => {
         res
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: 'Lax',
+                secure: isProduction,
+                sameSite: 'None',
                 path: '/',
                 maxAge: 31 * 24 * 60 * 60 * 1000
             })
