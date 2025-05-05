@@ -17,7 +17,7 @@ const EmailConfirmation = () => {
   const confirmationAttempted = useRef(false);
 
   useEffect(() => {
-    confirmationAttempted.current = true;
+    
 
     if (!token) {
       toast.error('Недопустимый токен');
@@ -36,6 +36,7 @@ const EmailConfirmation = () => {
     }
 
     const confirmEmail = async () => {
+      confirmationAttempted.current = true;
       try {
         const response = await api.post('/auth/confirm-email-verification', { token });
         toast.success(response.data.message);
