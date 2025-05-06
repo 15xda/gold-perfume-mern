@@ -53,8 +53,8 @@ const login = async (req, res) => {
         res
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: isProduction,
-                sameSite: 'None',
+                secure: location.protocol === 'https:',
+                sameSite: location.protocol === 'https:' ? 'None' : 'Lax',
                 path: '/',
                 maxAge: 31 * 24 * 60 * 60 * 1000
             })
@@ -250,8 +250,8 @@ const confirmEmailVerification = async (req, res) => {
 const logout = (req, res) => {
     res.clearCookie('refreshToken', {
         httpOnly: true,
-        secure: isProduction,
-        sameSite: 'None',
+        secure: location.protocol === 'https:',
+        sameSite: location.protocol === 'https:' ? 'None' : 'Lax',
         path: '/'
     });
     res.json({message: 'Выход выполнен успешно'});

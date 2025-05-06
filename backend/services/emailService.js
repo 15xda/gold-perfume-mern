@@ -114,6 +114,9 @@ const sendOrderConfirmationEmail = async (order) => {
                     <h4 style="color:#000;">Статус заказа:</h4>
                     <p style="color:#000;">Ваш заказ находится в статусе <strong>"Ожидает подтверждения"</strong>. После принятия заказа продавцом, вы получите подтверждение.</p>
 
+                    <h4 style="color:#000;">Напоминание:</h4>
+                    <p style="color:#000;">Вы всегда можете отследить статус вашего заказа через ваш личный кабинет.</p>
+                    
                     <p style="color:#555; font-size:12px; margin-top:20px; border-top:1px solid #ccc; padding-top:15px;">
                         © Gold Perfume ${new Date().getFullYear()}
                     </p>
