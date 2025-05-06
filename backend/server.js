@@ -164,8 +164,8 @@ app.post('/login', apiLimiter, async (req, res) => {
         res
             .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: 'Lax',
+                secure: true,
+                sameSite: 'None',
                 path: '/',
                 maxAge: 31 * 24 * 60 * 60 * 1000
             })
