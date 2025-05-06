@@ -58,10 +58,8 @@ function App() {
           const res = await refreshUserInfo();
           dispatch(setUser(res.userData));
           dispatch(setAccessToken(res.accessToken));
+          dispatch(setVerification(res.userData.isVerified))
           
-          if (res.userData && res.userData.isVerified !== 'undefined') {
-            dispatch(setVerification(res.userData.isVerified))
-          }
 
         } catch (error) {
           console.log(error);
